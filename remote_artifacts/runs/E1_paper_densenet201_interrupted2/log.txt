@@ -1,0 +1,20 @@
+[18:23:46] Run dir: runs\E1_paper_densenet201
+[18:23:46] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[18:23:46] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[18:23:46] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[18:23:46] Dataset verified: 10604 patches match the official counts.
+[18:24:52] Pre-loaded 20908 patches into RAM in 65s (1.37 GB)
+[18:24:52] Train patches: 10304 (augmented_train), validation patches: 2249
+[18:24:53] Model: PaperClassifier(densenet201, head=paper) trainable params=144,987,022 | train samples=10304 | steps/epoch=859
+[18:31:08] epoch=1 | train_loss=0.8684 | train_acc=0.7264 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=274.6000 | val_acc=0.8866 | val_macro_f1=0.8550
+[18:31:10]   new best val_acc=0.8866 (epoch 1) -> best.pt
+[18:34:03] epoch=2 | train_loss=0.1674 | train_acc=0.9459 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=167.8000 | val_acc=0.9057 | val_macro_f1=0.8777
+[18:34:05]   new best val_acc=0.9057 (epoch 2) -> best.pt
+[18:36:57] epoch=3 | train_loss=0.0721 | train_acc=0.9784 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=166.9000 | val_acc=0.9297 | val_macro_f1=0.9025
+[18:36:59]   new best val_acc=0.9297 (epoch 3) -> best.pt
+[18:39:57] epoch=4 | train_loss=0.0397 | train_acc=0.9877 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=172.9000 | val_acc=0.9311 | val_macro_f1=0.9062
+[18:39:59]   new best val_acc=0.9311 (epoch 4) -> best.pt
+[18:42:49] epoch=5 | train_loss=0.0352 | train_acc=0.9889 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=165.1000 | val_acc=0.9275 | val_macro_f1=0.9079
+[18:45:39] epoch=6 | train_loss=0.0245 | train_acc=0.9933 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=163.1000 | val_acc=0.9386 | val_macro_f1=0.9221
+[18:45:40]   new best val_acc=0.9386 (epoch 6) -> best.pt
+[18:48:31] epoch=7 | train_loss=0.0203 | train_acc=0.9935 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=165.7000 | val_acc=0.9297 | val_macro_f1=0.9013

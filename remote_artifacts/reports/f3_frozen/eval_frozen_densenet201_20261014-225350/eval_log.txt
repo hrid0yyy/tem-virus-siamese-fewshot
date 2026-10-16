@@ -1,0 +1,13 @@
+[22:53:51] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[22:53:51] Patch root: E:\tem_fewshot\data\TEM virus dataset\context_virus_1nm_256x256
+[22:53:51] Dataset verified: 10604 patches match the official counts.
+[22:53:55] Pre-loaded 10604 patches into RAM in 4s (0.69 GB)
+[22:58:07] Embedded 9889 patches in 252s (TTA=True) keys=['feat', 'head']
+[22:58:07] [feat] generalized few-shot: 10 base + 4 novel classes
+[22:58:08]     all-class acc=0.6621 macroF1=0.6248 | base acc=0.6522 novel acc=0.7021 HM=0.6763 | novel-only acc=0.9255
+[22:58:08] [feat] K-shot curve on novel classes, K=[1, 5, 10], repeats=100
+[22:58:11]     K=1: base=0.7037 novel=0.1922+-0.0134 HM=0.2953 novel-only=0.7310
+[22:58:11]     K=5: base=0.6779 novel=0.5070+-0.0104 HM=0.5785 novel-only=0.8802
+[22:58:11]     K=10: base=0.6681 novel=0.5582+-0.0057 HM=0.6078 novel-only=0.9202
+[22:58:11] [feat] open-set (known=10, unknown=4): patch AUROC=0.6565 FPR@95TPR=0.8910 | image AUROC=0.5575
+[22:58:11] Results written to reports\f3_frozen\eval_frozen_densenet201_20261014-225350

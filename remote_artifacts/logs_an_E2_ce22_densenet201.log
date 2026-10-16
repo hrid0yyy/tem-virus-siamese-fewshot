@@ -1,0 +1,20 @@
+[02:42:49] Checkpoint runs\E2_ce22_densenet201\best.pt | model_type=classifier | base=22 novel=0
+[02:42:49] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[02:42:49] Dataset verified: 10604 patches match the official counts.
+  loaded 2000/10604 patches
+  loaded 4000/10604 patches
+  loaded 6000/10604 patches
+  loaded 8000/10604 patches
+  loaded 10000/10604 patches
+[02:42:53] Pre-loaded 10604 patches into RAM in 4s (0.69 GB)
+[02:47:17] Embedded 10604 patches in 263s (TTA=True); keys=['feat', 'logits']
+[02:47:17] [logits] closed test acc=0.9310 macroF1=0.8971
+[02:47:18] [feat_l2] closed acc=0.9310 F1=0.8858
+[02:47:18] [feat_cl2n] closed acc=0.9251 F1=0.8737
+checkpoint: runs\E2_ce22_densenet201\best.pt
+TTA=True
+
+logits closed : acc=0.9310 macroF1=0.8971 CI acc=[0.8949,0.9631]
+feat_l2    closed14 : acc=0.9310 macroF1=0.8858 CI acc=[0.8942,0.9635]
+feat_cl2n  closed14 : acc=0.9251 macroF1=0.8737 CI acc=[0.8877,0.9575]
+[02:47:18] Wrote runs\E2_ce22_densenet201\analysis

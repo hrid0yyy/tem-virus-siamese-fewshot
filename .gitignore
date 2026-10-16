@@ -1,0 +1,14 @@
+# model weights (published as GitHub release assets instead)
+checkpoints/
+*.pt
+*.pth
+# dataset (download with tem_fewshot/download_data.py)
+data/
+tem_fewshot/data/
+*.zip
+# python / OS
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+Thumbs.db

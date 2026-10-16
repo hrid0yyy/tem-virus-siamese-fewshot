@@ -1,0 +1,15 @@
+checkpoint: runs\E6_triplet_densenet201\best.pt
+TTA=True
+
+feat_l2    closed14 : acc=0.9358 macroF1=0.9285 CI acc=[0.9080,0.9632]
+           gfsl22 raw       : acc=0.8867 macroF1=0.7788 base=0.9068 novel=0.6433 mean-class base=0.8865 novel=0.7638 HM=0.8206
+           gfsl22 calibrated: acc=0.8989 macroF1=0.8008 base=0.9232 novel=0.6051 mean-class base=0.9095 novel=0.7175 HM=0.8022 gamma=-0.025(val)
+feat_cl2n  closed14 : acc=0.9379 macroF1=0.9318 CI acc=[0.9115,0.9624]
+           gfsl22 raw       : acc=0.8935 macroF1=0.7836 base=0.9174 novel=0.6051 mean-class base=0.9068 novel=0.7329 HM=0.8106
+           gfsl22 calibrated: acc=0.9008 macroF1=0.8002 base=0.9258 novel=0.5987 mean-class base=0.9209 novel=0.7173 HM=0.8064 gamma=-0.040(val)
+head_l2    closed14 : acc=0.9563 macroF1=0.9467 CI acc=[0.9383,0.9735]
+           gfsl22 raw       : acc=0.9067 macroF1=0.7479 base=0.9447 novel=0.4459 mean-class base=0.9249 novel=0.5134 HM=0.6603
+           gfsl22 calibrated: acc=0.9067 macroF1=0.7479 base=0.9447 novel=0.4459 mean-class base=0.9249 novel=0.5134 HM=0.6603 gamma=+0.000(val)
+head_cl2n  closed14 : acc=0.9542 macroF1=0.9436 CI acc=[0.9353,0.9720]
+           gfsl22 raw       : acc=0.9081 macroF1=0.7504 base=0.9463 novel=0.4459 mean-class base=0.9295 novel=0.5165 HM=0.6640
+           gfsl22 calibrated: acc=0.9071 macroF1=0.7438 base=0.9479 novel=0.4140 mean-class base=0.9312 novel=0.4623 HM=0.6179 gamma=-0.005(val)

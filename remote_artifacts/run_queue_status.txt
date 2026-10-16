@@ -1,0 +1,43 @@
+LAUNCH Thu 10/15/2026 23:24:19.51 
+skip_analyze_E1_siamese_supcon_densenet201 
+LAUNCH Thu 10/15/2026 23:28:40.25 
+skip_analyze_E1_siamese_supcon_densenet201 
+train_E1_paper_densenet201=0 23:28:40.26 
+cannot_eval_E1_paper_densenet201_not_trained 
+cannot_analyze_E1_paper_densenet201_not_trained 
+NOTE 23:30 duplicate queue (launched 23:28 by a faulty watchdog check) was killed; its lines above are void
+train_E1_paper_densenet201=0  1:48:34.30 
+eval_E1_paper_densenet201=0  1:53:20.56 
+analyze_E1_paper_densenet201=0  1:58:48.43 
+compare_cmp_siamese_feat_vs_paper=0  1:58:50.09 
+compare_cmp_siamese_head_vs_paper=0  1:58:51.68 
+compare_cmp_gfsl_siamese_vs_paperfeat=0  1:58:53.35 
+train_E2_ce22_densenet201=0  2:38:15.66 
+eval_E2_ce22_densenet201=0  2:42:47.17 
+analyze_E2_ce22_densenet201=0  2:47:19.23 
+train_E1_siamese_supcon_densenet201_seed1=0  3:13:54.80 
+eval_E1_siamese_supcon_densenet201_seed1=0  3:19:27.43 
+LAUNCH Fri 10/16/2026 22:46:24.05 
+skip_analyze_E1_siamese_supcon_densenet201 
+skip_train_E1_paper_densenet201 
+skip_eval_E1_paper_densenet201 
+skip_analyze_E1_paper_densenet201 
+skip_compare_cmp_siamese_feat_vs_paper 
+skip_compare_cmp_siamese_head_vs_paper 
+skip_compare_cmp_gfsl_siamese_vs_paperfeat 
+skip_train_E2_ce22_densenet201 
+skip_eval_E2_ce22_densenet201 
+skip_analyze_E2_ce22_densenet201 
+skip_train_E1_siamese_supcon_densenet201_seed1 
+skip_eval_E1_siamese_supcon_densenet201_seed1 
+analyze_E1_siamese_supcon_densenet201_seed1=0 22:51:58.42 
+train_E1_siamese_supcon_densenet201_seed2=0 23:19:32.08 
+eval_E1_siamese_supcon_densenet201_seed2=0 23:24:17.11 
+analyze_E1_siamese_supcon_densenet201_seed2=0 23:28:53.43 
+train_E6_supcon_auxce05_densenet201=0  0:03:17.67 
+eval_E6_supcon_auxce05_densenet201=0  0:08:01.04 
+analyze_E6_supcon_auxce05_densenet201=0  0:12:37.65 
+train_E6_triplet_densenet201=0  0:45:03.26 
+eval_E6_triplet_densenet201=0  0:49:47.15 
+analyze_E6_triplet_densenet201=0  0:54:23.22 
+DONE Sat 10/17/2026  0:54:23.22 

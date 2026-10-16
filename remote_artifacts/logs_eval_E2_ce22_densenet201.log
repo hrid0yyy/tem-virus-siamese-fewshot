@@ -1,0 +1,24 @@
+[02:38:17] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[02:38:17] Checkpoint runs\E2_ce22_densenet201\best.pt (epoch 20, val_macro_f1=0.891796171060422) | model_type=classifier | trained on 22 classes
+[02:38:17] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[02:38:17] Dataset verified: 10604 patches match the official counts.
+  loaded 2000/10604 patches
+  loaded 4000/10604 patches
+  loaded 6000/10604 patches
+  loaded 8000/10604 patches
+  loaded 10000/10604 patches
+[02:38:22] Pre-loaded 10604 patches into RAM in 4s (0.69 GB)
+[02:42:45] Embedded 10604 patches in 263s (TTA=True) keys=['feat', 'logits']
+[02:42:45] [feat] closed-set nearest-prototype on 22 training classes (test split)
+[02:42:46]     acc=0.9310 macroF1=0.8858 | image-level acc=0.9206
+[02:42:46] [logits] closed-set classifier evaluation (test split)
+[02:42:46]     acc=0.9310 macroF1=0.8971 | base acc=0.9505 novel acc=0.6943 HM=0.8024
+
+Base (training) classes: 22 | novel: []
+
+[classifier logits] closed test: acc=0.9310 macroF1=0.8971  acc95%CI=[0.8949,0.9631]
+    base acc=0.9505 novel acc=0.6943 HM=0.8024
+=== embedding: feat ===
+closed (E1) test : acc=0.9310 macroF1=0.8858 image-acc=0.9206  acc95%CI=[0.8942,0.9635]
+
+[02:42:46] Results written to runs\E2_ce22_densenet201\eval_full

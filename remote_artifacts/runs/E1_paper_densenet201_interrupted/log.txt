@@ -1,0 +1,16 @@
+[00:00:51] Run dir: runs\E1_paper_densenet201
+[00:00:51] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[00:00:51] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[00:00:51] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[00:00:51] Dataset verified: 10604 patches match the official counts.
+[00:01:00] Pre-loaded 20908 patches into RAM in 9s (1.37 GB)
+[00:01:00] Train patches: 10304 (augmented_train), validation patches: 2249
+[00:01:01] Model: PaperClassifier(densenet201, head=paper) trainable params=144,987,022 | train samples=10304 | steps/epoch=859
+[00:07:02] epoch=1 | train_loss=0.8698 | train_acc=0.7283 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=262.6000 | val_acc=0.8848 | val_macro_f1=0.8510
+[00:07:04]   new best val_acc=0.8848 (epoch 1) -> best.pt
+[00:09:48] epoch=2 | train_loss=0.1638 | train_acc=0.9488 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.9000 | val_acc=0.9044 | val_macro_f1=0.8715
+[00:09:49]   new best val_acc=0.9044 (epoch 2) -> best.pt
+[00:12:33] epoch=3 | train_loss=0.0727 | train_acc=0.9784 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9315 | val_macro_f1=0.9055
+[00:12:35]   new best val_acc=0.9315 (epoch 3) -> best.pt
+[00:15:18] epoch=4 | train_loss=0.0408 | train_acc=0.9869 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9333 | val_macro_f1=0.9104
+[00:15:20]   new best val_acc=0.9333 (epoch 4) -> best.pt

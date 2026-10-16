@@ -1,0 +1,13 @@
+[23:28:42] Run dir: runs\E2_ce22_densenet201
+[23:28:42] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[23:28:42] Training classes (22): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus', 'Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']
+[23:28:42] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[23:28:42] Dataset verified: 10604 patches match the official counts.
+  loaded 2000/10604 patches
+  loaded 4000/10604 patches
+  loaded 6000/10604 patches
+  loaded 8000/10604 patches
+  loaded 10000/10604 patches
+[23:28:47] Pre-loaded 10604 patches into RAM in 5s (0.69 GB)
+[23:28:47] Train patches: 6137 (train), validation patches: 2410
+[23:28:47] Model: GAPClassifier(densenet201, head=linear) trainable params=18,135,190 | train samples=6137 | steps/epoch=191

@@ -1,0 +1,46 @@
+[02:47:20] Run dir: runs\E1_siamese_supcon_densenet201_seed1
+[02:47:20] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[02:47:20] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[02:47:20] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[02:47:21] Dataset verified: 10604 patches match the official counts.
+[02:47:25] Pre-loaded 10604 patches into RAM in 4s (0.69 GB)
+[02:47:25] Train patches: 5740 (train), validation patches: 2249
+[02:47:25] Model: EmbeddingNet(densenet201) params=19,143,168 | loss=supcon | batches: P=14 classes x K=4 samples | steps/epoch=100
+[02:50:56] epoch=1 | train_loss=3.0432 | lr_backbone=2.53e-05 | lr_head=2.53e-04 | train_time_s=102.9000 | gpu_peak_gb=3.1400 | val_head_acc=0.8106 | val_head_macro_f1=0.7729 | val_feat_acc=0.7154 | val_feat_macro_f1=0.7120
+[02:50:56]   new best val_feat_macro_f1=0.7120 (epoch 1) -> best.pt
+[02:51:53] epoch=2 | train_loss=1.6018 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=44.5000 | gpu_peak_gb=3.1000 | val_head_acc=0.8751 | val_head_macro_f1=0.8333 | val_feat_acc=0.8484 | val_feat_macro_f1=0.8145
+[02:51:54]   new best val_feat_macro_f1=0.8145 (epoch 2) -> best.pt
+[02:52:51] epoch=3 | train_loss=1.2714 | lr_backbone=4.99e-05 | lr_head=4.99e-04 | train_time_s=44.2000 | gpu_peak_gb=3.1000 | val_head_acc=0.8977 | val_head_macro_f1=0.8711 | val_feat_acc=0.9044 | val_feat_macro_f1=0.8737
+[02:52:51]   new best val_feat_macro_f1=0.8737 (epoch 3) -> best.pt
+[02:53:48] epoch=4 | train_loss=1.2017 | lr_backbone=4.97e-05 | lr_head=4.97e-04 | train_time_s=44.2000 | gpu_peak_gb=3.1000 | val_head_acc=0.9271 | val_head_macro_f1=0.8846 | val_feat_acc=0.9209 | val_feat_macro_f1=0.8838
+[02:53:48]   new best val_feat_macro_f1=0.8838 (epoch 4) -> best.pt
+[02:54:46] epoch=5 | train_loss=1.1592 | lr_backbone=4.92e-05 | lr_head=4.92e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9209 | val_head_macro_f1=0.8820 | val_feat_acc=0.9182 | val_feat_macro_f1=0.8813
+[02:55:43] epoch=6 | train_loss=1.1496 | lr_backbone=4.87e-05 | lr_head=4.87e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9271 | val_head_macro_f1=0.9001 | val_feat_acc=0.9244 | val_feat_macro_f1=0.8942
+[02:55:43]   new best val_feat_macro_f1=0.8942 (epoch 6) -> best.pt
+[02:56:40] epoch=7 | train_loss=1.1245 | lr_backbone=4.79e-05 | lr_head=4.79e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9324 | val_head_macro_f1=0.9021 | val_feat_acc=0.9297 | val_feat_macro_f1=0.8994
+[02:56:41]   new best val_feat_macro_f1=0.8994 (epoch 7) -> best.pt
+[02:57:38] epoch=8 | train_loss=1.1282 | lr_backbone=4.70e-05 | lr_head=4.70e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9302 | val_head_macro_f1=0.8958 | val_feat_acc=0.9324 | val_feat_macro_f1=0.9034
+[02:57:38]   new best val_feat_macro_f1=0.9034 (epoch 8) -> best.pt
+[02:58:35] epoch=9 | train_loss=1.1275 | lr_backbone=4.60e-05 | lr_head=4.60e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9386 | val_head_macro_f1=0.9089 | val_feat_acc=0.9386 | val_feat_macro_f1=0.9059
+[02:58:36]   new best val_feat_macro_f1=0.9059 (epoch 9) -> best.pt
+[02:59:33] epoch=10 | train_loss=1.1184 | lr_backbone=4.48e-05 | lr_head=4.48e-04 | train_time_s=44.2000 | gpu_peak_gb=3.1000 | val_head_acc=0.9364 | val_head_macro_f1=0.9069 | val_feat_acc=0.9378 | val_feat_macro_f1=0.9080
+[02:59:33]   new best val_feat_macro_f1=0.9080 (epoch 10) -> best.pt
+[03:00:31] epoch=11 | train_loss=1.1207 | lr_backbone=4.35e-05 | lr_head=4.35e-04 | train_time_s=44.4000 | gpu_peak_gb=3.1000 | val_head_acc=0.9426 | val_head_macro_f1=0.9131 | val_feat_acc=0.9391 | val_feat_macro_f1=0.9081
+[03:00:31]   new best val_feat_macro_f1=0.9081 (epoch 11) -> best.pt
+[03:01:28] epoch=12 | train_loss=1.1204 | lr_backbone=4.20e-05 | lr_head=4.20e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9369 | val_head_macro_f1=0.9120 | val_feat_acc=0.9346 | val_feat_macro_f1=0.9065
+[03:02:25] epoch=13 | train_loss=1.1048 | lr_backbone=4.05e-05 | lr_head=4.05e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9351 | val_head_macro_f1=0.9124 | val_feat_acc=0.9391 | val_feat_macro_f1=0.9131
+[03:02:26]   new best val_feat_macro_f1=0.9131 (epoch 13) -> best.pt
+[03:03:23] epoch=14 | train_loss=1.1101 | lr_backbone=3.88e-05 | lr_head=3.88e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9426 | val_head_macro_f1=0.9154 | val_feat_acc=0.9418 | val_feat_macro_f1=0.9131
+[03:04:20] epoch=15 | train_loss=1.1067 | lr_backbone=3.70e-05 | lr_head=3.70e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9378 | val_head_macro_f1=0.9069 | val_feat_acc=0.9346 | val_feat_macro_f1=0.9042
+[03:05:17] epoch=16 | train_loss=1.1117 | lr_backbone=3.52e-05 | lr_head=3.52e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9422 | val_head_macro_f1=0.9111 | val_feat_acc=0.9409 | val_feat_macro_f1=0.9115
+[03:06:15] epoch=17 | train_loss=1.1049 | lr_backbone=3.33e-05 | lr_head=3.33e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9204 | val_head_macro_f1=0.9004 | val_feat_acc=0.9271 | val_feat_macro_f1=0.9009
+[03:07:12] epoch=18 | train_loss=1.1014 | lr_backbone=3.13e-05 | lr_head=3.13e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9382 | val_head_macro_f1=0.9098 | val_feat_acc=0.9404 | val_feat_macro_f1=0.9098
+[03:08:09] epoch=19 | train_loss=1.1085 | lr_backbone=2.93e-05 | lr_head=2.93e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9231 | val_head_macro_f1=0.8931 | val_feat_acc=0.9320 | val_feat_macro_f1=0.9002
+[03:09:07] epoch=20 | train_loss=1.1058 | lr_backbone=2.73e-05 | lr_head=2.73e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9391 | val_head_macro_f1=0.9097 | val_feat_acc=0.9400 | val_feat_macro_f1=0.9114
+[03:10:04] epoch=21 | train_loss=1.1094 | lr_backbone=2.53e-05 | lr_head=2.53e-04 | train_time_s=44.2000 | gpu_peak_gb=3.1000 | val_head_acc=0.9409 | val_head_macro_f1=0.9138 | val_feat_acc=0.9395 | val_feat_macro_f1=0.9106
+[03:11:01] epoch=22 | train_loss=1.1097 | lr_backbone=2.32e-05 | lr_head=2.32e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9400 | val_head_macro_f1=0.9105 | val_feat_acc=0.9373 | val_feat_macro_f1=0.9058
+[03:11:59] epoch=23 | train_loss=1.1078 | lr_backbone=2.12e-05 | lr_head=2.12e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9386 | val_head_macro_f1=0.9072 | val_feat_acc=0.9329 | val_feat_macro_f1=0.8981
+[03:12:56] epoch=24 | train_loss=1.1011 | lr_backbone=1.92e-05 | lr_head=1.92e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9378 | val_head_macro_f1=0.9059 | val_feat_acc=0.9364 | val_feat_macro_f1=0.9033
+[03:13:53] epoch=25 | train_loss=1.1019 | lr_backbone=1.72e-05 | lr_head=1.72e-04 | train_time_s=44.3000 | gpu_peak_gb=3.1000 | val_head_acc=0.9409 | val_head_macro_f1=0.9097 | val_feat_acc=0.9369 | val_feat_macro_f1=0.9065
+[03:13:53] Early stopping: no improvement of val_feat_macro_f1 for 12 epochs.
+[03:13:54] Finished. Best checkpoint: runs\E1_siamese_supcon_densenet201_seed1\best.pt

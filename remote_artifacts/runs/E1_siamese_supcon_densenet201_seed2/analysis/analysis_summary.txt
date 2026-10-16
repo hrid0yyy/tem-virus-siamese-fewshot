@@ -1,0 +1,15 @@
+checkpoint: runs\E1_siamese_supcon_densenet201_seed2\best.pt
+TTA=True
+
+feat_l2    closed14 : acc=0.9458 macroF1=0.9381 CI acc=[0.9199,0.9726]
+           gfsl22 raw       : acc=0.8935 macroF1=0.7803 base=0.9168 novel=0.6115 mean-class base=0.9058 novel=0.7153 HM=0.7994
+           gfsl22 calibrated: acc=0.8965 macroF1=0.7848 base=0.9211 novel=0.5987 mean-class base=0.9119 novel=0.7080 HM=0.7971 gamma=-0.015(val)
+feat_cl2n  closed14 : acc=0.9484 macroF1=0.9411 CI acc=[0.9240,0.9725]
+           gfsl22 raw       : acc=0.9003 macroF1=0.7850 base=0.9258 novel=0.5924 mean-class base=0.9187 novel=0.7103 HM=0.8012
+           gfsl22 calibrated: acc=0.9037 macroF1=0.7755 base=0.9353 novel=0.5223 mean-class base=0.9363 novel=0.6241 HM=0.7489 gamma=-0.055(val)
+head_l2    closed14 : acc=0.9526 macroF1=0.9480 CI acc=[0.9306,0.9732]
+           gfsl22 raw       : acc=0.8935 macroF1=0.7079 base=0.9389 novel=0.3439 mean-class base=0.9248 novel=0.4301 HM=0.5872
+           gfsl22 calibrated: acc=0.8935 macroF1=0.7079 base=0.9389 novel=0.3439 mean-class base=0.9248 novel=0.4301 HM=0.5872 gamma=+0.000(val)
+head_cl2n  closed14 : acc=0.9526 macroF1=0.9468 CI acc=[0.9299,0.9733]
+           gfsl22 raw       : acc=0.8940 macroF1=0.7119 base=0.9395 novel=0.3439 mean-class base=0.9242 novel=0.4438 HM=0.5996
+           gfsl22 calibrated: acc=0.8940 macroF1=0.7119 base=0.9395 novel=0.3439 mean-class base=0.9242 novel=0.4438 HM=0.5996 gamma=+0.000(val)

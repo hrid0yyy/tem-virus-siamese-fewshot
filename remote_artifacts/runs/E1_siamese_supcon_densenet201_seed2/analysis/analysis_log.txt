@@ -1,0 +1,10 @@
+[23:24:19] Checkpoint runs\E1_siamese_supcon_densenet201_seed2\best.pt | model_type=metric | base=14 novel=8
+[23:24:19] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[23:24:19] Dataset verified: 10604 patches match the official counts.
+[23:24:23] Pre-loaded 10604 patches into RAM in 4s (0.69 GB)
+[23:28:47] Embedded 10604 patches in 264s (TTA=True); keys=['feat', 'head']
+[23:28:49] [feat_l2] closed acc=0.9458 F1=0.9381 | GFSL raw acc=0.8935 F1=0.7803 HM=0.7994 | calibrated(g=-0.015 from val) acc=0.8965 F1=0.7848 HM=0.7971
+[23:28:50] [feat_cl2n] closed acc=0.9484 F1=0.9411 | GFSL raw acc=0.9003 F1=0.7850 HM=0.8012 | calibrated(g=-0.055 from val) acc=0.9037 F1=0.7755 HM=0.7489
+[23:28:51] [head_l2] closed acc=0.9526 F1=0.9480 | GFSL raw acc=0.8935 F1=0.7079 HM=0.5872 | calibrated(g=+0.000 from val) acc=0.8935 F1=0.7079 HM=0.5872
+[23:28:52] [head_cl2n] closed acc=0.9526 F1=0.9468 | GFSL raw acc=0.8940 F1=0.7119 HM=0.5996 | calibrated(g=+0.000 from val) acc=0.8940 F1=0.7119 HM=0.5996
+[23:28:52] Wrote runs\E1_siamese_supcon_densenet201_seed2\analysis

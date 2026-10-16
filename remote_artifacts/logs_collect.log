@@ -1,0 +1,9 @@
+wrote report_data.json
+  E1_siamese_supcon_densenet201              finished=True eval=True analysis=True
+  E1_siamese_supcon_densenet201_seed1        finished=True eval=True analysis=True
+  E1_siamese_supcon_densenet201_seed2        finished=True eval=True analysis=True
+  E1_paper_densenet201                       finished=True eval=True analysis=True
+  E2_ce22_densenet201                        finished=True eval=True analysis=True
+  E6_supcon_auxce05_densenet201              finished=True eval=True analysis=True
+  E6_triplet_densenet201                     finished=True eval=True analysis=True
+  compares: ['cmp_gfsl_siamese_vs_paperfeat', 'cmp_siamese_feat_vs_paper', 'cmp_siamese_head_vs_paper']

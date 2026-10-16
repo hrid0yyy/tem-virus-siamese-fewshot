@@ -1,0 +1,13 @@
+[22:28:26] Hidden (pseudo-novel) classes: ['Astrovirus', 'Influenza', 'Papilloma', 'Rotavirus']
+[22:28:26] Encoder trained on: ['Adenovirus', 'CCHF', 'Cowpox', 'Ebola', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Rift Valley']
+[22:28:26] Patch root: E:\tem_fewshot\data\TEM virus dataset\context_virus_1nm_256x256
+[22:28:26] Dataset verified: 10604 patches match the official counts.
+[22:28:31] Pre-loaded 10604 patches into RAM in 5s (0.69 GB)
+[22:28:31] 2730 patches of hidden classes (all splits pooled, image-disjoint episodes)
+[22:30:49] 4-way 1-shot | trained(head)=0.7641 trained(feat)=0.8798 frozen=0.6784 | paired diff head-frozen=+0.0857+-0.0100
+[22:30:53] 4-way 5-shot | trained(head)=0.8479 trained(feat)=0.9688 frozen=0.8689 | paired diff head-frozen=-0.0209+-0.0054
+[22:30:57] 4-way 10-shot | trained(head)=0.8516 trained(feat)=0.9766 frozen=0.8934 | paired diff head-frozen=-0.0418+-0.0048
+[22:30:57] 
+[22:30:57] F2 DECISION @ 4-way 5-shot using trained_feat: GO
+[22:30:57]   paired accuracy difference vs frozen ImageNet = +0.0999 +- 0.0039 (95% CI)
+[22:30:57] Saved runs\20261014-221435_f2_pseudonovel_supcon_densenet201\f2_results.json

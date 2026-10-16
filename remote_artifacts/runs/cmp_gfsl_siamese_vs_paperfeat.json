@@ -1,0 +1,30 @@
+{
+  "a": [
+    "runs\\E1_siamese_supcon_densenet201\\analysis\\predictions.npz",
+    "feat_l2_gfsl_raw"
+  ],
+  "b": [
+    "runs\\E1_paper_densenet201\\analysis\\predictions.npz",
+    "feat_l2_gfsl_raw"
+  ],
+  "n_patches": 2057,
+  "n_micrographs": 252,
+  "acc_a": 0.8998541565386485,
+  "acc_b": 0.8799222168206126,
+  "mcnemar_a_right_b_wrong": 91,
+  "mcnemar_a_wrong_b_right": 50,
+  "mcnemar_p": 0.0006993659206296754,
+  "acc_diff": 0.019931939718035974,
+  "acc_diff_ci95": [
+    -0.005951820764403398,
+    0.04748596046686689
+  ],
+  "acc_diff_p_le0": 0.0685,
+  "macro_f1_diff": 0.016407890340522258,
+  "macro_f1_diff_ci95": [
+    -0.007036757257348947,
+    0.04400115504217208
+  ],
+  "macro_f1_diff_p_le0": 0.082,
+  "n_boot": 2000
+}

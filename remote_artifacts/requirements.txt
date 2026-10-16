@@ -1,0 +1,7 @@
+# Install PyTorch + torchvision FIRST with the CUDA build for your GPU (see README), e.g.:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+# then:
+#   pip install -r requirements.txt
+numpy>=1.24
+pillow>=10.0
+scikit-learn>=1.3

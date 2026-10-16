@@ -1,0 +1,63 @@
+[00:03:19] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[00:03:19] Checkpoint runs\E6_supcon_auxce05_densenet201\best.pt (epoch 21, val_feat_macro_f1=0.9182283399896198) | model_type=metric | trained on 14 classes
+[00:03:19] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[00:03:20] Dataset verified: 10604 patches match the official counts.
+  loaded 2000/10604 patches
+  loaded 4000/10604 patches
+  loaded 6000/10604 patches
+  loaded 8000/10604 patches
+  loaded 10000/10604 patches
+[00:03:24] Pre-loaded 10604 patches into RAM in 5s (0.69 GB)
+[00:07:47] Embedded 10604 patches in 263s (TTA=True) keys=['feat', 'head']
+[00:07:47] [head] closed-set nearest-prototype on 14 training classes (test split)
+[00:07:47]     acc=0.9547 macroF1=0.9512 | image-level acc=0.9757
+[00:07:47] [head] generalized few-shot: 14 base + 8 novel classes
+[00:07:48]     all-class acc=0.8921 macroF1=0.7076 | base acc=0.9411 novel acc=0.2994 HM=0.4542 | novel-only acc=0.5223
+[00:07:48] [head] K-shot curve on novel classes, K=[1, 3, 5, 10], repeats=100
+[00:07:49]     K=1: base=0.9406 novel=0.1519+-0.0110 HM=0.2574 novel-only=0.3676
+[00:07:49]     K=3: base=0.9381 novel=0.1855+-0.0092 HM=0.3071 novel-only=0.4369
+[00:07:49]     K=5: base=0.9368 novel=0.2199+-0.0101 HM=0.3532 novel-only=0.4779
+[00:07:49]     K=10: base=0.9371 novel=0.2508+-0.0073 HM=0.3941 novel-only=0.4979
+[00:07:50] [head] episodic 8-way 1-shot on ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']: acc=0.5315+-0.0048
+[00:07:51] [head] episodic 8-way 5-shot on ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']: acc=0.6244+-0.0031
+[00:07:51] [head] open-set (known=14, unknown=8): patch AUROC=0.9182 FPR@95TPR=0.4586 | image AUROC=0.8638
+[00:07:51] [feat] closed-set nearest-prototype on 14 training classes (test split)
+[00:07:51]     acc=0.9437 macroF1=0.9380 | image-level acc=0.9660
+[00:07:51] [feat] generalized few-shot: 14 base + 8 novel classes
+[00:07:52]     all-class acc=0.8935 macroF1=0.7941 | base acc=0.9116 novel acc=0.6752 HM=0.7758 | novel-only acc=0.7006
+[00:07:52] [feat] K-shot curve on novel classes, K=[1, 3, 5, 10], repeats=100
+[00:07:57]     K=1: base=0.9332 novel=0.3261+-0.0170 HM=0.4766 novel-only=0.5192
+[00:07:57]     K=3: base=0.9245 novel=0.5459+-0.0065 HM=0.6859 novel-only=0.6311
+[00:07:57]     K=5: base=0.9210 novel=0.5943+-0.0057 HM=0.7220 novel-only=0.6478
+[00:07:57]     K=10: base=0.9183 novel=0.6375+-0.0042 HM=0.7524 novel-only=0.6777
+[00:07:58] [feat] episodic 8-way 1-shot on ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']: acc=0.6559+-0.0051
+[00:08:00] [feat] episodic 8-way 5-shot on ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']: acc=0.7899+-0.0029
+[00:08:00] [feat] open-set (known=14, unknown=8): patch AUROC=0.8992 FPR@95TPR=0.5287 | image AUROC=0.8665
+
+Base (training) classes: 14 | novel: ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']
+
+=== embedding: head ===
+closed (E1) test : acc=0.9547 macroF1=0.9512 image-acc=0.9757  acc95%CI=[0.9266,0.9782]
+GFSL (E2) test   : all acc=0.8921 macroF1=0.7076 | base=0.9411 novel=0.2994 HM=0.4542 | novel-only=0.5223
+    per-class recall: Adenovirus=0.78, Astrovirus=0.92, CCHF=0.90, Cowpox=0.95, Ebola=0.95, Influenza=0.98, Lassa=0.72, Marburg=1.00, Nipah virus=0.89, Norovirus=0.99, Orf=0.94, Papilloma=1.00, Rift Valley=0.97, Rotavirus=1.00, Dengue=0.00, Guanarito=0.86, LCM=0.14, Machupo=0.09, Pseudocowpox=0.81, Sapovirus=0.88, TBE=0.18, WestNile=0.44
+K-shot (E3) K= 1: novel=0.1519+-0.0110 base=0.9406 HM=0.2574 novel-only=0.3676
+K-shot (E3) K= 3: novel=0.1855+-0.0092 base=0.9381 HM=0.3071 novel-only=0.4369
+K-shot (E3) K= 5: novel=0.2199+-0.0101 base=0.9368 HM=0.3532 novel-only=0.4779
+K-shot (E3) K=10: novel=0.2508+-0.0073 base=0.9371 HM=0.3941 novel-only=0.4979
+episodic (E4) 8-way 1-shot: acc=0.5315+-0.0048 (600 episodes)
+episodic (E4) 8-way 5-shot: acc=0.6244+-0.0031 (600 episodes)
+open-set (E5): patch AUROC=0.9182 FPR@95TPR=0.4586 | image AUROC=0.8638
+
+=== embedding: feat ===
+closed (E1) test : acc=0.9437 macroF1=0.9380 image-acc=0.9660  acc95%CI=[0.9139,0.9716]
+GFSL (E2) test   : all acc=0.8935 macroF1=0.7941 | base=0.9116 novel=0.6752 HM=0.7758 | novel-only=0.7006
+    per-class recall: Adenovirus=0.72, Astrovirus=0.65, CCHF=0.90, Cowpox=0.95, Ebola=0.90, Influenza=0.95, Lassa=0.76, Marburg=0.99, Nipah virus=0.89, Norovirus=0.98, Orf=0.90, Papilloma=0.99, Rift Valley=0.95, Rotavirus=0.95, Dengue=0.18, Guanarito=1.00, LCM=0.86, Machupo=0.65, Pseudocowpox=0.94, Sapovirus=0.88, TBE=0.91, WestNile=0.94
+K-shot (E3) K= 1: novel=0.3261+-0.0170 base=0.9332 HM=0.4766 novel-only=0.5192
+K-shot (E3) K= 3: novel=0.5459+-0.0065 base=0.9245 HM=0.6859 novel-only=0.6311
+K-shot (E3) K= 5: novel=0.5943+-0.0057 base=0.9210 HM=0.7220 novel-only=0.6478
+K-shot (E3) K=10: novel=0.6375+-0.0042 base=0.9183 HM=0.7524 novel-only=0.6777
+episodic (E4) 8-way 1-shot: acc=0.6559+-0.0051 (600 episodes)
+episodic (E4) 8-way 5-shot: acc=0.7899+-0.0029 (600 episodes)
+open-set (E5): patch AUROC=0.8992 FPR@95TPR=0.5287 | image AUROC=0.8665
+
+[00:08:00] Results written to runs\E6_supcon_auxce05_densenet201\eval_full

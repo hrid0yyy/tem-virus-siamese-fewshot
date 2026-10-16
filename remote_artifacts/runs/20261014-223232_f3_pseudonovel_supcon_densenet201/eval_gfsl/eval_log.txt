@@ -1,0 +1,21 @@
+[22:49:16] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[22:49:16] Checkpoint runs\20261014-223232_f3_pseudonovel_supcon_densenet201\best.pt (epoch 14, val_head_macro_f1=0.9587037359558277) | model_type=metric | trained on 10 classes
+[22:49:16] Patch root: E:\tem_fewshot\data\TEM virus dataset\context_virus_1nm_256x256
+[22:49:16] Dataset verified: 10604 patches match the official counts.
+[22:49:21] Pre-loaded 10604 patches into RAM in 4s (0.69 GB)
+[22:53:33] Embedded 9889 patches in 252s (TTA=True) keys=['feat', 'head']
+[22:53:33] [head] generalized few-shot: 10 base + 4 novel classes
+[22:53:33]     all-class acc=0.8168 macroF1=0.7265 | base acc=0.9521 novel acc=0.2686 HM=0.4190 | novel-only acc=0.8936
+[22:53:33] [head] K-shot curve on novel classes, K=[1, 5, 10], repeats=100
+[22:53:34]     K=1: base=0.9483 novel=0.2085+-0.0143 HM=0.3354 novel-only=0.8091
+[22:53:34]     K=5: base=0.9534 novel=0.2681+-0.0085 HM=0.4165 novel-only=0.8699
+[22:53:34]     K=10: base=0.9513 novel=0.2830+-0.0057 HM=0.4354 novel-only=0.8734
+[22:53:34] [head] open-set (known=10, unknown=4): patch AUROC=0.8270 FPR@95TPR=0.6303 | image AUROC=0.7989
+[22:53:34] [feat] generalized few-shot: 10 base + 4 novel classes
+[22:53:34]     all-class acc=0.8616 macroF1=0.8254 | base acc=0.8734 novel acc=0.8138 HM=0.8425 | novel-only acc=0.9335
+[22:53:34] [feat] K-shot curve on novel classes, K=[1, 5, 10], repeats=100
+[22:53:38]     K=1: base=0.9385 novel=0.3801+-0.0222 HM=0.5302 novel-only=0.8367
+[22:53:38]     K=5: base=0.8918 novel=0.7250+-0.0086 HM=0.7988 novel-only=0.8895
+[22:53:38]     K=10: base=0.8787 novel=0.7723+-0.0060 HM=0.8216 novel-only=0.8932
+[22:53:38] [feat] open-set (known=10, unknown=4): patch AUROC=0.8561 FPR@95TPR=0.7048 | image AUROC=0.7941
+[22:53:38] Results written to runs\20261014-223232_f3_pseudonovel_supcon_densenet201\eval_gfsl

@@ -1,0 +1,10 @@
+[00:08:03] Checkpoint runs\E6_supcon_auxce05_densenet201\best.pt | model_type=metric | base=14 novel=8
+[00:08:03] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[00:08:03] Dataset verified: 10604 patches match the official counts.
+[00:08:07] Pre-loaded 10604 patches into RAM in 4s (0.69 GB)
+[00:12:31] Embedded 10604 patches in 264s (TTA=True); keys=['feat', 'head']
+[00:12:33] [feat_l2] closed acc=0.9437 F1=0.9387 | GFSL raw acc=0.8935 F1=0.7946 HM=0.8399 | calibrated(g=-0.025 from val) acc=0.9018 F1=0.8127 HM=0.8255
+[00:12:34] [feat_cl2n] closed acc=0.9479 F1=0.9453 | GFSL raw acc=0.9018 F1=0.7974 HM=0.8105 | calibrated(g=-0.020 from val) acc=0.9047 F1=0.8013 HM=0.8081
+[00:12:35] [head_l2] closed acc=0.9547 F1=0.9512 | GFSL raw acc=0.8921 F1=0.7076 HM=0.5825 | calibrated(g=+0.000 from val) acc=0.8921 F1=0.7076 HM=0.5825
+[00:12:37] [head_cl2n] closed acc=0.9532 F1=0.9499 | GFSL raw acc=0.8940 F1=0.7203 HM=0.6096 | calibrated(g=+0.000 from val) acc=0.8940 F1=0.7203 HM=0.6096
+[00:12:37] Wrote runs\E6_supcon_auxce05_densenet201\analysis
