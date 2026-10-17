@@ -99,9 +99,15 @@ def write_confusion_csv(path, cm, class_names):
             w.writerow([name] + list(map(int, row)))
 
 
+def inference_fp32() -> bool:
+    """TEMFS_FP32=1 -> embeddings are extracted in fp32 with deterministic cuDNN (no autocast, no TF32)."""
+    return os.environ.get("TEMFS_FP32", "0") == "1"
+
+
 def environment_info():
     info = {"python": sys.version.split()[0], "torch": torch.__version__,
-            "cuda_available": torch.cuda.is_available()}
+            "cuda_available": torch.cuda.is_available(),
+            "inference_precision": "fp32-deterministic" if inference_fp32() else "amp-fp16"}
     try:
         import torchvision
         info["torchvision"] = torchvision.__version__

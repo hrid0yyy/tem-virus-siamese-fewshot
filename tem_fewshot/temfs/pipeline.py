@@ -14,7 +14,7 @@ from .engine import fit_classifier, fit_metric
 from .fewshot import (EmbeddingBank, closed_set_logits, closed_set_ncm, episodic_eval,
                       generalized_fewshot, kshot_curve, open_set)
 from .models import EmbeddingNet, build_model_from_config
-from .utils import Logger, environment_info, get_device, load_json, save_json, seed_everything
+from .utils import Logger, environment_info, get_device, inference_fp32, load_json, save_json, seed_everything
 
 # --------------------------------------------------------------------------------------
 # Configs
@@ -184,7 +184,14 @@ def frozen_imagenet_model(backbone, device):
 
 
 def build_bank(model, records, store, device, tta=True, batch_size=64, num_workers=0, keys=None):
-    emb = extract(model, records, store, device, batch_size=batch_size, tta=tta, amp=True,
+    fp32 = inference_fp32()
+    if fp32:  # reproducible inference: no autocast, no TF32, deterministic cuDNN kernels. Repeat runs are
+        # identical; a different patch order/batching changes embeddings only at fp32 rounding level (~1e-7)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+        torch.backends.cudnn.allow_tf32 = False
+        torch.backends.cuda.matmul.allow_tf32 = False
+    emb = extract(model, records, store, device, batch_size=batch_size, tta=tta, amp=not fp32,
                   num_workers=num_workers)
     if keys is not None:
         emb = {k: v for k, v in emb.items() if k in keys}

@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import shutil
 import sys
 import tempfile
@@ -743,14 +744,39 @@ def test_gfsl_improve_smoke():
                          "--backbone", "resnet18", "--no-pretrained", "--epochs", "1", "--max-steps", "1",
                          "--model-type", "metric", "--K", "2", "--steps-per-epoch", "1", "--val-support-max", "2",
                          "--run-name", "m"])
-        r = GI.main(["--data-root", str(tmp), "--checkpoints", str(bm), "--out", str(tmp / "gi"), "--skip-verify",
-                     "--device", "cpu", "--no-tta", "--n-boot", "10", "--kshot-repeats", "2", "--kshot", "1"])
+        _, bm2 = TR.main(["--data-root", str(tmp), "--out-dir", str(tmp / "runs"), "--skip-verify", "--device", "cpu",
+                          "--backbone", "resnet18", "--no-pretrained", "--epochs", "1", "--max-steps", "1",
+                          "--model-type", "metric", "--K", "2", "--steps-per-epoch", "1", "--val-support-max", "2",
+                          "--run-name", "m2", "--seed", "1"])
+        os.environ["TEMFS_FP32"] = "1"
+        try:
+            r = GI.main(["--data-root", str(tmp), "--checkpoints", str(bm), str(bm2), "--out", str(tmp / "gi"),
+                         "--skip-verify", "--device", "cpu", "--no-tta", "--n-boot", "10", "--kshot-repeats", "3",
+                         "--kshot", "1"])
+        finally:
+            del os.environ["TEMFS_FP32"]
+        assert r["environment"]["inference_precision"] == "fp32-deterministic"
         R = r["checkpoints"][str(bm)]
         assert set(R["methods"]) == {"ncm", "maha", "logreg", "dc"}
         for name, v in R["methods"].items():
             assert 0 <= v["test"]["accuracy"] <= 1 and "1" in v["kshot"], name
             assert "Dengue" in v["test"]["weak_f1"]
+            assert len(v["kshot"]["1"]["per_draw"]["novel_mean_class_acc"]) == 3
         assert "Dengue|Sapovirus" in R["diagnostic_validation"]
+        z = np.load(tmp / "gi" / "predictions_m.npz")
+        assert len(z["y"]) == len(z["ncm_pred"]) == len(z["groups"]) > 0
+        # stored predictions reproduce the reported test accuracy
+        assert abs(float((z["logreg_pred"] == z["y"]).mean()) - R["methods"]["logreg"]["test"]["accuracy"]) < 1e-12
+        import paired_gfsl as PG
+        out = PG.main(["--dir", str(tmp / "gi"), "--siamese", "m", "--baseline", "m2", "--n-boot", "20",
+                       "--out", str(tmp / "gi" / "paired.json")])
+        J = json.load(open(tmp / "gi" / "paired.json"))
+        assert "m|logreg_vs_ncm" in J["within_checkpoint"] and "m|m2|logreg" in J["siamese_vs_baseline"]
+        k = J["kshot"]["K1|ncm|m|m2"]
+        assert k["n_draws"] == 3 and abs(k["diff"]["mean"] - (k["mean_a"] - k["mean_b"])) < 1e-9
+        # a model compared with itself must give exactly zero difference
+        same = PG.paired(z["y"], z["ncm_pred"], z["ncm_pred"], z["groups"], len(z["classes"]), 20, 0)
+        assert same["acc_diff"] == 0 and same["acc_diff_ci95"] == [0.0, 0.0]
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
