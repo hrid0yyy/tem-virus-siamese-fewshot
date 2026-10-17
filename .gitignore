@@ -12,3 +12,11 @@ __pycache__/
 .venv/
 .DS_Store
 Thumbs.db
+
+# LaTeX intermediates
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.xdv
