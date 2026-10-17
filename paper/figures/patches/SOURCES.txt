@@ -1,0 +1,14 @@
+Example patches from the TEM virus dataset (Matuszewski & Sintorn, Mendeley Data, doi:10.17632/x4dwwfwtw3.3, CC BY 4.0).
+rota_a.png <- train_Rotavirus_1_12_4.png
+rota_b.png <- train_Rotavirus_3_9_9.png
+ebola_a.png <- train_Ebola_0_65_1.png
+ebola_b.png <- train_Ebola_4_38_6.png
+orf_a.png <- train_Orf_0_22_1.png
+orf_b.png <- train_Orf_2_16_3.png
+dengue_s.png <- train_Dengue_2_12_1.png
+guan_s.png <- train_Guanarito_0_4_1.png
+sapo_s.png <- train_Sapovirus_4_4_2.png
+query_dengue.png <- test_Dengue_3_4_1.png
+rota_s.png <- train_Rotavirus_4_15_7.png
+ebola_s.png <- train_Ebola_2_61_3.png
+aug_*: exact 90-degree rotation / mirror of the corresponding patch

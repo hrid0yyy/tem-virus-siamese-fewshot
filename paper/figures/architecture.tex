@@ -1,0 +1,229 @@
+% Architecture figure (standalone). Build: tectonic architecture.tex  -> architecture.pdf
+% Example patches: TEM virus dataset (Matuszewski & Sintorn 2021), CC BY 4.0 -- see patches/SOURCES.txt
+\documentclass[tikz,border=4pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usetikzlibrary{arrows.meta,calc,positioning,fit,backgrounds,decorations.pathreplacing,shapes.geometric}
+
+% Okabe-Ito colour-blind-safe palette
+\definecolor{cRota}{HTML}{0072B2}   % blue
+\definecolor{cEbola}{HTML}{E69F00}  % orange
+\definecolor{cOrf}{HTML}{009E73}    % green
+\definecolor{cDengue}{HTML}{D55E00} % vermillion
+\definecolor{cGuan}{HTML}{CC79A7}   % purple
+\definecolor{cSapo}{HTML}{56B4E9}   % sky blue
+\definecolor{encfill}{HTML}{DCE6F2}
+\definecolor{headfill}{HTML}{F2E2CE}
+\definecolor{panel}{HTML}{F5F5F5}
+\definecolor{frozen}{HTML}{E2E2E2}
+
+\tikzset{
+  arr/.style={-{Stealth[length=2.2mm]}, line width=0.7pt},
+  small/.style={font=\scriptsize, align=center},
+  title/.style={font=\small\bfseries, anchor=west},
+  box/.style={draw=black!70, fill=white, rounded corners=3pt, line width=0.6pt, font=\scriptsize, align=left, execute at begin node={\hyphenpenalty=10000\relax}},
+  sw/.style={{Stealth[length=1.6mm]}-{Stealth[length=1.6mm]}, dashed, black!70, line width=0.6pt},
+}
+
+% \patch{name}{file}{x,y}{size}{colour}
+\newcommand{\patch}[5]{%
+  \node[inner sep=0pt, draw=#5, line width=1.4pt] (#1) at (#3)
+     {\includegraphics[width=#4]{patches/#2.png}};}
+
+% encoder trapezoid narrowing to the right; \encoder{name}{x}{y}{fill}{text}
+\newcommand{\encoder}[5]{%
+  \draw[fill=#4, draw=black!70, line width=0.6pt]
+     (#2,#3-0.62) -- (#2+1.9,#3-0.32) -- (#2+1.9,#3+0.32) -- (#2,#3+0.62) -- cycle;
+  \node[small] at (#2+0.95,#3) {#5};
+  \coordinate (#1-in) at (#2,#3); \coordinate (#1-out) at (#2+1.9,#3);}
+
+% projection head; \head{name}{x}{y}
+\newcommand{\head}[3]{%
+  \draw[fill=headfill, draw=black!70, line width=0.6pt]
+     (#2,#3-0.32) -- (#2+1.15,#3-0.18) -- (#2+1.15,#3+0.18) -- (#2,#3+0.32) -- cycle;
+  \node[small] at (#2+0.575,#3) {MLP};
+  \coordinate (#1-in) at (#2,#3); \coordinate (#1-out) at (#2+1.15,#3);}
+
+% feature vector; \fvec{name}{x}{y}{cells}{height}{fill}
+\newcommand{\fvec}[6]{%
+  \foreach \i in {1,...,#4} {\draw[fill=#6, draw=black!60, line width=0.3pt]
+     (#2-0.09,{#3-#5/2+(\i-1)*#5/#4}) rectangle (#2+0.09,{#3-#5/2+\i*#5/#4});}
+  \coordinate (#1-in) at (#2-0.09,#3); \coordinate (#1-out) at (#2+0.09,#3);}
+
+\newcommand{\proto}[2]{\node[star, star points=5, star point ratio=2.3, fill=#2, draw=black!70,
+                                line width=0.3pt, inner sep=1.15pt] at #1 {};}
+
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+%% =====================================================================
+%% (a) Stage 1: Siamese metric learning on the 14 base classes
+%% =====================================================================
+\begin{scope}[on background layer]
+  \fill[panel, rounded corners=4pt] (-4.45,1.62) rectangle (14.55,-4.75);
+\end{scope}
+\node[title] at (-4.30,1.33) {(a) Training: Siamese metric learning on the 14 base classes (the 8 rare classes are never seen)};
+
+% --- mini-batch (P classes x K patches) ---
+\patch{b1}{rota_a}{-3.45,0.0}{0.95cm}{cRota}
+\patch{b2}{rota_b}{-2.40,0.0}{0.95cm}{cRota}
+\patch{b3}{ebola_a}{-3.45,-1.05}{0.95cm}{cEbola}
+\patch{b4}{ebola_b}{-2.40,-1.05}{0.95cm}{cEbola}
+\patch{b5}{orf_a}{-3.45,-2.10}{0.95cm}{cOrf}
+\patch{b6}{orf_b}{-2.40,-2.10}{0.95cm}{cOrf}
+\node[small, rotate=90, text=cRota]  at (-4.12, 0.00) {Rotavirus};
+\node[small, rotate=90, text=cEbola!85!black] at (-4.12,-1.05) {Ebola};
+\node[small, rotate=90, text=cOrf]   at (-4.12,-2.10) {Orf};
+\node[small, anchor=north] at (-2.925,-2.65) {Mini-batch: $P{=}14$ classes\\$\times\,K{=}4$ patches from\\different micrographs};
+
+% --- three Siamese branches ---
+\foreach \row/\y/\img/\col in {1/0.0/aug_rota_a/cRota, 2/-1.55/aug_rota_b/cRota, 3/-3.10/aug_ebola_a/cEbola} {
+  \patch{x\row}{\img}{-0.55,\y}{1.0cm}{\col}
+  \encoder{enc\row}{0.35}{\y}{encfill}{DenseNet201\\[-1pt]{\tiny ImageNet init.}}
+  \fvec{f\row}{2.75}{\y}{8}{0.95}{encfill}
+  \head{h\row}{3.45}{\y}
+  \fvec{z\row}{5.45}{\y}{4}{0.5}{headfill}
+  \draw[arr] (x\row.east) -- (enc\row-in);
+  \draw[arr] (enc\row-out) -- (f\row-in);
+  \draw[arr] (f\row-out) -- (h\row-in);
+  \draw[arr] (h\row-out) -- (z\row-in);
+}
+% batch -> branches (online augmentation)
+\draw[arr, black!55] (b2.east) -- ++(0.30,0) |- (x1.west);
+\draw[arr, black!55] (b2.east) ++(0.30,0) |- (x2.west);
+\draw[arr, black!55] (b4.east) -- ++(0.30,0) |- (x3.west);
+\node[small, fill=panel, inner sep=1.5pt] at (-1.45,0.72) {D4 rotation/reflection + shift $\pm$8 px};
+
+% shared weights
+\draw[sw] (1.30,-0.62) -- (1.30,-0.93);
+\draw[sw] (1.30,-2.17) -- (1.30,-2.48);
+\node[small, text=black!70, anchor=west] at (1.36,-0.775) {shared weights};
+\node[small, text=black!70, anchor=west] at (1.36,-2.325) {shared weights};
+\draw[sw] (4.025,-0.32) -- (4.025,-1.23);
+\draw[sw] (4.025,-1.87) -- (4.025,-2.78);
+
+% column labels (below the last branch)
+\node[small, anchor=north] at (-0.55,-3.72) {augmented\\view $\tilde{x}$};
+\node[small, anchor=north] at (1.30,-3.80) {encoder $f_\theta$};
+\node[small, anchor=south] at (2.75,0.50) {GAP feature\\$\bm{h}\in\mathbb{R}^{1920}$};
+\node[small, anchor=north] at (4.025,-3.72) {projection\\head $g_\phi$\\[-1pt]{\tiny 1920$\to$512$\to$128}};
+\node[small, anchor=south] at (5.45,0.30) {$\bm{z}\in\mathbb{R}^{128}$\\$\ell_2$-normalised};
+
+% --- embedding hypersphere ---
+\begin{scope}[shift={(8.55,-1.55)}]
+  \shade[ball color=black!4, opacity=0.9] (0,0) circle (1.65);
+  \draw[black!50, line width=0.5pt] (0,0) circle (1.65);
+  \draw[black!25, dashed] (-1.65,0) arc[start angle=180, end angle=360, x radius=1.65, y radius=0.42];
+  \foreach \p in {(-0.75,0.75),(-0.45,0.95),(-0.65,1.10),(-0.30,0.70)} \fill[cRota] \p circle (2.4pt);
+  \foreach \p in {(0.85,0.55),(1.10,0.30),(0.75,0.20),(1.05,0.70)} \fill[cEbola] \p circle (2.4pt);
+  \foreach \p in {(-0.25,-0.95),(0.05,-1.15),(0.20,-0.85),(-0.15,-1.25)} \fill[cOrf] \p circle (2.4pt);
+  \coordinate (an) at (-0.45,0.95); \coordinate (po) at (-0.75,0.75); \coordinate (ne) at (0.75,0.20);
+  \draw[black, line width=0.6pt] (an) circle (3.8pt);
+  \draw[-{Stealth[length=1.6mm]}, line width=0.9pt, cOrf!70!black] (-0.30,0.70) -- (-0.40,0.86);
+  \draw[-{Stealth[length=1.6mm]}, line width=0.9pt, cDengue] ($(an)+(0.13,-0.05)$) -- ($(an)!0.62!(ne)$);
+  \node[small, text=cOrf!60!black, anchor=south] at (-0.85,1.62) {pull\\same class};
+  \node[small, text=cDengue, anchor=south] at (0.90,1.62) {push other\\classes};
+  \node[small] at (0,-1.95) {unit hypersphere $\mathcal{S}^{127}$};
+\end{scope}
+\foreach \row/\dy in {1/0.55,2/0.0,3/-0.55} \draw[arr, black!55] (z\row-out) -- ++(0.30,0) -- ($(8.55,-1.55)+(-1.70,\dy)$);
+
+% loss box
+\node[box, text width=3.6cm, anchor=west] (loss) at (10.55,-1.55)
+  {\textbf{Supervised contrastive loss}\\[3pt]
+   $\displaystyle \ell_i=\frac{-1}{|P(i)|}\sum_{p\in P(i)}\log s_{ip}$\\[3pt]
+   $\displaystyle s_{ip}=\frac{\exp(\bm{z}_i{\cdot}\bm{z}_p/\tau)}{\sum_{a\neq i}\exp(\bm{z}_i{\cdot}\bm{z}_a/\tau)}$\\[4pt]
+   $P(i)$: other patches of $i$'s class in the batch; $\tau=0.1$\\[2pt]
+   AdamW, cosine schedule\\[2pt]
+   Checkpoint chosen on \emph{validation}\\(NCM macro-F1 of $\bm{h}$)};
+
+%% =====================================================================
+%% (b) Stage 2: generalised few-shot inference over all 22 classes
+%% =====================================================================
+\begin{scope}[yshift=-0.40cm]
+\begin{scope}[on background layer]
+  \fill[panel, rounded corners=4pt] (-4.45,-4.65) rectangle (14.55,-11.05);
+\end{scope}
+\node[title] at (-4.30,-4.95) {(b) Inference: generalised few-shot recognition of all 22 classes (encoder frozen, head discarded)};
+
+% support set
+\node[small, anchor=west] at (-4.30,-5.45) {\textbf{Support set} (official train split)};
+\patch{s1}{rota_s}{-3.45,-6.25}{0.85cm}{cRota}
+\patch{s2}{ebola_s}{-2.50,-6.25}{0.85cm}{cEbola}
+\node[small] at (-1.62,-6.25) {$\cdots$};
+\node[small, anchor=north] at (-2.55,-6.72) {14 base classes:\\all training patches};
+\patch{r1}{dengue_s}{-3.65,-7.85}{0.85cm}{cDengue}
+\patch{r2}{guan_s}{-2.50,-7.85}{0.85cm}{cGuan}
+\patch{r3}{sapo_s}{-1.35,-7.85}{0.85cm}{cSapo}
+\node[small, anchor=north, text=cDengue] at (-3.65,-8.30) {\tiny Dengue};
+\node[small, anchor=north, text=cGuan!80!black] at (-2.50,-8.30) {\tiny Guanarito};
+\node[small, anchor=north, text=cSapo!70!black] at (-1.35,-8.30) {\tiny Sapovirus};
+\node[small, anchor=north] at (-2.50,-8.62) {8 rare (unseen) classes:\\$K{=}1,3,5,10$ or all patches};
+% query
+\patch{q}{query_dengue}{-0.55,-10.05}{0.95cm}{black}
+\node[small, anchor=east] at (-1.12,-10.05) {\textbf{Query}\\(test patch)};
+
+% frozen encoders
+\draw[decorate, decoration={brace, amplitude=5pt}, line width=0.6pt] (-0.80,-5.70) -- (-0.80,-9.25);
+\encoder{encS}{0.35}{-7.45}{frozen}{DenseNet201\\[-1pt]{\tiny frozen $f_\theta$}}
+\encoder{encQ}{0.35}{-10.05}{frozen}{DenseNet201\\[-1pt]{\tiny frozen $f_\theta$}}
+\draw[arr] (-0.62,-7.475) -- (encS-in);
+\draw[arr] (q.east) -- (encQ-in);
+\draw[sw] (1.30,-8.07) -- (1.30,-9.43);
+\node[small, text=black!70, anchor=west] at (1.36,-8.75) {same weights};
+\node[small, anchor=south] at (1.10,-6.78) {mean over 8 D4 views\\(test-time augmentation)};
+
+% features
+\fvec{fS}{2.75}{-7.45}{8}{0.95}{frozen}
+\fvec{fQ}{2.75}{-10.05}{8}{0.95}{frozen}
+\draw[arr] (encS-out) -- (fS-in);
+\draw[arr] (encQ-out) -- (fQ-in);
+\node[small, anchor=south] at (2.75,-6.95) {$\bm{h}_j$};
+\node[small, anchor=south] at (2.75,-9.55) {$\bm{h}_q$};
+
+% prototypes
+\node[box, align=center, text width=2.45cm] (proto) at (5.05,-7.45)
+  {\textbf{Class prototypes}\\[2pt] $\bm{c}_k=\dfrac{1}{|S_k|}\displaystyle\sum_{j\in S_k}\bm{h}_j$\\[2pt] $k=1,\dots,22$};
+\draw[arr] (fS-out) -- ++(0.35,0) -- (proto.west);
+
+% feature space
+\begin{scope}[shift={(8.75,-8.15)}]
+  \draw[black!50, line width=0.5pt, fill=white] (0,0) ellipse (1.85 and 1.45);
+  \foreach \p in {(-1.35,0.75),(-0.85,1.00),(-1.05,0.80)} \fill[cRota!75] \p circle (1.4pt);
+  \foreach \p in {(-0.35,1.20),(0.00,1.05),(-0.20,1.30)} \fill[cEbola!85] \p circle (1.4pt);
+  \foreach \p in {(-0.30,-0.10),(0.05,-0.30)} \fill[cDengue!80] \p circle (1.4pt);
+  \proto{(-1.10,0.95)}{cRota}
+  \proto{(-0.15,1.15)}{cEbola}
+  \proto{(1.25,0.80)}{cGuan}
+  \proto{(0.95,-0.90)}{cSapo}
+  \proto{(-0.15,-0.25)}{cDengue}
+  \proto{(-1.30,-0.55)}{black!30}
+  \proto{(1.45,-0.15)}{black!30}
+  \proto{(0.75,1.05)}{black!30}
+  \coordinate (qp) at (0.25,0.05);
+  \draw[dotted, line width=0.8pt, cDengue] (qp) -- (-0.15,-0.25);
+  \draw[dotted, line width=0.5pt, black!45] (qp) -- (1.25,0.80);
+  \draw[dotted, line width=0.5pt, black!45] (qp) -- (0.95,-0.90);
+  \draw[line width=1.1pt] ($(qp)+(-0.09,-0.09)$) -- ($(qp)+(0.09,0.09)$) ($(qp)+(-0.09,0.09)$) -- ($(qp)+(0.09,-0.09)$);
+  \node[small, anchor=south west, inner sep=1pt] at ($(qp)+(0.04,0.06)$) {$\bm{h}_q$};
+  \node[small, text=black!60] at (0,-1.75) {backbone feature space ($\ell_2$-normalised)};
+\end{scope}
+\draw[arr] (proto.east) -- ($(8.75,-8.15)+(-1.80,0.35)$);
+\draw[arr] (fQ-out) -- ++(1.45,0) |- ($(8.75,-8.15)+(-1.62,-0.70)$);
+
+% legend
+\node[small, anchor=west] at (6.55,-10.55) {%
+  \tikz\node[star, star points=5, star point ratio=2.3, fill=black!30, draw=black!70, inner sep=1.1pt]{};~prototype \quad
+  \tikz\fill[black!50] (0,0) circle (1.4pt);~support feature \quad
+  \tikz\draw[line width=1pt] (0,0)--(0.15,0.15) (0,0.15)--(0.15,0);~query};
+
+% decision
+\node[box, text width=3.6cm, anchor=west] (dec) at (10.95,-8.15)
+  {\textbf{Decision rule} (chosen on validation)\\[3pt]
+   Nearest class mean:\\ \hspace*{6pt}$\hat{y}=\arg\max_k \cos(\bm{h}_q,\bm{c}_k)$\\[3pt]
+   or a classifier fitted on frozen $\bm{h}$: logistic regression, shrunk Mahalanobis, distribution calibration\\[4pt]
+   $\Rightarrow$ \textcolor{cDengue}{\textbf{$\hat{y}$ = Dengue}} (1 of 22 classes)};
+\draw[arr] ($(8.75,-8.15)+(1.85,0)$) -- (dec.west);
+\end{scope}
+
+\end{tikzpicture}
+\end{document}
