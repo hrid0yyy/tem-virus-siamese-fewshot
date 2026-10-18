@@ -51,7 +51,7 @@
             country={Bangladesh}}
 
 \begin{abstract}
-\textbf{Background and Objective:} The public TEM virus dataset contains 22 virus classes, but its benchmark covers only the 14 most frequent. The eight rare viruses, with 5--25 training micrographs each, have not been studied as few-shot classes. We examined whether a Siamese metric-learning encoder can recognise these rare viruses without training on them.
+\textbf{Background and Objective:} Automatic classification of viruses in transmission electron microscopy (TEM) images requires many labelled examples of each virus, which rare and newly emerging viruses lack. The public TEM virus dataset contains 22 viruses, but its benchmark covers only the 14 most frequent. The eight rare viruses, with 5--25 training micrographs each, have not been studied. We examined whether a Siamese metric-learning encoder trained on the frequent viruses can recognise the rare ones from a few examples, without being trained on them.
 
 \textbf{Methods:} A DenseNet201 encoder was trained with a supervised contrastive loss on the 14 base classes, and the rare classes were added at test time as class prototypes (generalised few-shot learning). The encoder was compared with a re-implemented benchmark classifier under identical, leakage-audited evaluation on the official split. All hyper-parameters were selected on validation, and differences were assessed with paired micrograph-level cluster bootstrap tests.
 
