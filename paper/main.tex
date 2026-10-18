@@ -13,6 +13,13 @@
 
 \journal{Computer Methods and Programs in Biomedicine}
 
+% The default preprint footer ("Preprint submitted to ...") overprints the corresponding-author
+% footnote on the title page; leave the title-page footer empty (later pages keep their numbers).
+\makeatletter
+\def\ps@pprintTitle{\let\@oddhead\@empty\let\@evenhead\@empty
+  \let\@oddfoot\@empty\let\@evenfoot\@empty}
+\makeatother
+
 \begin{document}
 
 \begin{frontmatter}
@@ -20,15 +27,12 @@
 \title{Siamese metric learning for generalised few-shot recognition of rare viruses in transmission electron microscopy images}
 
 %% Single-anonymised review: author names are shown. Replace the placeholders.
-\author[a]{[Author One]\corref{cor1}}
-\ead{corresponding.author@example.org}
-\author[a]{[Author Two]}
+\author[a]{S. M. Mahbub Uddin Ahmed\corref{cor1}}
+\ead{sahmed221068@bscse.uiu.ac.bd}
 \cortext[cor1]{Corresponding author.}
-\affiliation[a]{organization={[Department, University]},
-            addressline={[Street]},
-            city={[City]},
-            postcode={[Postcode]},
-            country={[Country]}}
+\affiliation[a]{organization={Department of Computer Science and Engineering, United International University},
+            city={Dhaka},
+            country={Bangladesh}}
 
 \begin{abstract}
 \textbf{Background and Objective:} The public TEM virus dataset contains 22 virus classes, but its benchmark covers only the 14 most frequent; the eight rare viruses, with 5--25 training micrographs each, have never been evaluated on the official split. We asked whether a Siamese metric-learning encoder can recognise these rare viruses without being trained on them.
@@ -251,19 +255,19 @@ We present the first generalised few-shot evaluation of all 22 classes of the pu
 
 %% ======================================================================
 \section*{Declaration of competing interests}
-\textcolor{red}{The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper. [Authors to confirm.]}
+The author declares no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper. \textcolor{red}{[please confirm]}
 
 \section*{Funding}
-\textcolor{red}{[To be completed by the authors.]}
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
 
 \section*{CRediT authorship contribution statement}
-\textcolor{red}{[To be completed by the authors, e.g. Conceptualization, Methodology, Software, Validation, Writing -- original draft, Writing -- review \& editing.]}
+\textbf{S. M. Mahbub Uddin Ahmed:} Conceptualization, Methodology, Software, Validation, Formal analysis, Investigation, Data curation, Visualization, Writing -- original draft, Writing -- review \& editing.
 
 \section*{Data and code availability}
 The TEM virus dataset is publicly available \cite{MS21data}. Code, configurations, training logs, evaluation outputs and per-patch predictions are available at \textcolor{red}{[repository URL]}; trained checkpoints are available as release assets.
 
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
-\textcolor{red}{During the preparation of this work the authors used Claude (Anthropic) to write analysis code and to draft and edit the manuscript text. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article. [Authors to confirm and adapt.]}
+During the preparation of this work the author used Claude (Anthropic) to write analysis code and to draft and edit the manuscript text. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the published article. \textcolor{red}{[please confirm]}
 
 %% ======================================================================
 \appendix
