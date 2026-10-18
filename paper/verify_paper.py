@@ -116,11 +116,36 @@ keys = set(re.findall(r"@\w+\{(\w+),", bib))
 cited = set(k.strip() for c in re.findall(r"\\cite\{([^}]*)\}", tex + num) for k in c.split(","))
 check(cited <= keys, f"all {len(cited)} cited keys exist in references.bib {sorted(cited - keys) if cited - keys else ''}")
 check(len(cited) <= 50, f"references <= 50 ({len(cited)})")
-check((HERE / "figures" / "architecture.pdf").exists(), "Fig. 1 PDF exists")
+check((HERE / "figures" / "architecture.pdf").exists(), "Fig. 2 (architecture) PDF exists")
 ds = FV.get("dataset_train_patches_micrographs", {})
 EC = json.load(open(HERE.parent / "tem_fewshot" / "temfs" / "expected_counts.json"))["counts"]
 check(len(ds) == 22 and all(tuple(v) == (EC[c]["train"]["patches"], EC[c]["train"]["images"]) for c, v in ds.items()),
       "dataset figure: 22 classes, train counts equal the official counts (Table 1)")
 src = json.load(open(HERE / "figures" / "dataset_patches" / "SOURCES.json"))
 check(len(src) == 22 and all(v["split"] == "train" for v in src.values()), "dataset figure: every example comes from the train split, provenance recorded")
+
+# 4. layout: readable figures and tables, floats before the references, nothing in the margin
+import pymupdf  # noqa: E402
+
+TEXTWIDTH = 390.0  # pt, elsarticle preprint 12pt
+MATH_FONTS = ("CMMI", "CMSY", "CMEX", "MSBM", "MSAM", "CMMIB", "CMBSY")
+widths = {"dataset": 1.0, "architecture": 1.0, "confusion_rare": 1.0, "training": 1.0, "kshot": 0.62}
+for name, frac in widths.items():
+    page = pymupdf.open(HERE / "figures" / f"{name}.pdf")[0]
+    scale = frac * TEXTWIDTH / page.rect.width
+    spans = [s for b in page.get_text("dict")["blocks"] for l in b.get("lines", []) for s in l["spans"] if s["text"].strip()]
+    # labels must print at >= 7 pt; only math sub/superscripts may be smaller: math fonts, or short spans without
+    # letters (the 127 of S^127, the brackets and = in the subscripts of the loss formula)
+    small = [(s["text"], round(s["size"] * scale, 1), s["font"]) for s in spans if s["size"] * scale < 6.95
+             and not (s["font"].upper().startswith(MATH_FONTS)
+                      or (not any(ch.isalpha() for ch in s["text"]) and len(s["text"].strip()) <= 3))]
+    check(scale >= 0.995 and not small, f"Fig. {name}: printed at {100 * scale:.0f} %, no label below 7 pt {small if small else ''}")
+check(r"\resizebox" not in tex, "no table is shrunk to fit (no \\resizebox)")
+log = (HERE / "main.log").read_text(encoding="utf-8", errors="replace")
+check("Overfull \\hbox" not in log, "no line runs into the margin (no overfull \\hbox in main.log)")
+check("Float too large" not in log, "every float fits on its page")
+doc = pymupdf.open(HERE / "main.pdf")
+ref_page = next(i for i, p in enumerate(doc) if re.search(r"^\d*\s*References\s*$", p.get_text(), flags=re.M))
+late = [i + 1 for i, p in enumerate(doc) if i >= ref_page and re.search(r"^(Table|Figure) [A-Z.0-9]+:", p.get_text(), flags=re.M)]
+check(not late, f"all figures and tables appear before the references (page {ref_page + 1}) {late if late else ''}")
 print("\nOVERALL:", "ALL CHECKS PASSED" if ok else "SOME CHECKS FAILED")

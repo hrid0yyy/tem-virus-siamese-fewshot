@@ -4,12 +4,28 @@
 
 \usepackage{amsmath,amssymb,bm}
 \usepackage{booktabs}
+\usepackage{array}
+\usepackage{etoolbox}
 \usepackage{xcolor}
 \usepackage{lineno}
 \usepackage[hidelinks]{hyperref}
 \linenumbers
 
 \input{numbers.tex}
+
+% Tables: mean with the SD over seeds printed below it, and multi-line column headings
+\newcommand{\ms}[2]{\begin{tabular}[t]{@{}r@{}}#1\\$\pm$\,#2\end{tabular}}
+\newcommand{\hd}[1]{\begin{tabular}[b]{@{}c@{}}#1\end{tabular}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+% Figures and tables (with their captions) are single-spaced; the review option double-spaces only the text
+\AtBeginEnvironment{figure}{\linespread{1}\selectfont}
+\AtBeginEnvironment{table}{\linespread{1}\selectfont}
+% Float placement: allow taller floats at the top of a page, so that tables stay near their first mention
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.10}
+\renewcommand{\floatpagefraction}{0.75}
+% Avoid lines that run into the margin
+\setlength{\emergencystretch}{1.5em}
 
 \journal{Computer Methods and Programs in Biomedicine}
 
@@ -87,7 +103,7 @@ Each patch was standardised to zero mean and unit variance \cite{MS21} and its g
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/dataset.pdf}
-\caption{One example patch ($256\times256$ pixels at 1\,nm/pixel) of each virus from the official training split, with the number of training patches and micrographs. The eight rare classes (bottom, framed) are never used to train the encoder. Several are small, near-spherical particles of similar appearance, such as Dengue, Sapovirus and TBE. Patches from the TEM virus dataset \cite{MS21data} (CC BY 4.0).}
+\caption{One example patch ($256\times256$ pixels at 1\,nm/pixel) of each virus from the official training split, with the number of training patches and micrographs. The eight rare classes (bottom, framed) are never used to train the encoder. Several are small, near-spherical particles of similar appearance, such as Dengue, Sapovirus and TBE. Scale bar, 100\,nm (the same for all patches). Patches from the TEM virus dataset \cite{MS21data} (CC BY 4.0).}
 \label{fig:dataset}
 \end{figure}
 
@@ -107,10 +123,10 @@ Class & Role & Train & Validation & Test \\
 \subsection{Siamese metric-learning encoder}
 \label{sec:siamese}
 
-\begin{figure}[!htb]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/architecture.pdf}
-\caption{Overview of the method. (a) Training: patches of the 14 base classes pass through one DenseNet201 encoder with shared weights (drawn as parallel Siamese branches); a projection head maps the pooled feature $\bm{h}$ to a unit-norm embedding $\bm{z}$, and the supervised contrastive loss pulls together patches of the same virus and pushes apart patches of different viruses. (b) Inference: the head is discarded and the frozen encoder embeds the support patches of all 22 classes, including the eight rare classes never used for training, into class prototypes; a test patch is assigned by nearest class mean or by a classifier fitted on the frozen features, chosen on the validation split. Example patches are from the TEM virus dataset \cite{MS21data} (CC BY 4.0).}
+\caption{Overview of the method. (a) Training: a mini-batch contains four patches of each of the 14 base classes (three classes are shown; frame and point colours denote the virus). Each patch is randomly rotated or reflected and shifted by up to 8 pixels, and all patches pass through one DenseNet201 encoder with shared weights (drawn as parallel Siamese branches). A projection head maps the backbone feature $\bm{h}$ to a unit-norm embedding $\bm{z}$, and the supervised contrastive loss pulls together embeddings of the same virus and pushes apart those of different viruses. (b) Inference: the projection head is discarded, and the frozen encoder embeds the support patches of all 22 classes, including the eight rare classes never used for training, into class prototypes. A test patch is assigned by nearest class mean or by a classifier fitted on the frozen features, chosen on the validation split. Example patches are from the TEM virus dataset \cite{MS21data} (CC BY 4.0).}
 \label{fig:arch}
 \end{figure}
 
@@ -127,25 +143,24 @@ The \textbf{baseline} is a re-implementation of the best benchmark model \cite{M
 \centering\footnotesize
 \caption{Training settings of the Siamese encoder and the baseline, read from the run configurations; they are identical for the three seeds of each model.}
 \label{tab:config}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lll}
+\begin{tabular}{@{}L{2.6cm}L{5.1cm}L{4.3cm}@{}}
 \toprule
 Setting & Siamese encoder & Baseline (benchmark classifier) \\
 \midrule
 \TabConfigRows
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 \subsection{Evaluation protocols}
 \label{sec:protocols}
 
-All results are reported on the official test split. Each patch is represented by the mean over its eight rotations and reflections, computed with \InferenceMode\ inference. Three protocols were used. In the \emph{closed-set} protocol (14 classes), test patches are assigned to the nearest class mean by cosine similarity, with prototypes computed from all training patches. The baseline uses its own softmax output. In the \emph{GFSL} protocol (22 classes, Fig.~\ref{fig:arch}b), prototypes of all classes are computed from the training split, and the 2,057 test patches are classified among all 22 classes. In the \emph{K-shot GFSL} protocol, each rare class receives only $K\in\{1,3,5,10\}$ training patches from different micrographs, drawn at random \KshotDraws\ times, while the base classes keep all their training patches. We report accuracy, macro-F1, base-class accuracy and the rare-class mean per-class accuracy. The last measure is preferred to pooled accuracy because the rare-class test sets range from 7 to 44 patches. Results for episodes and unknown-virus detection are given in \ref{app:extra}.
+All results are reported on the official test split. For every model, including the baseline, each patch is represented by the mean of its features or class scores over its eight rotations and reflections (test-time augmentation), computed with \InferenceMode\ inference. Three protocols were used. In the \emph{closed-set} protocol (14 classes), test patches are assigned to the nearest class mean by cosine similarity, with prototypes computed from all training patches. The baseline uses its own softmax output. In the \emph{GFSL} protocol (22 classes, Fig.~\ref{fig:arch}b), prototypes of all classes are computed from the training split, and the 2,057 test patches are classified among all 22 classes. In the \emph{K-shot GFSL} protocol, each rare class receives only $K\in\{1,3,5,10\}$ training patches from different micrographs, drawn at random \KshotDraws\ times, while the base classes keep all their training patches. We report accuracy, macro-F1, base-class accuracy and the rare-class mean per-class accuracy. The last measure is preferred to pooled accuracy because the rare-class test sets range from 7 to 44 patches. Results for episodes and unknown-virus detection are given in \ref{app:extra}.
 
 \subsection{Classifiers on frozen features}
 \label{sec:classifiers}
 
-To test whether the rare-class errors stem from the representation or from the decision rule, four classifiers were fitted on the frozen backbone features of every checkpoint, without modifying the encoder. These were (i) the nearest class mean, (ii) L2-regularised logistic regression with class-balanced weights \cite{Tia20}, (iii) a Mahalanobis classifier whose class covariances are shrunk towards the pooled covariance in a 64--256-dimensional principal-component space, following Simple CNAPS \cite{Bat20}, and (iv) distribution calibration, which samples synthetic features for each rare class from the statistics of its nearest base classes \cite{Yan21}. Each classifier was fitted on the training split, and its hyper-parameters were chosen by the 22-class macro-F1 on the validation split. The chosen setting was then applied once to the test split. Before any test result was examined, we fixed the rule that the classifier with the highest validation macro-F1 is the one reported as the improvement. All four classifiers are nevertheless reported. In a separability diagnostic, a binary logistic regression was trained on the training patches of each of eight confusable pairs and evaluated on their validation patches.
+To test whether the rare-class errors stem from the representation or from the decision rule, four classifiers were fitted on the frozen backbone features of every checkpoint, without modifying the encoder. These were (i) the nearest class mean, (ii) L2-regularised logistic regression with class-balanced weights \cite{Tia20}, (iii) a Mahalanobis classifier whose class covariances are shrunk towards the pooled covariance in a 64--256-dimensional principal-component space, following Simple CNAPS \cite{Bat20}, and (iv) distribution calibration, which samples synthetic features for each rare class from the statistics of its nearest base classes \cite{Yan21}. Each classifier was fitted on the training split, and its hyper-parameters were chosen by the 22-class macro-F1 on the validation split. The chosen setting was then applied once to the test split. In the K-shot setting, every classifier and checkpoint was evaluated on the same \PairKOneDraws\ support draws. Before any test result was examined, we fixed the rule that the classifier with the highest validation macro-F1 is the one reported as the improvement. All four classifiers are nevertheless reported. In a separability diagnostic, a binary logistic regression was trained on the training patches of each of eight confusable pairs and evaluated on their validation patches.
 
 \subsection{Statistics}
 \label{sec:stats}
@@ -167,16 +182,16 @@ The Siamese encoder performed on par with the baseline (Table~\ref{tab:closed}).
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{14-class official test split (1,900 patches, 206 micrographs). Macro-averaged precision, sensitivity (recall) and specificity; mean $\pm$ SD over seeds. $^{a}$Without test-time augmentation.}
+\caption{14-class official test split (1,900 patches, 206 micrographs). Macro-averaged precision, sensitivity (recall) and specificity. Values over seeds are the mean, with the SD below it. $^{a}$Without test-time augmentation.}
 \label{tab:closed}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrr}
+\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}L{3.3cm}rrrrrr@{}}
 \toprule
-Model & Acc.\ (\%) & Macro-F1 & Prec. & Sens. & Spec. & Micrograph acc.\ (\%) \\
+Model & Acc.\ (\%) & Macro-F1 & Prec. & Sens. & Spec. & \hd{Micrograph\\acc.\ (\%)} \\
 \midrule
 \TabClosedRows
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 \subsection{22-class generalised few-shot recognition}
@@ -186,16 +201,16 @@ With nearest-prototype classification over all 22 classes, the Siamese and basel
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{22-class GFSL on the official test split (2,057 patches, 252 micrographs) with nearest-class-mean classification; rare classes enter only as prototypes.}
+\caption{22-class GFSL on the official test split (2,057 patches, 252 micrographs) with nearest-class-mean classification; rare classes enter only as prototypes. Values over seeds are the mean, with the SD below it.}
 \label{tab:gfsl}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrr}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}L{4.4cm}rrrr@{}}
 \toprule
-Features & Acc.\ (\%) & Macro-F1 & Base acc.\ (\%) & Rare mean-class acc.\ (\%) \\
+Features & Acc.\ (\%) & Macro-F1 & \hd{Base\\acc.\ (\%)} & \hd{Rare mean-class\\acc.\ (\%)} \\
 \midrule
 \TabGfslRows
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 \subsection{Rare classes are separable}
@@ -204,18 +219,17 @@ Every confusable pair was close to linearly separable in the learned features, w
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{Pairwise separability on the validation split (binary logistic regression trained on training patches). Values are means over the three seeds of each encoder.}
+\caption{Pairwise separability on the validation split (binary logistic regression trained on training patches). Values are means over the three seeds of each encoder. Val.\ patches: number of validation patches of the two classes.}
 \label{tab:sep}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrr}
+\begin{tabular}{@{}lrrrrr@{}}
 \toprule
- & \multicolumn{3}{c}{Siamese features} & Baseline features & \\
-\cmidrule(lr){2-4}
-Pair & AUROC & Log.\ reg.\ acc. & Nearest-mean acc. & AUROC & Val.\ patches \\
+ & \multicolumn{3}{c}{Siamese features} & \hd{Baseline\\features} & \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-5}
+Pair & AUROC & \hd{Log.\ reg.\\acc.} & \hd{Nearest-\\mean acc.} & AUROC & \hd{Val.\\patches} \\
 \midrule
 \TabSepRows
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 \subsection{Classifiers on frozen features}
@@ -230,16 +244,16 @@ Classifiers that estimate more parameters required more data. With a single exam
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{22-class GFSL on the official test split with classifiers on frozen backbone features; hyper-parameters selected on validation. $K=1$, $K=5$: rare mean-class accuracy with only $K$ training patches per rare class (\PairKOneDraws\ draws). Superscripts: number of seeds for which the classifier had the highest validation macro-F1.}
+\caption{22-class GFSL on the official test split with classifiers on frozen backbone features; hyper-parameters selected on validation. Values over seeds are the mean, with the SD below it. $K=1$, $K=5$: rare mean-class accuracy with only $K$ training patches per rare class, averaged over \PairKOneDraws\ support draws (the same draws for every classifier and checkpoint), so these values differ slightly from Fig.~\ref{fig:kshot}, which averages \KshotDraws\ draws. Superscripts: number of seeds for which the classifier had the highest validation macro-F1.}
 \label{tab:clf}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{llrrrrrr}
+\setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}L{2.7cm}rrrrrr@{}}
 \toprule
-Features & Classifier & Val.\ F1 & Acc.\ (\%) & Macro-F1 & Rare (\%) & $K{=}1$ (\%) & $K{=}5$ (\%) \\
+Classifier & Val.\ F1 & Acc.\ (\%) & Macro-F1 & Rare (\%) & $K{=}1$ (\%) & $K{=}5$ (\%) \\
 \midrule
 \TabClassifierRows
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 \begin{figure}[t]
@@ -251,7 +265,7 @@ Features & Classifier & Val.\ F1 & Acc.\ (\%) & Macro-F1 & Rare (\%) & $K{=}1$ (
 
 \subsection{Few-shot regime}
 
-With one training patch per rare virus, the Siamese features gave a higher rare-class mean accuracy than the baseline features, \KshotSiamOneMean\,\% versus \KshotBOneOneMean\,\% (Fig.~\ref{fig:kshot}). When paired over identical support draws, the difference was significant in all nine seed pairs. From three examples onwards, the baseline features performed equally well or better (Appendix Table~\ref{tab:kshot}).
+With one training patch per rare virus, the Siamese features gave a higher rare-class mean accuracy than the baseline features, \KshotSiamOneMean\,\% versus \KshotBOneOneMean\,\% (Fig.~\ref{fig:kshot}). When paired over identical support draws (\PairKOneDraws\ per seed pair), the difference was significant in all nine seed pairs. From three examples onwards, the baseline features performed equally well or better (Appendix Table~\ref{tab:kshot}).
 
 \begin{figure}[t]
 \centering
@@ -307,14 +321,13 @@ Four base classes were withheld from encoder training (F2: Astrovirus, Influenza
 \centering\footnotesize
 \caption{Pilot experiments (accuracy in \%, or harmonic mean of base and unseen accuracy).}
 \label{tab:pilots}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrr}
+\begin{tabular}{@{}L{4.4cm}rrr@{}}
 \toprule
-Experiment & Frozen ImageNet & Trained, backbone feature & Trained, 128-d head \\
+Experiment & \hd{Frozen\\ImageNet} & \hd{Trained,\\backbone feature} & \hd{Trained,\\128-d head} \\
 \midrule
 \TabPilotRows
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 \section{Additional results}
@@ -324,28 +337,26 @@ Experiment & Frozen ImageNet & Trained, backbone feature & Trained, 128-d head \
 \centering\footnotesize
 \caption{Test F1 of the weakest rare classes. Test patches: \WeakSupport.}
 \label{tab:weak}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrr}
+\begin{tabular}{@{}L{4.6cm}rrrrr@{}}
 \toprule
 Features, classifier & Dengue & Sapovirus & Guanarito & LCM & Machupo \\
 \midrule
 \TabWeakRows
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 \begin{table}[h]
 \centering\footnotesize
 \caption{8-way episodes over the rare classes (micrograph-disjoint support and query, 600 episodes) and unknown-virus detection (rare-class test patches as unknown; score = maximum cosine similarity to the 14 base prototypes).}
 \label{tab:episodes}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrr}
+\begin{tabular}{@{}L{3.4cm}rrrr@{}}
 \toprule
-Features & 1-shot (\%) & 5-shot (\%) & AUROC & FPR at 95\,\% TPR (\%) \\
+Features & 1-shot (\%) & 5-shot (\%) & AUROC & \hd{FPR at 95\,\%\\TPR (\%)} \\
 \midrule
 \TabEpisodesRows
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
 \begin{table}[h]
@@ -370,6 +381,7 @@ The training curves of the three Siamese and three baseline runs are shown in Fi
 \label{fig:training}
 \end{figure}
 
+\clearpage % place the remaining appendix floats before the references
 \bibliographystyle{elsarticle-num}
 \bibliography{references}
 

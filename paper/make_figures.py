@@ -27,12 +27,23 @@ S = ["E1_siamese_supcon_densenet201", "E1_siamese_supcon_densenet201_seed1", "E1
 B = ["E1_paper_densenet201", "E1_paper_densenet201_seed1", "E1_paper_densenet201_seed2"]
 RARE = ["Dengue", "Guanarito", "LCM", "Machupo", "Pseudocowpox", "Sapovirus", "TBE", "WestNile"]
 C_SIAM, C_B1 = "#0072B2", "#D55E00"  # Okabe-Ito blue / vermillion
+# Full-width figures are drawn at the printed size: \textwidth of the manuscript (elsarticle preprint, 12pt) = 390 pt,
+# so they are included at about 100 % and no text is smaller than 7 pt in print (checked by verify_paper.py).
+TEXTWIDTH_IN = 390 / 72
+
+# Latin Modern Roman (the font of the manuscript text) from the TeX distribution, if available
+_LM = sorted(Path.home().glob("AppData/Local/TectonicProject/Tectonic/cache/bundles/data/*/lmroman10-*.otf"))
+if _LM:
+    from matplotlib import font_manager
+    for _f in _LM:
+        font_manager.fontManager.addfont(str(_f))
+SERIF = ["Latin Modern Roman"] if _LM else ["DejaVu Serif"]
 
 plt.rcParams.update({
-    "font.family": "serif", "font.serif": ["DejaVu Serif"], "mathtext.fontset": "cm", "font.size": 8,
+    "font.family": "serif", "font.serif": SERIF, "mathtext.fontset": "cm", "font.size": 8,
     "axes.labelsize": 8, "axes.titlesize": 8.5, "legend.fontsize": 7.5, "xtick.labelsize": 7.5, "ytick.labelsize": 7.5,
     "axes.spines.top": False, "axes.spines.right": False, "pdf.fonttype": 42, "savefig.bbox": "tight",
-    "savefig.pad_inches": 0.02,
+    "savefig.pad_inches": 0.02, "axes.unicode_minus": False,
 })
 
 
@@ -82,7 +93,7 @@ def fig_confusion():
                     mat[i, j] += int((rows == pj).sum())
                 mat[i, -1] += int((~np.isin(rows, rare_idx)).sum())
         panels[title] = mat
-    fig, axes = plt.subplots(1, 2, figsize=(7.0, 3.1), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(TEXTWIDTH_IN, 2.75), constrained_layout=True)
     labels = [c.replace("WestNile", "West Nile") for c in RARE]
     for ax, (title, mat) in zip(axes, panels.items()):
         pct = 100 * mat / mat.sum(1, keepdims=True)
@@ -90,7 +101,7 @@ def fig_confusion():
         for i in range(pct.shape[0]):
             for j in range(pct.shape[1]):
                 if pct[i, j] >= 5:
-                    ax.text(j, i, f"{pct[i, j]:.0f}", ha="center", va="center", fontsize=6.5,
+                    ax.text(j, i, f"{pct[i, j]:.0f}", ha="center", va="center", fontsize=7,
                             color="white" if pct[i, j] > 55 else "black")
         ax.set_xticks(range(len(labels) + 1))
         ax.set_xticklabels(labels + ["(any base)"], rotation=55, ha="right")
@@ -116,10 +127,10 @@ def read_hist(run):
 
 
 def fig_training():
-    fig, axes = plt.subplots(2, 2, figsize=(7.0, 4.0), sharex="col", constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(TEXTWIDTH_IN, 3.4), sharex="col", constrained_layout=True)
     info = {}
     for col, (runs, metric, mlabel, colr, name) in enumerate((
-            (S, "val_feat_macro_f1", "Validation macro-F1\n(NCM on backbone feature)", C_SIAM, "Siamese (SupCon)"),
+            (S, "val_feat_macro_f1", "Validation macro-F1\n(nearest class mean)", C_SIAM, "Siamese (SupCon)"),
             (B, "val_acc", "Validation accuracy", C_B1, "Baseline (benchmark classifier)"))):
         for i, r in enumerate(runs):
             h = read_hist(r)
@@ -153,12 +164,20 @@ def fig_dataset():
     counts = load(HERE.parent / "tem_fewshot" / "temfs" / "expected_counts.json")["counts"]
     base = ["Adenovirus", "Astrovirus", "CCHF", "Cowpox", "Ebola", "Influenza", "Lassa", "Marburg", "Nipah virus",
             "Norovirus", "Orf", "Papilloma", "Rift Valley", "Rotavirus"]
-    fig = plt.figure(figsize=(7.0, 4.15))
-    gs = fig.add_gridspec(3, 8, hspace=0.42, wspace=0.08)
+    # explicit layout in inches, so that the spacing between all rows is identical
+    W, P = TEXTWIDTH_IN - 0.06, 0.56           # figure width (minus the saved padding), patch size
+    GAP_X = (W - 8 * P) / 7                    # horizontal gap between patches
+    HEAD, NAME, CNT, GAP_Y = 0.20, 0.15, 0.15, 0.10
+    tops = [HEAD + NAME]                       # top of the patches of each row, measured from the top
+    tops.append(tops[0] + P + CNT + GAP_Y + NAME)
+    head2 = tops[1] + P + CNT + GAP_Y          # top of the rare-class heading
+    tops.append(head2 + HEAD + NAME)
+    H = tops[2] + P + CNT
+    fig = plt.figure(figsize=(W, H))
     slots = [(0, j) for j in range(7)] + [(1, j) for j in range(7)] + [(2, j) for j in range(8)]
     used = {}
     for (r, cidx), cls in zip(slots, base + RARE):
-        ax = fig.add_subplot(gs[r, cidx])
+        ax = fig.add_axes([cidx * (P + GAP_X) / W, (H - tops[r] - P) / H, P / W, P / H])
         im = np.asarray(Image.open(OUT / "dataset_patches" / f"{cls.replace(' ', '')}.png").convert("L"))
         assert im.shape == (256, 256)
         ax.imshow(im, cmap="gray", vmin=0, vmax=255)
@@ -171,15 +190,16 @@ def fig_dataset():
             sp.set_linewidth(1.6 if rare else 0.6)
         tr = counts[cls]["train"]
         name = cls.replace("WestNile", "West Nile")
-        ax.set_title(name, fontsize=7, pad=2, color=C_B1 if rare else "black")
-        ax.set_xlabel(f"{tr['patches']} / {tr['images']}", fontsize=6.3, labelpad=1.5)
+        ax.set_title(name, fontsize=7.5, pad=2, color=C_B1 if rare else "black")
+        ax.set_xlabel(f"{tr['patches']:,} / {tr['images']}", fontsize=7, labelpad=1.5)
         used[cls] = (tr["patches"], tr["images"])
         if (r, cidx) == (0, 0):  # 100 nm scale bar (patches are 256 x 256 px at 1 nm/px)
-            ax.plot([140, 240], [235, 235], color="white", lw=2.2, solid_capstyle="butt")
-            ax.text(190, 222, "100 nm", color="white", fontsize=5.5, ha="center", va="bottom")
-    fig.text(0.125, 0.955, "Base classes (training patches / micrographs)", fontsize=7.5, weight="bold", ha="left")
-    fig.text(0.125, 0.345, "Rare classes, never used to train the encoder (training patches / micrographs)",
-             fontsize=7.5, weight="bold", ha="left", color=C_B1)
+            ax.plot([146, 246], [238, 238], color="white", lw=2.2, solid_capstyle="butt")
+            ax.text(248, 224, "100 nm", color="white", fontsize=7, ha="right", va="bottom")
+    fig.text(0, 1 - HEAD / 2 / H, "Base classes (training patches / micrographs)", fontsize=8, weight="bold",
+             ha="left", va="center")
+    fig.text(0, 1 - (head2 + HEAD / 2) / H, "Rare classes, never used to train the encoder (training patches / micrographs)",
+             fontsize=8, weight="bold", ha="left", va="center", color=C_B1)
     fig.savefig(OUT / "dataset.pdf")
     plt.close(fig)
     return used

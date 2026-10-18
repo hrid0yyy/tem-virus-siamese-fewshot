@@ -203,7 +203,7 @@ Weight decay & $1\times10^{-4}$ & 0 \\
 Schedule & 2 warm-up epochs, cosine decay & constant \\
 Epochs & at most 40 (100 steps each), early stop after 12 & 50 (fixed) \\
 Gradient clipping & 5 & none \\
-Online augmentation & D4 rotations/reflections, shift $\pm$8 px & none \\
+Online augmentation & random rotation or reflection (8 exact orientations), shift of up to $\pm$8 px & none \\
 Checkpoint selection & validation macro-F1 (nearest class mean) & validation accuracy \\
 }
 \newcommand{\TabDatasetRows}{%
@@ -234,17 +234,17 @@ Total & & 6,137 (745) & 2,410 (248) & 2,057 (252) \\
 }
 \newcommand{\TabClosedRows}{%
 DenseNet201, published \cite{MS21}$^{a}$ & 93.10 & 0.921 & 0.926 & 0.921 & -- & -- \\
-Baseline: benchmark model re-trained here (3 seeds) & 93.91 $\pm$ 0.54 & 0.930 $\pm$ 0.007 & 0.927 $\pm$ 0.006 & 0.939 $\pm$ 0.013 & 0.9952 $\pm$ 0.0005 & 95.95 $\pm$ 0.74 \\
-Siamese SupCon, backbone feature (3 seeds) & 94.79 $\pm$ 0.21 & 0.943 $\pm$ 0.004 & 0.944 $\pm$ 0.005 & 0.946 $\pm$ 0.003 & 0.9958 $\pm$ 0.0001 & 96.60 $\pm$ 0.49 \\
+Baseline: benchmark model re-trained here (3 seeds) & \ms{93.91}{0.54} & \ms{0.930}{0.007} & \ms{0.927}{0.006} & \ms{0.939}{0.013} & \ms{0.9952}{0.0005} & \ms{95.95}{0.74} \\
+Siamese SupCon, backbone feature (3 seeds) & \ms{94.79}{0.21} & \ms{0.943}{0.004} & \ms{0.944}{0.005} & \ms{0.946}{0.003} & \ms{0.9958}{0.0001} & \ms{96.60}{0.49} \\
 \midrule
 Ablation: batch-hard triplet (1 seed) & 93.58 & 0.929 & 0.933 & 0.928 & 0.9948 & 96.12 \\
 Ablation: SupCon + cosine CE (1 seed) & 94.37 & 0.938 & 0.947 & 0.934 & 0.9954 & 96.60 \\
-Siamese 128-d head (not pre-specified) & 95.72 $\pm$ 0.35 & 0.952 $\pm$ 0.003 & 0.955 $\pm$ 0.005 & 0.951 $\pm$ 0.003 & 0.9965 $\pm$ 0.0003 & 96.93 $\pm$ 0.28 \\
+Siamese 128-d head (not pre-specified) & \ms{95.72}{0.35} & \ms{0.952}{0.003} & \ms{0.955}{0.005} & \ms{0.951}{0.003} & \ms{0.9965}{0.0003} & \ms{96.93}{0.28} \\
 }
 \newcommand{\TabGfslRows}{%
-Siamese backbone feature (3 seeds) & 89.56 $\pm$ 0.36 & 0.786 $\pm$ 0.008 & 91.8 $\pm$ 0.3 & 74.5 $\pm$ 2.7 \\
-Baseline backbone feature (3 seeds) & 87.57 $\pm$ 0.38 & 0.785 $\pm$ 0.008 & 89.4 $\pm$ 0.6 & 77.4 $\pm$ 1.7 \\
-Siamese 128-d head & 89.35 $\pm$ 0.18 & 0.693 $\pm$ 0.013 & 94.1 $\pm$ 0.1 & 39.1 $\pm$ 5.1 \\
+Siamese backbone feature (3 seeds) & \ms{89.56}{0.36} & \ms{0.786}{0.008} & \ms{91.8}{0.3} & \ms{74.5}{2.7} \\
+Baseline backbone feature (3 seeds) & \ms{87.57}{0.38} & \ms{0.785}{0.008} & \ms{89.4}{0.6} & \ms{77.4}{1.7} \\
+Siamese 128-d head & \ms{89.35}{0.18} & \ms{0.693}{0.013} & \ms{94.1}{0.1} & \ms{39.1}{5.1} \\
 Ablation: batch-hard triplet & 88.67 & 0.779 & 90.7 & 76.4 \\
 Ablation: SupCon + cosine CE & 89.35 & 0.794 & 91.2 & 79.4 \\
 \midrule
@@ -263,25 +263,27 @@ SupCon + cosine CE & 65.6 & 79.0 & 0.899 & 52.9 \\
 Batch-hard triplet & 62.9 & 77.1 & 0.868 & 70.7 \\
 }
 \newcommand{\TabClassifierRows}{%
-Siamese & Nearest class mean & 0.758 $\pm$ 0.019 & 89.56 $\pm$ 0.36 & 0.786 $\pm$ 0.008 & 74.5 $\pm$ 2.7 & 36.9 $\pm$ 2.6 & 65.6 $\pm$ 1.5 \\
- & Logistic regression$^{3/3}$ & 0.851 $\pm$ 0.011 & 92.72 $\pm$ 0.27 & 0.849 $\pm$ 0.009 & 79.6 $\pm$ 1.0 & 18.0 $\pm$ 0.8 & 58.9 $\pm$ 0.7 \\
- & Shrunk Mahalanobis & 0.838 $\pm$ 0.008 & 92.56 $\pm$ 0.69 & 0.861 $\pm$ 0.008 & 75.0 $\pm$ 4.8 & 25.3 $\pm$ 4.8 & 47.5 $\pm$ 8.7 \\
- & Distribution calibration & 0.754 $\pm$ 0.012 & 89.95 $\pm$ 0.65 & 0.776 $\pm$ 0.008 & 73.8 $\pm$ 0.6 & 43.5 $\pm$ 2.4 & 64.4 $\pm$ 2.2 \\
+\multicolumn{7}{@{}l}{\textit{Siamese features}} \\
+Nearest class mean & \ms{0.758}{0.019} & \ms{89.56}{0.36} & \ms{0.786}{0.008} & \ms{74.5}{2.7} & \ms{36.9}{2.6} & \ms{65.6}{1.5} \\
+Logistic regression$^{3/3}$ & \ms{0.851}{0.011} & \ms{92.72}{0.27} & \ms{0.849}{0.009} & \ms{79.6}{1.0} & \ms{18.0}{0.8} & \ms{58.9}{0.7} \\
+Shrunk Mahalanobis & \ms{0.838}{0.008} & \ms{92.56}{0.69} & \ms{0.861}{0.008} & \ms{75.0}{4.8} & \ms{25.3}{4.8} & \ms{47.5}{8.7} \\
+Distribution calibration & \ms{0.754}{0.012} & \ms{89.95}{0.65} & \ms{0.776}{0.008} & \ms{73.8}{0.6} & \ms{43.5}{2.4} & \ms{64.4}{2.2} \\
 \midrule
-Baseline & Nearest class mean & 0.766 $\pm$ 0.020 & 87.57 $\pm$ 0.38 & 0.785 $\pm$ 0.008 & 77.4 $\pm$ 1.7 & 29.7 $\pm$ 2.0 & 67.6 $\pm$ 1.8 \\
- & Logistic regression$^{2/3}$ & 0.872 $\pm$ 0.012 & 92.55 $\pm$ 0.67 & 0.855 $\pm$ 0.013 & 79.5 $\pm$ 1.8 & 14.6 $\pm$ 1.4 & 57.0 $\pm$ 2.0 \\
- & Shrunk Mahalanobis$^{1/3}$ & 0.859 $\pm$ 0.017 & 91.33 $\pm$ 0.29 & 0.846 $\pm$ 0.001 & 76.1 $\pm$ 1.8 & 15.5 $\pm$ 1.2 & 49.6 $\pm$ 2.1 \\
- & Distribution calibration & 0.754 $\pm$ 0.017 & 88.59 $\pm$ 0.71 & 0.766 $\pm$ 0.010 & 76.9 $\pm$ 6.1 & 45.8 $\pm$ 3.1 & 69.1 $\pm$ 5.8 \\
+\multicolumn{7}{@{}l}{\textit{Baseline features}} \\
+Nearest class mean & \ms{0.766}{0.020} & \ms{87.57}{0.38} & \ms{0.785}{0.008} & \ms{77.4}{1.7} & \ms{29.7}{2.0} & \ms{67.6}{1.8} \\
+Logistic regression$^{2/3}$ & \ms{0.872}{0.012} & \ms{92.55}{0.67} & \ms{0.855}{0.013} & \ms{79.5}{1.8} & \ms{14.6}{1.4} & \ms{57.0}{2.0} \\
+Shrunk Mahalanobis$^{1/3}$ & \ms{0.859}{0.017} & \ms{91.33}{0.29} & \ms{0.846}{0.001} & \ms{76.1}{1.8} & \ms{15.5}{1.2} & \ms{49.6}{2.1} \\
+Distribution calibration & \ms{0.754}{0.017} & \ms{88.59}{0.71} & \ms{0.766}{0.010} & \ms{76.9}{6.1} & \ms{45.8}{3.1} & \ms{69.1}{5.8} \\
 }
 \newcommand{\TabWeakRows}{%
-Siamese, Nearest class mean & 0.12 & 0.20 & 0.43 & 0.49 & 0.62 \\
-Siamese, Logistic regression & 0.34 & 0.35 & 0.77 & 0.64 & 0.80 \\
-Siamese, Shrunk Mahalanobis & 0.44 & 0.26 & 0.82 & 0.78 & 0.81 \\
-Siamese, Distribution calibration & 0.15 & 0.22 & 0.47 & 0.48 & 0.62 \\
-Baseline, Nearest class mean & 0.12 & 0.20 & 0.51 & 0.51 & 0.68 \\
-Baseline, Logistic regression & 0.30 & 0.35 & 0.86 & 0.68 & 0.76 \\
-Baseline, Shrunk Mahalanobis & 0.38 & 0.27 & 0.77 & 0.65 & 0.75 \\
-Baseline, Distribution calibration & 0.16 & 0.20 & 0.47 & 0.48 & 0.61 \\
+Siamese, nearest class mean & 0.12 & 0.20 & 0.43 & 0.49 & 0.62 \\
+Siamese, logistic regression & 0.34 & 0.35 & 0.77 & 0.64 & 0.80 \\
+Siamese, shrunk Mahalanobis & 0.44 & 0.26 & 0.82 & 0.78 & 0.81 \\
+Siamese, distribution calibration & 0.15 & 0.22 & 0.47 & 0.48 & 0.62 \\
+Baseline, nearest class mean & 0.12 & 0.20 & 0.51 & 0.51 & 0.68 \\
+Baseline, logistic regression & 0.30 & 0.35 & 0.86 & 0.68 & 0.76 \\
+Baseline, shrunk Mahalanobis & 0.38 & 0.27 & 0.77 & 0.65 & 0.75 \\
+Baseline, distribution calibration & 0.16 & 0.20 & 0.47 & 0.48 & 0.61 \\
 }
 \newcommand{\TabSepRows}{%
 Dengue vs Sapovirus & 1.000 & 1.00 & 0.91 & 1.000 & 15/11 \\
