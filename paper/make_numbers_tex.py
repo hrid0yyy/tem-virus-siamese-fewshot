@@ -122,12 +122,45 @@ def main():
     def put(name, value):
         assert name.isalpha(), name
         M[name] = value
+        if "$\\pm$" in value:  # mean-only variant for compact sentences (e.g. the abstract)
+            M[name + "Mean"] = value.split(" $\\pm$")[0]
 
     siam = [r for r in SIAM if S.eval(r)]
     b1 = [r for r in B1 if S.eval(r)]
     put("NSiamSeeds", str(len(siam)))
     put("NBOneSeeds", str(len(b1)))
     put("InferenceMode", "mixed-precision (fp16 autocast)" if a.mode == "amp" else "full-precision (fp32), deterministic")
+
+    # ------------------------------------------------------------------ training configuration table (from config.json)
+    def cfgs(runs):
+        cs = [load(RUNS / r / "config.json") for r in runs]
+        strip = lambda c: {k: v for k, v in c.items() if k not in ("seed", "run_dir", "environment", "resume")}
+        assert all(strip(c) == strip(cs[0]) for c in cs), f"configs differ between seeds of {runs[0]}"
+        return cs[0]
+
+    sc, bc = cfgs(SIAM), cfgs(B1)
+    assert sc["backbone"] == bc["backbone"] == "densenet201" and sc["pretrained"] and bc["pretrained"]
+    assert bc["ce_head"] == "paper" and sc["image_balanced"]
+    sci = lambda x: f"${x:.0e}".replace("e-0", r"\times10^{-") + "}$"
+    T["TabConfigRows"] = [
+        r"Backbone & DenseNet201, ImageNet-pretrained & DenseNet201, ImageNet-pretrained",
+        f"Head & projection MLP 1,920$\\to${sc['hidden_dim']}$\\to${sc['emb_dim']}, L2-normalised & 2$\\times$FC 1,024, dropout {bc['dropout']}, softmax",
+        f"Loss & supervised contrastive, $\\tau={sc['temperature']}$ & cross-entropy",
+        f"Training data & official training split & pre-augmented training split",
+        f"Batch & {sc['P']} classes $\\times$ {sc['K']} patches (different micrographs) & {bc['batch_size']} patches",
+        f"Optimiser & AdamW & Adam",
+        f"Learning rate (backbone / head) & {sci(sc['lr_backbone'])} / {sci(sc['lr_head'])} & {sci(bc['lr_backbone'])} / {sci(bc['lr_head'])}",
+        f"Weight decay & {sci(sc['weight_decay'])} & {bc['weight_decay']:g}",
+        f"Schedule & {sc['warmup_epochs']} warm-up epochs, cosine decay & constant",
+        f"Epochs & at most {sc['epochs']} ({sc['steps_per_epoch']} steps each), early stop after {sc['patience']} & {bc['epochs']} (fixed)",
+        f"Gradient clipping & {sc['grad_clip']:g} & none",
+        f"Online augmentation & D4 rotations/reflections, shift $\\pm${sc['max_shift']} px & none",
+        f"Checkpoint selection & validation macro-F1 (nearest class mean) & validation accuracy",
+    ]
+    assert sc["select_metric"] == "val_feat_macro_f1" and bc["select_metric"] == "val_acc"
+    assert sc["optimizer"] == "adamw" and bc["optimizer"] == "adam" and sc["schedule"] == "cosine" and bc["schedule"] == "constant"
+    assert sc["train_source"] == "train" and bc["train_source"] == "augmented_train" and not bc["augment"] and bc["grad_clip"] == 0
+    assert bc["patience"] == 0 and sc["loss"] == "supcon"
 
     # ------------------------------------------------------------------ dataset table (official counts)
     C = load(HERE.parent / "tem_fewshot" / "temfs" / "expected_counts.json")["counts"]
@@ -162,7 +195,7 @@ def main():
 
     T["TabClosedRows"] = [
         r"DenseNet201, published \cite{MS21}$^{a}$ & 93.10 & 0.921 & 0.926 & 0.921 & -- & --",
-        closed_row(f"B1: same model re-trained here ({len(b1)} seed{'s' if len(b1) > 1 else ''})", b1, "logits"),
+        closed_row(f"Baseline: benchmark model re-trained here ({len(b1)} seed{'s' if len(b1) > 1 else ''})", b1, "logits"),
         closed_row(f"Siamese SupCon, backbone feature ({len(siam)} seeds)", siam, "feat"),
         r"\midrule",
         closed_row("Ablation: batch-hard triplet (1 seed)", [TRI], "feat"),
@@ -231,12 +264,12 @@ def main():
     cec = ce["logits"]["closed"] if ce else None
     T["TabGfslRows"] = [
         gf_row(f"Siamese backbone feature ({len(siam)} seeds)", siam, "feat"),
-        gf_row(f"B1 backbone feature ({len(b1)} seed{'s' if len(b1) > 1 else ''})", b1, "feat"),
+        gf_row(f"Baseline backbone feature ({len(b1)} seed{'s' if len(b1) > 1 else ''})", b1, "feat"),
         gf_row("Siamese 128-d head", siam, "head"),
         gf_row("Ablation: batch-hard triplet", [TRI], "feat"),
         gf_row("Ablation: SupCon + cosine CE", [AUX], "feat"),
         r"\midrule",
-        (r"\textit{Reference B2: trained on all 22 classes} & " +
+        (r"\textit{Fully supervised reference, trained on all 22 classes} & " +
          (f"\\textit{{{100 * cec['accuracy']:.2f}}} & \\textit{{{cec['macro_f1']:.3f}}} & "
           f"\\textit{{{100 * cec['gfsl_patch']['base_acc']:.1f}}} & "
           f"\\textit{{{100 * cec['gfsl_patch']['novel_mean_class_acc']:.1f}}}" if cec else " & ".join([PENDING] * 4))),
@@ -282,7 +315,7 @@ def main():
 
     # ------------------------------------------------------------------ episodes / open set (supplement)
     rows = []
-    for label, runs in ((f"Siamese ({len(siam)} seeds)", siam), (f"B1 ({len(b1)} seed{'s' if len(b1) > 1 else ''})", b1),
+    for label, runs in ((f"Siamese ({len(siam)} seeds)", siam), (f"Baseline ({len(b1)} seed{'s' if len(b1) > 1 else ''})", b1),
                         ("SupCon + cosine CE", [AUX]), ("Batch-hard triplet", [TRI])):
         e = [S.eval(r)["feat"] for r in runs]
         rows.append(f"{label} & {msd([x['episodic']['1']['acc']['mean'] for x in e], 100, 1)} & "
@@ -298,7 +331,7 @@ def main():
     put("NGfslSiam", str(len(gs)))
     put("NGfslBOne", str(len(gb)))
     rows = []
-    for label, runs in (("Siamese", gs), ("B1", gb)):
+    for label, runs in (("Siamese", gs), ("Baseline", gb)):
         for m, mlab in METHODS:
             if not runs:
                 rows.append(f"{label} & {mlab} & " + " & ".join([PENDING] * 6))
@@ -321,8 +354,8 @@ def main():
     put("NCheckpoints", str(len(allck)))
     names = {"ncm": "nearest class mean", "maha": "shrunk Mahalanobis", "dc": "distribution calibration"}
     pretty = lambda r: ("Siamese seed " + (r[-1] if r.endswith(("seed1", "seed2")) else "0")) if r in gs else \
-        (("B1 seed " + (r[-1] if r.endswith(("seed1", "seed2")) else "0")) if r in gb else "SupCon + cosine CE")
-    others = [f"{names[winner[r]]} for {pretty(r)}" for r in allck if winner[r] != "logreg"]
+        (("baseline seed " + (r[-1] if r.endswith(("seed1", "seed2")) else "0")) if r in gb else "SupCon + cosine CE")
+    others = [f"{pretty(r)} ({names[winner[r]]} classifier)" for r in allck if winner[r] != "logreg"]
     put("LrWinExceptions", ("; " .join(others)) if others else "none")
     for m in ("logreg", "maha", "ncm", "dc"):
         for grp, runs in (("Siam", gs), ("BOne", gb)):
@@ -340,7 +373,7 @@ def main():
         for m, nm in (("ncm", "Ncm"), ("logreg", "Lr")):
             put(f"Weak{c}{nm}", mean([G[r]["methods"][m]["test"]["weak_f1"][c] for r in gs], 1, 2))
     rows = []
-    for label, runs in (("Siamese", gs), ("B1", gb)):
+    for label, runs in (("Siamese", gs), ("Baseline", gb)):
         for m, mlab in METHODS:
             if not runs:
                 continue
@@ -422,7 +455,7 @@ def main():
         sig = [x for x in sb if x["macro_f1_diff_ci95"][0] > 0 or x["macro_f1_diff_ci95"][1] < 0]
         npos, nneg = sum(1 for x in sig if x["macro_f1_diff"] > 0), sum(1 for x in sig if x["macro_f1_diff"] < 0)
         put("PairSiamBOneLrSigDir", "none" if not sig else
-            ", ".join(p for p in ((f"{nneg} in favour of B1" if nneg else ""), (f"{npos} in favour of Siamese" if npos else "")) if p))
+            ", ".join(p for p in ((f"{nneg} in favour of the baseline" if nneg else ""), (f"{npos} in favour of the Siamese encoder" if npos else "")) if p))
         K = P["kshot"]
         k1 = [K[f"K1|ncm|{s}|{b}"] for s in gs for b in gb if f"K1|ncm|{s}|{b}" in K]
         put("PairKOneRange", f"{100 * min(x['diff']['mean'] for x in k1):+.1f} to {100 * max(x['diff']['mean'] for x in k1):+.1f}")

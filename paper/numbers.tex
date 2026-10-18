@@ -3,13 +3,21 @@
 \newcommand{\NBOneSeeds}{3}
 \newcommand{\InferenceMode}{full-precision (fp32), deterministic}
 \newcommand{\SiamClosedAcc}{94.79 $\pm$ 0.21}
+\newcommand{\SiamClosedAccMean}{94.79}
 \newcommand{\SiamClosedFOne}{0.943 $\pm$ 0.004}
+\newcommand{\SiamClosedFOneMean}{0.943}
 \newcommand{\BOneClosedAcc}{93.91 $\pm$ 0.54}
+\newcommand{\BOneClosedAccMean}{93.91}
 \newcommand{\BOneClosedFOne}{0.930 $\pm$ 0.007}
+\newcommand{\BOneClosedFOneMean}{0.930}
 \newcommand{\SiamClosedSens}{0.946 $\pm$ 0.003}
+\newcommand{\SiamClosedSensMean}{0.946}
 \newcommand{\SiamClosedPrec}{0.944 $\pm$ 0.005}
+\newcommand{\SiamClosedPrecMean}{0.944}
 \newcommand{\SiamClosedSpec}{0.9958 $\pm$ 0.0001}
+\newcommand{\SiamClosedSpecMean}{0.9958}
 \newcommand{\SiamHeadClosedAcc}{95.72 $\pm$ 0.35}
+\newcommand{\SiamHeadClosedAccMean}{95.72}
 \newcommand{\CmpFeatDiff}{+0.47}
 \newcommand{\CmpFeatCI}{[-1.21, +2.04]}
 \newcommand{\CmpFeatFOneDiff}{+0.006}
@@ -41,13 +49,21 @@
 \newcommand{\SeedNcmFOneRange}{-0.014 to +0.017}
 \newcommand{\SeedNcmFOneNSig}{0}
 \newcommand{\SiamGfslAcc}{89.56 $\pm$ 0.36}
+\newcommand{\SiamGfslAccMean}{89.56}
 \newcommand{\SiamGfslFOne}{0.786 $\pm$ 0.008}
+\newcommand{\SiamGfslFOneMean}{0.786}
 \newcommand{\SiamGfslRare}{74.5 $\pm$ 2.7}
+\newcommand{\SiamGfslRareMean}{74.5}
 \newcommand{\BOneGfslFOne}{0.785 $\pm$ 0.008}
+\newcommand{\BOneGfslFOneMean}{0.785}
 \newcommand{\BOneGfslAcc}{87.57 $\pm$ 0.38}
+\newcommand{\BOneGfslAccMean}{87.57}
 \newcommand{\BOneGfslRare}{77.4 $\pm$ 1.7}
+\newcommand{\BOneGfslRareMean}{77.4}
 \newcommand{\SiamGfslBase}{91.8 $\pm$ 0.3}
+\newcommand{\SiamGfslBaseMean}{91.8}
 \newcommand{\BOneGfslBase}{89.4 $\pm$ 0.6}
+\newcommand{\BOneGfslBaseMean}{89.4}
 \newcommand{\HeadRareMin}{33}
 \newcommand{\HeadRareMax}{43}
 \newcommand{\CeAcc}{93.10}
@@ -56,15 +72,19 @@
 \newcommand{\DengueToSapMax}{35}
 \newcommand{\DengueTest}{44}
 \newcommand{\KshotSiamOne}{37.3 $\pm$ 2.3}
+\newcommand{\KshotSiamOneMean}{37.3}
 \newcommand{\KshotBOneOne}{30.8 $\pm$ 2.4}
+\newcommand{\KshotBOneOneMean}{30.8}
 \newcommand{\KshotSiamFive}{64.6 $\pm$ 1.2}
+\newcommand{\KshotSiamFiveMean}{64.6}
 \newcommand{\KshotBOneFive}{67.9 $\pm$ 1.8}
+\newcommand{\KshotBOneFiveMean}{67.9}
 \newcommand{\KshotDraws}{100}
 \newcommand{\NGfslSiam}{3}
 \newcommand{\NGfslBOne}{3}
 \newcommand{\LrWinsN}{6}
 \newcommand{\NCheckpoints}{7}
-\newcommand{\LrWinExceptions}{shrunk Mahalanobis for B1 seed 1}
+\newcommand{\LrWinExceptions}{baseline seed 1 (shrunk Mahalanobis classifier)}
 \newcommand{\WinSiamLr}{3}
 \newcommand{\WinBOneLr}{2}
 \newcommand{\WinSiamMaha}{0}
@@ -74,29 +94,53 @@
 \newcommand{\WinSiamDc}{0}
 \newcommand{\WinBOneDc}{0}
 \newcommand{\SiamNcmFOne}{0.786 $\pm$ 0.008}
+\newcommand{\SiamNcmFOneMean}{0.786}
 \newcommand{\SiamNcmAcc}{89.56 $\pm$ 0.36}
+\newcommand{\SiamNcmAccMean}{89.56}
 \newcommand{\SiamNcmBase}{91.8 $\pm$ 0.3}
+\newcommand{\SiamNcmBaseMean}{91.8}
 \newcommand{\SiamNcmKOne}{36.9 $\pm$ 2.6}
+\newcommand{\SiamNcmKOneMean}{36.9}
 \newcommand{\BOneNcmFOne}{0.785 $\pm$ 0.008}
+\newcommand{\BOneNcmFOneMean}{0.785}
 \newcommand{\BOneNcmKOne}{29.7 $\pm$ 2.0}
+\newcommand{\BOneNcmKOneMean}{29.7}
 \newcommand{\SiamLrFOne}{0.849 $\pm$ 0.009}
+\newcommand{\SiamLrFOneMean}{0.849}
 \newcommand{\SiamLrAcc}{92.72 $\pm$ 0.27}
+\newcommand{\SiamLrAccMean}{92.72}
 \newcommand{\SiamLrBase}{94.6 $\pm$ 0.1}
+\newcommand{\SiamLrBaseMean}{94.6}
 \newcommand{\SiamLrKOne}{18.0 $\pm$ 0.8}
+\newcommand{\SiamLrKOneMean}{18.0}
 \newcommand{\BOneLrFOne}{0.855 $\pm$ 0.013}
+\newcommand{\BOneLrFOneMean}{0.855}
 \newcommand{\BOneLrKOne}{14.6 $\pm$ 1.4}
+\newcommand{\BOneLrKOneMean}{14.6}
 \newcommand{\SiamMahaFOne}{0.861 $\pm$ 0.008}
+\newcommand{\SiamMahaFOneMean}{0.861}
 \newcommand{\SiamMahaAcc}{92.56 $\pm$ 0.69}
+\newcommand{\SiamMahaAccMean}{92.56}
 \newcommand{\SiamMahaBase}{94.4 $\pm$ 0.9}
+\newcommand{\SiamMahaBaseMean}{94.4}
 \newcommand{\SiamMahaKOne}{25.3 $\pm$ 4.8}
+\newcommand{\SiamMahaKOneMean}{25.3}
 \newcommand{\BOneMahaFOne}{0.846 $\pm$ 0.001}
+\newcommand{\BOneMahaFOneMean}{0.846}
 \newcommand{\BOneMahaKOne}{15.5 $\pm$ 1.2}
+\newcommand{\BOneMahaKOneMean}{15.5}
 \newcommand{\SiamDcFOne}{0.776 $\pm$ 0.008}
+\newcommand{\SiamDcFOneMean}{0.776}
 \newcommand{\SiamDcAcc}{89.95 $\pm$ 0.65}
+\newcommand{\SiamDcAccMean}{89.95}
 \newcommand{\SiamDcBase}{92.2 $\pm$ 0.6}
+\newcommand{\SiamDcBaseMean}{92.2}
 \newcommand{\SiamDcKOne}{43.5 $\pm$ 2.4}
+\newcommand{\SiamDcKOneMean}{43.5}
 \newcommand{\BOneDcFOne}{0.766 $\pm$ 0.010}
+\newcommand{\BOneDcFOneMean}{0.766}
 \newcommand{\BOneDcKOne}{45.8 $\pm$ 3.1}
+\newcommand{\BOneDcKOneMean}{45.8}
 \newcommand{\WeakDengueNcm}{0.12}
 \newcommand{\WeakDengueLr}{0.34}
 \newcommand{\WeakSapovirusNcm}{0.20}
@@ -136,7 +180,7 @@
 \newcommand{\PairSiamBOneLrRange}{-0.026 to +0.015}
 \newcommand{\PairSiamBOneLrNSig}{1}
 \newcommand{\PairSiamBOneLrN}{9}
-\newcommand{\PairSiamBOneLrSigDir}{1 in favour of B1}
+\newcommand{\PairSiamBOneLrSigDir}{1 in favour of the baseline}
 \newcommand{\PairKOneRange}{+2.9 to +11.9}
 \newcommand{\PairKOneNSig}{9}
 \newcommand{\PairKOneN}{9}
@@ -147,6 +191,21 @@
 \newcommand{\PilotFrozenNcm}{66.0}
 \newcommand{\PilotFrozenProbe}{88.1}
 \newcommand{\PilotHeadUnseen}{26.9}
+\newcommand{\TabConfigRows}{%
+Backbone & DenseNet201, ImageNet-pretrained & DenseNet201, ImageNet-pretrained \\
+Head & projection MLP 1,920$\to$512$\to$128, L2-normalised & 2$\times$FC 1,024, dropout 0.3, softmax \\
+Loss & supervised contrastive, $\tau=0.1$ & cross-entropy \\
+Training data & official training split & pre-augmented training split \\
+Batch & 14 classes $\times$ 4 patches (different micrographs) & 12 patches \\
+Optimiser & AdamW & Adam \\
+Learning rate (backbone / head) & $5\times10^{-5}$ / $5\times10^{-4}$ & $1\times10^{-5}$ / $1\times10^{-5}$ \\
+Weight decay & $1\times10^{-4}$ & 0 \\
+Schedule & 2 warm-up epochs, cosine decay & constant \\
+Epochs & at most 40 (100 steps each), early stop after 12 & 50 (fixed) \\
+Gradient clipping & 5 & none \\
+Online augmentation & D4 rotations/reflections, shift $\pm$8 px & none \\
+Checkpoint selection & validation macro-F1 (nearest class mean) & validation accuracy \\
+}
 \newcommand{\TabDatasetRows}{%
 Adenovirus & base & 160 (40) & 44 (13) & 86 (14) \\
 Astrovirus & base & 266 (46) & 86 (15) & 66 (15) \\
@@ -175,7 +234,7 @@ Total & & 6,137 (745) & 2,410 (248) & 2,057 (252) \\
 }
 \newcommand{\TabClosedRows}{%
 DenseNet201, published \cite{MS21}$^{a}$ & 93.10 & 0.921 & 0.926 & 0.921 & -- & -- \\
-B1: same model re-trained here (3 seeds) & 93.91 $\pm$ 0.54 & 0.930 $\pm$ 0.007 & 0.927 $\pm$ 0.006 & 0.939 $\pm$ 0.013 & 0.9952 $\pm$ 0.0005 & 95.95 $\pm$ 0.74 \\
+Baseline: benchmark model re-trained here (3 seeds) & 93.91 $\pm$ 0.54 & 0.930 $\pm$ 0.007 & 0.927 $\pm$ 0.006 & 0.939 $\pm$ 0.013 & 0.9952 $\pm$ 0.0005 & 95.95 $\pm$ 0.74 \\
 Siamese SupCon, backbone feature (3 seeds) & 94.79 $\pm$ 0.21 & 0.943 $\pm$ 0.004 & 0.944 $\pm$ 0.005 & 0.946 $\pm$ 0.003 & 0.9958 $\pm$ 0.0001 & 96.60 $\pm$ 0.49 \\
 \midrule
 Ablation: batch-hard triplet (1 seed) & 93.58 & 0.929 & 0.933 & 0.928 & 0.9948 & 96.12 \\
@@ -184,12 +243,12 @@ Siamese 128-d head (not pre-specified) & 95.72 $\pm$ 0.35 & 0.952 $\pm$ 0.003 & 
 }
 \newcommand{\TabGfslRows}{%
 Siamese backbone feature (3 seeds) & 89.56 $\pm$ 0.36 & 0.786 $\pm$ 0.008 & 91.8 $\pm$ 0.3 & 74.5 $\pm$ 2.7 \\
-B1 backbone feature (3 seeds) & 87.57 $\pm$ 0.38 & 0.785 $\pm$ 0.008 & 89.4 $\pm$ 0.6 & 77.4 $\pm$ 1.7 \\
+Baseline backbone feature (3 seeds) & 87.57 $\pm$ 0.38 & 0.785 $\pm$ 0.008 & 89.4 $\pm$ 0.6 & 77.4 $\pm$ 1.7 \\
 Siamese 128-d head & 89.35 $\pm$ 0.18 & 0.693 $\pm$ 0.013 & 94.1 $\pm$ 0.1 & 39.1 $\pm$ 5.1 \\
 Ablation: batch-hard triplet & 88.67 & 0.779 & 90.7 & 76.4 \\
 Ablation: SupCon + cosine CE & 89.35 & 0.794 & 91.2 & 79.4 \\
 \midrule
-\textit{Reference B2: trained on all 22 classes} & \textit{93.10} & \textit{0.897} & \textit{95.1} & \textit{81.8} \\
+\textit{Fully supervised reference, trained on all 22 classes} & \textit{93.10} & \textit{0.897} & \textit{95.1} & \textit{81.8} \\
 }
 \newcommand{\TabKshotRows}{%
 1 & 37.3 $\pm$ 2.3 & 30.8 $\pm$ 2.4 \\
@@ -199,7 +258,7 @@ Ablation: SupCon + cosine CE & 89.35 & 0.794 & 91.2 & 79.4 \\
 }
 \newcommand{\TabEpisodesRows}{%
 Siamese (3 seeds) & 65.0 $\pm$ 1.3 & 78.2 $\pm$ 1.0 & 0.883 $\pm$ 0.003 & 58.2 $\pm$ 3.1 \\
-B1 (3 seeds) & 65.7 $\pm$ 0.8 & 80.3 $\pm$ 1.0 & 0.881 $\pm$ 0.015 & 60.7 $\pm$ 5.8 \\
+Baseline (3 seeds) & 65.7 $\pm$ 0.8 & 80.3 $\pm$ 1.0 & 0.881 $\pm$ 0.015 & 60.7 $\pm$ 5.8 \\
 SupCon + cosine CE & 65.6 & 79.0 & 0.899 & 52.9 \\
 Batch-hard triplet & 62.9 & 77.1 & 0.868 & 70.7 \\
 }
@@ -209,7 +268,7 @@ Siamese & Nearest class mean & 0.758 $\pm$ 0.019 & 89.56 $\pm$ 0.36 & 0.786 $\pm
  & Shrunk Mahalanobis & 0.838 $\pm$ 0.008 & 92.56 $\pm$ 0.69 & 0.861 $\pm$ 0.008 & 75.0 $\pm$ 4.8 & 25.3 $\pm$ 4.8 & 47.5 $\pm$ 8.7 \\
  & Distribution calibration & 0.754 $\pm$ 0.012 & 89.95 $\pm$ 0.65 & 0.776 $\pm$ 0.008 & 73.8 $\pm$ 0.6 & 43.5 $\pm$ 2.4 & 64.4 $\pm$ 2.2 \\
 \midrule
-B1 & Nearest class mean & 0.766 $\pm$ 0.020 & 87.57 $\pm$ 0.38 & 0.785 $\pm$ 0.008 & 77.4 $\pm$ 1.7 & 29.7 $\pm$ 2.0 & 67.6 $\pm$ 1.8 \\
+Baseline & Nearest class mean & 0.766 $\pm$ 0.020 & 87.57 $\pm$ 0.38 & 0.785 $\pm$ 0.008 & 77.4 $\pm$ 1.7 & 29.7 $\pm$ 2.0 & 67.6 $\pm$ 1.8 \\
  & Logistic regression$^{2/3}$ & 0.872 $\pm$ 0.012 & 92.55 $\pm$ 0.67 & 0.855 $\pm$ 0.013 & 79.5 $\pm$ 1.8 & 14.6 $\pm$ 1.4 & 57.0 $\pm$ 2.0 \\
  & Shrunk Mahalanobis$^{1/3}$ & 0.859 $\pm$ 0.017 & 91.33 $\pm$ 0.29 & 0.846 $\pm$ 0.001 & 76.1 $\pm$ 1.8 & 15.5 $\pm$ 1.2 & 49.6 $\pm$ 2.1 \\
  & Distribution calibration & 0.754 $\pm$ 0.017 & 88.59 $\pm$ 0.71 & 0.766 $\pm$ 0.010 & 76.9 $\pm$ 6.1 & 45.8 $\pm$ 3.1 & 69.1 $\pm$ 5.8 \\
@@ -219,10 +278,10 @@ Siamese, Nearest class mean & 0.12 & 0.20 & 0.43 & 0.49 & 0.62 \\
 Siamese, Logistic regression & 0.34 & 0.35 & 0.77 & 0.64 & 0.80 \\
 Siamese, Shrunk Mahalanobis & 0.44 & 0.26 & 0.82 & 0.78 & 0.81 \\
 Siamese, Distribution calibration & 0.15 & 0.22 & 0.47 & 0.48 & 0.62 \\
-B1, Nearest class mean & 0.12 & 0.20 & 0.51 & 0.51 & 0.68 \\
-B1, Logistic regression & 0.30 & 0.35 & 0.86 & 0.68 & 0.76 \\
-B1, Shrunk Mahalanobis & 0.38 & 0.27 & 0.77 & 0.65 & 0.75 \\
-B1, Distribution calibration & 0.16 & 0.20 & 0.47 & 0.48 & 0.61 \\
+Baseline, Nearest class mean & 0.12 & 0.20 & 0.51 & 0.51 & 0.68 \\
+Baseline, Logistic regression & 0.30 & 0.35 & 0.86 & 0.68 & 0.76 \\
+Baseline, Shrunk Mahalanobis & 0.38 & 0.27 & 0.77 & 0.65 & 0.75 \\
+Baseline, Distribution calibration & 0.16 & 0.20 & 0.47 & 0.48 & 0.61 \\
 }
 \newcommand{\TabSepRows}{%
 Dengue vs Sapovirus & 1.000 & 1.00 & 0.91 & 1.000 & 15/11 \\

@@ -44,7 +44,7 @@ def load(p):
 def fig_kshot():
     ks = ["1", "3", "5", "10"]
     data = {}
-    for name, runs in (("Siamese (SupCon) features", S), ("B1 (cross-entropy) features", B)):
+    for name, runs in (("Siamese (SupCon) features", S), ("Baseline (cross-entropy) features", B)):
         vals = np.array([[load(RUNS / r / "eval_fp32" / "results.json")["feat"]["kshot"][k]["novel_mean_class_acc"]["mean"]
                           for k in ks] for r in runs]) * 100
         data[name] = (vals.mean(0), vals.std(0, ddof=1))
@@ -120,7 +120,7 @@ def fig_training():
     info = {}
     for col, (runs, metric, mlabel, colr, name) in enumerate((
             (S, "val_feat_macro_f1", "Validation macro-F1\n(NCM on backbone feature)", C_SIAM, "Siamese (SupCon)"),
-            (B, "val_acc", "Validation accuracy", C_B1, "B1 (paper model)"))):
+            (B, "val_acc", "Validation accuracy", C_B1, "Baseline (benchmark classifier)"))):
         for i, r in enumerate(runs):
             h = read_hist(r)
             ep = np.array([int(e["epoch"]) for e in h])

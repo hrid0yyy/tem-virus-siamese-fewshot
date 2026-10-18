@@ -60,10 +60,27 @@ check(f(M["SiamHeadClosedAcc"]) > f(M["SiamClosedAcc"]), "'head scored slightly 
 check(int(M["HeadRareMax"]) < 50, "'head collapsed on rare classes'")
 check(f(M["SiamMahaFOne"]) > f(M["SiamLrFOne"]) - 0.02, "'Mahalanobis reached a similar macro-F1'")
 
+# 2a. counts written out in words in main.tex must equal the computed counts
+WORDED = [
+    ("It was more accurate in all nine seed pairs", M["SeedClosedNPos"] == M["SeedClosedN"] == "9"),
+    ("none of the differences in accuracy was statistically significant", M["SeedClosedNSig"] == "0"),
+    ("only one pair differed significantly in macro-F1", M["SeedClosedFOneNSig"] == "1"),
+    ("significant in only two of the nine seed pairs", M["SeedNcmNSig"] == "2" and M["SeedNcmN"] == "9"),
+    ("logistic regression for six of the seven checkpoints", M["LrWinsN"] == "6" and M["NCheckpoints"] == "7"),
+    ("significant for all seven checkpoints", M["PairLrNcmAllSig"] == M["PairLrNcmAllN"] == "7"),
+    ("significant in only one of the nine seed pairs, in favour of the baseline",
+     M["PairSiamBOneLrNSig"] == "1" and M["PairSiamBOneLrN"] == "9" and M["PairSiamBOneLrSigDir"] == "1 in favour of the baseline"),
+    ("significantly for all six Siamese and baseline checkpoints", M["PairDcNSig"] == M["PairDcN"] == "6"),
+    ("the difference was significant in all nine seed pairs", M["PairKOneNSig"] == M["PairKOneN"] == "9"),
+    ("each trained with three seeds", M["NSiamSeeds"] == M["NBOneSeeds"] == "3"),
+]
+for phrase, ok_ in WORDED:
+    check(phrase in tex and ok_, f"worded count matches data: '{phrase}'")
+
 # 2b. figures agree with the numbers used in the text
 FV = json.load(open(HERE / "figures" / "figure_values.json", encoding="utf-8"))
 ks_fig = FV["kshot_mean_sd"]["Siamese (SupCon) features"][0]
-kb_fig = FV["kshot_mean_sd"]["B1 (cross-entropy) features"][0]
+kb_fig = FV["kshot_mean_sd"]["Baseline (cross-entropy) features"][0]
 check(f"{ks_fig[0]:.1f}" == M["KshotSiamOne"].split()[0] and f"{kb_fig[0]:.1f}" == M["KshotBOneOne"].split()[0],
       "Fig. kshot K=1 points equal the K=1 numbers in the text")
 check(ks_fig[0] > kb_fig[0] and all(kb_fig[i] >= ks_fig[i] for i in (1, 2, 3)), "Fig. kshot shows the crossover described in the text")
