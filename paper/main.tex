@@ -56,15 +56,22 @@ transmission electron microscopy \sep virus classification \sep few-shot learnin
 
 Negative-stain transmission electron microscopy (TEM) can identify a virus without prior knowledge of what to look for, but interpreting the images requires scarce expertise. This has motivated automatic classification of virus particles in TEM images. Matuszewski and Sintorn released a public TEM virus dataset \cite{MS21,MS21data}: 1,245 micrographs of 22 viruses, patches at 1\,nm/pixel and an official, representative, micrograph-level train/validation/test split. Their benchmark uses the 14 most frequent classes; a fine-tuned DenseNet201 reached 93.1\,\% test accuracy. Eight classes were excluded because they had too few images or particles to train a classifier reliably.
 
-Subsequent work concentrated on the 14-class problem, using ensembles of CNNs and transformers \cite{N23}, rotation-equivariant networks \cite{BB24} and dual-branch CNNs \cite{S24}. Several results were obtained under protocols other than the official split, for example a random split of the augmented patch set \cite{S24}. Two studies used all 22 classes \cite{U24,H26}, training a closed-set classifier on all of them; neither, as far as we could determine, reports rare-class results on the official split or treats the rare viruses as few-shot classes.
-
-Rare viruses are, however, the realistic diagnostic case: a newly emerging virus will always have few reference images. This is the setting of few-shot learning, and more precisely of generalised few-shot learning (GFSL), in which new classes must be recognised alongside the training classes \cite{GK18}. Siamese and metric-learning approaches \cite{Bro93,Koc15,Sne17,Kho20} fit it naturally: a shared-weight encoder maps patches of the same virus close together, and a new virus is represented by the mean embedding (prototype) of its few examples, without retraining. The few-shot literature also cautions that a good embedding with a simple classifier often matches elaborate meta-learning \cite{Che19,Tia20}, and that methods tuned on natural images may not transfer to distant domains \cite{Guo20}. A credible evaluation must therefore compare against a strong classification baseline under identical conditions.
+Rare viruses are, however, the realistic diagnostic case: a newly emerging virus will always have few reference images. This is the setting of few-shot learning, and more precisely of generalised few-shot learning (GFSL), in which new classes must be recognised alongside the training classes \cite{GK18}. Siamese metric learning fits it naturally: a shared-weight encoder maps patches of the same virus close together, and a new virus is represented by the mean embedding (prototype) of its few examples, without retraining. Because few-shot methods are easily overrated when compared with weak baselines (Section~\ref{sec:related}), a credible evaluation must compare against a strong classification baseline under identical conditions.
 
 To our knowledge no published work has applied metric-learning few-shot methods to this dataset or evaluated its rare classes as few-shot classes. Our contributions are:
 (i) a GFSL protocol for all 22 classes on the official split, in which the rare classes are never used for training and every choice is made on validation;
 (ii) a Siamese supervised-contrastive encoder compared with a faithful re-implementation of the benchmark classifier under identical evaluation;
 (iii) a diagnosis showing that rare-class errors stem from the nearest-prototype decision rule rather than the representation, and an evaluation of classifiers on frozen features that addresses them; and
 (iv) full reporting of negative results, with code, logs and per-patch predictions released.
+
+\subsection{Related work}
+\label{sec:related}
+
+\textbf{Virus classification on the TEM virus dataset.} The benchmark of Matuszewski and Sintorn \cite{MS21} compared a custom CNN with eight ImageNet-pretrained architectures on the 14-class split and also showed that an unrepresentative split lowers performance substantially, which makes the official split the reference protocol. Later 14-class studies proposed ensembles of CNNs and vision transformers (96.7\,\% accuracy under an 80:20 protocol) \cite{N23}, p4-equivariant group convolutions that improve data efficiency (84.49\,\% validation accuracy with the training set reduced to 93 particles per class) \cite{BB24}, a compact dual-branch CNN fed with local-standard-deviation and discrete-cosine-transform images (97.44\,\% on a random 75/25 split of the augmented patch set) \cite{S24}, and a DenseNet-based dual-track network with attention (99.73\,\%; class set and split not reported in the accessible text) \cite{B25}. Because these protocols differ, their accuracies are not directly comparable with each other or with the official benchmark. Two studies used all 22 classes, a dilated multilevel fused CNN (89.89\,\% accuracy) \cite{U24} and a CNN--transformer hybrid evaluated on a stratified split (88.31\,\%) \cite{H26}; both train a closed-set classifier on every class, and neither, as far as we could determine, reports rare-class results on the official split or treats the rare viruses as few-shot classes.
+
+\textbf{Siamese networks, metric learning and few-shot baselines.} Siamese networks learn a shared-weight encoder and compare inputs by distance \cite{Bro93,Koc15}; prototypical networks extend the idea to $N$-way classification with class-mean prototypes \cite{Sne17}. Batch-based losses, namely the batch-hard triplet loss \cite{Sch15,Her17} and the supervised contrastive (SupCon) loss \cite{Kho20}, use every positive and negative pair in a class-balanced batch and train such encoders more efficiently than isolated pairs. Several studies have shown that a well-trained embedding with a simple classifier, such as nearest class mean after centring and normalisation \cite{Wan19} or logistic regression on frozen features \cite{Tia20}, rivals more elaborate meta-learning \cite{Che19}, and that the advantage of meta-learning shrinks under strong domain shift \cite{Guo20}. Richer decision rules on frozen features include class-specific Mahalanobis distances with shrunk covariances \cite{Bat20} and distribution calibration, which borrows feature statistics from related base classes \cite{Yan21}.
+
+\textbf{Generalised few-shot learning and medical imaging.} In GFSL, new classes must be recognised among the training classes \cite{GK18}, and scores are typically biased towards the latter, which calibrated stacking counteracts \cite{Cha16}. In medical imaging, a systematic review of 80 few-shot studies found meta-learning to be the most common approach \cite{PC23}. Few-shot recognition of viruses in TEM images, in which the rare classes are held out from training and evaluated on an official split, has, to our knowledge, not been studied.
 
 %% ======================================================================
 \section{Methods}
@@ -100,7 +107,7 @@ Class & Role & Train & Validation & Test \\
 \label{fig:arch}
 \end{figure}
 
-The encoder (Fig.~\ref{fig:arch}a) is an ImageNet-pretrained DenseNet201 \cite{Hua17,Den09}. Global average pooling gives a 1,920-dimensional \emph{backbone feature}; a projection head (1,920$\to$512$\to$128, L2-normalised) produces the embedding used by the loss. All patches pass through the same weights, so similarities are computed in one shared space. The network was trained with the supervised contrastive loss \cite{Kho20} (temperature 0.1) on batches of 14 classes $\times$ 4 patches, drawing the patches of a class from different micrographs where possible. Augmentation used the eight exact rotations and reflections of the square and translations of up to $\pm$8 pixels, which preserve physical scale. We used AdamW \cite{LH19} (learning rates $5\times10^{-5}$ for the backbone and $5\times10^{-4}$ for the head, weight decay $10^{-4}$, cosine schedule, at most 40 epochs). The checkpoint with the highest validation macro-F1 of nearest-prototype classification over the base classes was kept. The rare classes were never seen during training or model selection.
+The encoder (Fig.~\ref{fig:arch}a) is an ImageNet-pretrained DenseNet201 \cite{Hua17,Den09}. Global average pooling gives a 1,920-dimensional \emph{backbone feature}; a projection head (1,920$\to$512$\to$128, L2-normalised) produces the embedding used by the loss. All patches pass through the same weights, so similarities are computed in one shared space. The network was trained with the supervised contrastive loss \cite{Kho20} (temperature 0.1) on batches of 14 classes $\times$ 4 patches, drawing the patches of a class from different micrographs where possible. Augmentation used the eight exact rotations and reflections of the square and translations of up to $\pm$8 pixels, which preserve physical scale. We used AdamW \cite{LH19} (learning rates $5\times10^{-5}$ for the backbone and $5\times10^{-4}$ for the head, weight decay $10^{-4}$, cosine schedule, at most 40 epochs). The checkpoint with the highest validation macro-F1 of nearest-prototype classification over the base classes was kept, and training stopped after 12 epochs without improvement (training curves in Fig.~\ref{fig:training}). The rare classes were never seen during training or model selection.
 
 Pilot experiments in which four base classes were withheld from training showed that the backbone feature transfers to unseen classes whereas the 128-dimensional head does not (\ref{app:pilots}). We therefore fixed the backbone feature as the representation for all experiments before evaluating the main models.
 
@@ -197,7 +204,7 @@ Pair & AUROC & LR acc. & NCM acc. & AUROC & Val.\ patches \\
 
 \subsection{Classifiers on frozen features}
 
-The pre-declared rule selected LR for \LrWinsN\ of the \NCheckpoints\ checkpoints, including all three Siamese seeds (exception: \LrWinExceptions; Table~\ref{tab:clf}). For the Siamese encoder, LR raised 22-class macro-F1 from \SiamNcmFOne\ to \SiamLrFOne\ and accuracy from \SiamNcmAcc\,\% to \SiamLrAcc\,\%, while base-class accuracy also rose (\SiamNcmBase\ to \SiamLrBase\,\%). The paired macro-F1 gain of LR over NCM ranged from \PairLrNcmAllRange\ and its cluster CI excluded zero for \PairLrNcmAllSig\ of the \PairLrNcmAllN\ checkpoints. Dengue F1 rose from \WeakDengueNcm\ to \WeakDengueLr, Sapovirus from \WeakSapovirusNcm\ to \WeakSapovirusLr\ and Guanarito from \WeakGuanaritoNcm\ to \WeakGuanaritoLr\ (Appendix Table~\ref{tab:weak}). The Mahalanobis classifier reached a similar macro-F1 (\SiamMahaFOne), but its validation optimum was nearly flat across settings (smallest gap between the best two settings \MahaMinValGap), so its test result depends on near-ties; we report it as secondary.
+The pre-declared rule selected LR for \LrWinsN\ of the \NCheckpoints\ checkpoints, including all three Siamese seeds (exception: \LrWinExceptions; Table~\ref{tab:clf}). For the Siamese encoder, LR raised 22-class macro-F1 from \SiamNcmFOne\ to \SiamLrFOne\ and accuracy from \SiamNcmAcc\,\% to \SiamLrAcc\,\%, while base-class accuracy also rose (\SiamNcmBase\ to \SiamLrBase\,\%). The paired macro-F1 gain of LR over NCM ranged from \PairLrNcmAllRange\ and its cluster CI excluded zero for \PairLrNcmAllSig\ of the \PairLrNcmAllN\ checkpoints. Dengue F1 rose from \WeakDengueNcm\ to \WeakDengueLr, Sapovirus from \WeakSapovirusNcm\ to \WeakSapovirusLr\ and Guanarito from \WeakGuanaritoNcm\ to \WeakGuanaritoLr\ (Appendix Table~\ref{tab:weak}). The gain came mainly from precision (Fig.~\ref{fig:confusion}): averaged over the eight rare classes, precision rose from \RarePrecNcm\ to \RarePrecLr\ and recall from \RareRecNcm\ to \RareRecLr. With NCM, rare prototypes attracted many patches of other classes (precision \PrecSapoNcm\ for Sapovirus and \PrecGuanNcm\ for Guanarito). Dengue remained the hardest class: \DengueToSapPctNcm\,\% of its test patches were assigned to Sapovirus with NCM and still \DengueToSapPctLr\,\% with LR (recall \DengueRecallPctNcm\,\% and \DengueRecallPctLr\,\%). The Mahalanobis classifier reached a similar macro-F1 (\SiamMahaFOne), but its validation optimum was nearly flat across settings (smallest gap between the best two settings \MahaMinValGap), so its test result depends on near-ties; we report it as secondary.
 
 With full rare-class training data the Siamese objective gave no advantage: LR on B1 features reached macro-F1 \BOneLrFOne\ versus \SiamLrFOne\ for Siamese features. Across the \PairSiamBOneLrN\ seed pairs the paired macro-F1 difference (Siamese minus B1) ranged from \PairSiamBOneLrRange, with a CI excluding zero in \PairSiamBOneLrNSig\ of the \PairSiamBOneLrN\ pairs (\PairSiamBOneLrSigDir).
 
@@ -217,22 +224,23 @@ Features & Classifier & Val.\ F1 & Acc.\ (\%) & Macro-F1 & Rare (\%) & $K{=}1$ (
 \end{tabular}}
 \end{table}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/confusion_rare.pdf}
+\caption{Where the rare-class test patches go, for Siamese features with nearest class mean (left) and with logistic regression (right). Rows: true rare class; columns: predicted rare class, or any of the 14 base classes pooled. Counts are summed over the three seeds and normalised per row (\%); values below 5\,\% are not printed.}
+\label{fig:confusion}
+\end{figure}
+
 \subsection{Few-shot regime}
 
-With one training patch per rare virus, Siamese features gave higher rare-class accuracy than B1 features (\KshotSiamOne\,\% vs \KshotBOneOne\,\%; Table~\ref{tab:kshot}); paired over identical support draws, the difference ranged from \PairKOneRange\ points and was significant for \PairKOneNSig\ of \PairKOneN\ Siamese--B1 pairs. From three examples onwards B1 features were equal or better.
+With one training patch per rare virus, Siamese features gave higher rare-class accuracy than B1 features (\KshotSiamOne\,\% vs \KshotBOneOne\,\%; Fig.~\ref{fig:kshot}); paired over identical support draws, the difference ranged from \PairKOneRange\ points and was significant for \PairKOneNSig\ of \PairKOneN\ Siamese--B1 pairs. From three examples onwards B1 features were equal or better (numerical values in Appendix Table~\ref{tab:kshot}).
 
-\begin{table}[t]
-\centering\footnotesize
-\caption{K-shot GFSL with nearest class mean: rare-class mean accuracy (\%) when each rare class has $K$ training patches (\KshotDraws\ draws).}
-\label{tab:kshot}
-\begin{tabular}{rrr}
-\toprule
-$K$ & Siamese features & B1 features \\
-\midrule
-\TabKshotRows
-\bottomrule
-\end{tabular}
-\end{table}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.62\textwidth]{figures/kshot.pdf}
+\caption{K-shot GFSL with nearest class mean: rare-class mean accuracy when each rare class has only $K$ training patches (from different micrographs), while the 14 base classes keep all training patches. Mean $\pm$ SD over three seeds per encoder; each seed averages \KshotDraws\ random support draws.}
+\label{fig:kshot}
+\end{figure}
 
 %% ======================================================================
 \section{Discussion}
@@ -321,6 +329,28 @@ Features & 1-shot (\%) & 5-shot (\%) & AUROC & FPR at 95\,\% TPR (\%) \\
 \bottomrule
 \end{tabular}}
 \end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Numerical values of Fig.~\ref{fig:kshot}: rare-class mean accuracy (\%) with $K$ training patches per rare class, nearest class mean, mean $\pm$ SD over three seeds (\KshotDraws\ draws per seed).}
+\label{tab:kshot}
+\begin{tabular}{rrr}
+\toprule
+$K$ & Siamese features & B1 features \\
+\midrule
+\TabKshotRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+Training curves of the three Siamese and three B1 runs are shown in Fig.~\ref{fig:training}. The Siamese runs stopped early when validation macro-F1 had not improved for 12 epochs; B1 was trained for the fixed 50 epochs of the original configuration, and its validation accuracy fluctuated from epoch to epoch, so the selected checkpoint (best validation accuracy) varies between seeds.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/training.pdf}
+\caption{Training loss (top) and the validation metric used for checkpoint selection (bottom) per epoch for the three seeds of each encoder. Stars mark the selected checkpoints.}
+\label{fig:training}
+\end{figure}
 
 \bibliographystyle{elsarticle-num}
 \bibliography{references}

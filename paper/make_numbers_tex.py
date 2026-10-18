@@ -347,6 +347,28 @@ def main():
             rows.append(f"{label}, {mlab} & " + " & ".join(
                 mean([G[r]["methods"][m]["test"]["weak_f1"][c] for r in runs], 1, 2) for c in WEAK))
     T["TabWeakRows"] = rows
+    # rare-class precision / recall with NCM vs LR (Siamese, mean over seeds of the macro over the 8 rare classes)
+    cls22 = g0["class_names"]
+    ridx = [cls22.index(c) for c in NOVEL]
+    for m, nm in (("ncm", "Ncm"), ("logreg", "Lr")):
+        for key, kn in (("per_class_precision", "Prec"), ("per_class_recall", "Rec")):
+            vals = [sum(G[r]["methods"][m]["test"][key][i] for i in ridx) / len(ridx) for r in gs]
+            put(f"Rare{kn}{nm}", mean(vals, 1, 2))
+        for c, cn in (("Sapovirus", "Sapo"), ("Guanarito", "Guan")):
+            put(f"Prec{cn}{nm}", mean([G[r]["methods"][m]["test"]["per_class_precision"][cls22.index(c)] for r in gs], 1, 2))
+    # share of Dengue test patches predicted as Sapovirus (Siamese, pooled over seeds) and Dengue recall
+    if a.mode == "fp32":
+        for m, nm in (("ncm", "Ncm"), ("logreg", "Lr")):
+            tot = hit = cor = 0
+            for r in gs:
+                z = np.load(RUNS / "gfsl_fp32" / r / f"predictions_{r}.npz", allow_pickle=False)
+                cl = [str(x) for x in z["classes"]]
+                yd = z["y"] == cl.index("Dengue")
+                tot += int(yd.sum())
+                hit += int((z[f"{m}_pred"][yd] == cl.index("Sapovirus")).sum())
+                cor += int((z[f"{m}_pred"][yd] == cl.index("Dengue")).sum())
+            put(f"DengueToSapPct{nm}", f"{100 * hit / tot:.0f}")
+            put(f"DengueRecallPct{nm}", f"{100 * cor / tot:.0f}")
     sup = g0["per_class"]["support"]
     put("WeakSupport", ", ".join(f"{c} {sup[g0['class_names'].index(c)]}" for c in WEAK))
     # Mahalanobis selection stability: did the selected setting differ across seeds / near-ties on validation?

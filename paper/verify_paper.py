@@ -60,6 +60,27 @@ check(f(M["SiamHeadClosedAcc"]) > f(M["SiamClosedAcc"]), "'head scored slightly 
 check(int(M["HeadRareMax"]) < 50, "'head collapsed on rare classes'")
 check(f(M["SiamMahaFOne"]) > f(M["SiamLrFOne"]) - 0.02, "'Mahalanobis reached a similar macro-F1'")
 
+# 2b. figures agree with the numbers used in the text
+FV = json.load(open(HERE / "figures" / "figure_values.json", encoding="utf-8"))
+ks_fig = FV["kshot_mean_sd"]["Siamese (SupCon) features"][0]
+kb_fig = FV["kshot_mean_sd"]["B1 (cross-entropy) features"][0]
+check(f"{ks_fig[0]:.1f}" == M["KshotSiamOne"].split()[0] and f"{kb_fig[0]:.1f}" == M["KshotBOneOne"].split()[0],
+      "Fig. kshot K=1 points equal the K=1 numbers in the text")
+check(ks_fig[0] > kb_fig[0] and all(kb_fig[i] >= ks_fig[i] for i in (1, 2, 3)), "Fig. kshot shows the crossover described in the text")
+cn = FV["confusion_rare_pct"]
+check(f"{cn['Nearest class mean'][0][5]:.0f}" == M["DengueToSapPctNcm"] and f"{cn['Logistic regression'][0][5]:.0f}" == M["DengueToSapPctLr"],
+      "Fig. confusion Dengue->Sapovirus cells equal the text")
+check(f"{cn['Nearest class mean'][0][0]:.0f}" == M["DengueRecallPctNcm"] and f"{cn['Logistic regression'][0][0]:.0f}" == M["DengueRecallPctLr"],
+      "Fig. confusion Dengue recall cells equal the text")
+sup = {"Dengue": 44, "Guanarito": 7, "LCM": 14, "Machupo": 23, "Pseudocowpox": 16, "Sapovirus": 8, "TBE": 11, "WestNile": 34}
+check(FV["confusion_rare_row_counts"]["Nearest class mean"] == [3 * v for v in sup.values()], "Fig. confusion rows = test patches x 3 seeds")
+check(f(M["RarePrecLr"]) > f(M["RarePrecNcm"]) and (f(M["RarePrecLr"]) - f(M["RarePrecNcm"])) > (f(M["RareRecLr"]) - f(M["RareRecNcm"])),
+      "'gain came mainly from precision'")
+tr = FV["training"]
+check(all(v["best_epoch"] == v["argmax_epoch"] for v in tr.values()), "Fig. training: starred epoch = best validation epoch")
+check(all(tr[r]["epochs_run"] == tr[r]["best_epoch"] + 12 for r in S), "'Siamese stopped after 12 epochs without improvement'")
+check(all(tr[r]["epochs_run"] == 50 for r in B), "'B1 trained for the fixed 50 epochs'")
+
 # 3. CMPB format
 abstract = tex[tex.index(r"\begin{abstract}"):tex.index(r"\end{abstract}")]
 for h in ("Background and Objective:", "Methods:", "Results:", "Conclusions:"):
