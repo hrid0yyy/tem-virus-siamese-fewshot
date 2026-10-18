@@ -1,0 +1,6 @@
+checkpoint: runs\E2_ce22_densenet201\best.pt
+TTA=True
+
+logits closed : acc=0.9310 macroF1=0.8971 CI acc=[0.8949,0.9631]
+feat_l2    closed14 : acc=0.9310 macroF1=0.8858 CI acc=[0.8942,0.9635]
+feat_cl2n  closed14 : acc=0.9251 macroF1=0.8737 CI acc=[0.8877,0.9575]

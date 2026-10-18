@@ -1,0 +1,24 @@
+[05:10:55] Checkpoint runs\E1_paper_densenet201_seed1\best.pt | model_type=classifier | base=14 novel=8
+[05:10:55] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[05:10:55] Dataset verified: 10604 patches match the official counts.
+  loaded 2000/10604 patches
+  loaded 4000/10604 patches
+  loaded 6000/10604 patches
+  loaded 8000/10604 patches
+  loaded 10000/10604 patches
+[05:11:00] Pre-loaded 10604 patches into RAM in 5s (0.69 GB)
+[05:16:23] Embedded 10604 patches in 323s (TTA=True); keys=['feat', 'logits']
+[05:16:23] [logits] closed test acc=0.9353 macroF1=0.9245
+[05:16:24] [feat_l2] closed acc=0.9147 F1=0.9172 | GFSL raw acc=0.8726 F1=0.7943 HM=0.8289 | calibrated(g=-0.020 from val) acc=0.8775 F1=0.7975 HM=0.8022
+[05:16:26] [feat_cl2n] closed acc=0.9084 F1=0.9020 | GFSL raw acc=0.8692 F1=0.7697 HM=0.8155 | calibrated(g=-0.075 from val) acc=0.8760 F1=0.7921 HM=0.7845
+checkpoint: runs\E1_paper_densenet201_seed1\best.pt
+TTA=True
+
+logits closed : acc=0.9353 macroF1=0.9245 CI acc=[0.9062,0.9608]
+feat_l2    closed14 : acc=0.9147 macroF1=0.9172 CI acc=[0.8794,0.9473]
+           gfsl22 raw       : acc=0.8726 macroF1=0.7943 base=0.8889 novel=0.6752 mean-class base=0.8788 novel=0.7844 HM=0.8289
+           gfsl22 calibrated: acc=0.8775 macroF1=0.7975 base=0.8989 novel=0.6178 mean-class base=0.8919 novel=0.7289 HM=0.8022 gamma=-0.020(val)
+feat_cl2n  closed14 : acc=0.9084 macroF1=0.9020 CI acc=[0.8730,0.9390]
+           gfsl22 raw       : acc=0.8692 macroF1=0.7697 base=0.8889 novel=0.6306 mean-class base=0.8867 novel=0.7549 HM=0.8155
+           gfsl22 calibrated: acc=0.8760 macroF1=0.7921 base=0.9016 novel=0.5669 mean-class base=0.9069 novel=0.6913 HM=0.7845 gamma=-0.075(val)
+[05:16:26] Wrote runs\E1_paper_densenet201_seed1\analysis_fp32

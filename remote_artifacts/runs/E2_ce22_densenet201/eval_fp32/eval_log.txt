@@ -1,0 +1,11 @@
+[07:06:00] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'fp32-deterministic', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[07:06:00] Checkpoint runs\E2_ce22_densenet201\best.pt (epoch 20, val_macro_f1=0.891796171060422) | model_type=classifier | trained on 22 classes
+[07:06:00] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[07:06:00] Dataset verified: 10604 patches match the official counts.
+[07:06:05] Pre-loaded 10604 patches into RAM in 4s (0.69 GB)
+[07:11:23] Embedded 10604 patches in 319s (TTA=True) keys=['feat', 'logits']
+[07:11:23] [feat] closed-set nearest-prototype on 22 training classes (test split)
+[07:11:24]     acc=0.9310 macroF1=0.8858 | image-level acc=0.9206
+[07:11:24] [logits] closed-set classifier evaluation (test split)
+[07:11:24]     acc=0.9310 macroF1=0.8971 | base acc=0.9505 novel acc=0.6943 HM=0.8024
+[07:11:24] Results written to runs\E2_ce22_densenet201\eval_fp32

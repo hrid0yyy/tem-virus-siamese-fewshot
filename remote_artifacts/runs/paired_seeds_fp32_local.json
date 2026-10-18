@@ -1,0 +1,326 @@
+{
+ "14class_siamese_feat_vs_paper_logits|E1_siamese_supcon_densenet201|E1_paper_densenet201": {
+  "acc_diff": 0.00473684210526315,
+  "acc_diff_ci95": [
+   -0.012054965234788075,
+   0.02039876924585656
+  ],
+  "acc_diff_p_le0": 0.287,
+  "macro_f1_diff": 0.006142691173182446,
+  "macro_f1_diff_ci95": [
+   -0.00953209323724693,
+   0.03140173728429897
+  ],
+  "macro_f1_diff_p_le0": 0.1925,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 48,
+  "mcnemar_a_wrong_b_right": 39,
+  "mcnemar_p": 0.3911909653007528
+ },
+ "14class_siamese_feat_vs_paper_logits|E1_siamese_supcon_densenet201|E1_paper_densenet201_seed1": {
+  "acc_diff": 0.01473684210526316,
+  "acc_diff_ci95": [
+   -0.001616879644110333,
+   0.029975809166477227
+  ],
+  "acc_diff_p_le0": 0.038,
+  "macro_f1_diff": 0.01936426829485216,
+  "macro_f1_diff_ci95": [
+   -0.002422665313887731,
+   0.041393145607575156
+  ],
+  "macro_f1_diff_p_le0": 0.0395,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 59,
+  "mcnemar_a_wrong_b_right": 31,
+  "mcnemar_p": 0.004165114015824446
+ },
+ "14class_siamese_feat_vs_paper_logits|E1_siamese_supcon_densenet201|E1_paper_densenet201_seed2": {
+  "acc_diff": 0.013157894736842035,
+  "acc_diff_ci95": [
+   -0.0025895000034955014,
+   0.029806310877675837
+  ],
+  "acc_diff_p_le0": 0.0615,
+  "macro_f1_diff": 0.015156865426001809,
+  "macro_f1_diff_ci95": [
+   -0.0002339605508131501,
+   0.03546641224511286
+  ],
+  "macro_f1_diff_p_le0": 0.0275,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 66,
+  "mcnemar_a_wrong_b_right": 41,
+  "mcnemar_p": 0.01990038025446869
+ },
+ "14class_siamese_feat_vs_paper_logits|E1_siamese_supcon_densenet201_seed1|E1_paper_densenet201": {
+  "acc_diff": 0.0026315789473684292,
+  "acc_diff_ci95": [
+   -0.014181735330893796,
+   0.019609078510436466
+  ],
+  "acc_diff_p_le0": 0.3685,
+  "macro_f1_diff": 0.00800101171310541,
+  "macro_f1_diff_ci95": [
+   -0.007403023626126495,
+   0.03384801085713471
+  ],
+  "macro_f1_diff_p_le0": 0.134,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 43,
+  "mcnemar_a_wrong_b_right": 38,
+  "mcnemar_p": 0.6569924675863579
+ },
+ "14class_siamese_feat_vs_paper_logits|E1_siamese_supcon_densenet201_seed1|E1_paper_densenet201_seed1": {
+  "acc_diff": 0.012631578947368438,
+  "acc_diff_ci95": [
+   -0.00542962557980615,
+   0.029914736164736166
+  ],
+  "acc_diff_p_le0": 0.0875,
+  "macro_f1_diff": 0.021222588834775125,
+  "macro_f1_diff_ci95": [
+   -0.002104203386375322,
+   0.04537872677500409
+  ],
+  "macro_f1_diff_p_le0": 0.0325,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 58,
+  "mcnemar_a_wrong_b_right": 34,
+  "mcnemar_p": 0.016020274788899967
+ },
+ "14class_siamese_feat_vs_paper_logits|E1_siamese_supcon_densenet201_seed1|E1_paper_densenet201_seed2": {
+  "acc_diff": 0.011052631578947314,
+  "acc_diff_ci95": [
+   -0.005932373241224686,
+   0.027468759378571895
+  ],
+  "acc_diff_p_le0": 0.0875,
+  "macro_f1_diff": 0.017015185965924773,
+  "macro_f1_diff_ci95": [
+   0.0006040093170200878,
+   0.038791564814768205
+  ],
+  "macro_f1_diff_p_le0": 0.022,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 60,
+  "mcnemar_a_wrong_b_right": 39,
+  "mcnemar_p": 0.0438752935870152
+ },
+ "14class_siamese_feat_vs_paper_logits|E1_siamese_supcon_densenet201_seed2|E1_paper_densenet201": {
+  "acc_diff": 0.000526315789473708,
+  "acc_diff_ci95": [
+   -0.016319379087017808,
+   0.01727100590251494
+  ],
+  "acc_diff_p_le0": 0.4675,
+  "macro_f1_diff": 0.00034653523464722724,
+  "macro_f1_diff_ci95": [
+   -0.015974302129111582,
+   0.025496197929935925
+  ],
+  "macro_f1_diff_p_le0": 0.404,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 47,
+  "mcnemar_a_wrong_b_right": 46,
+  "mcnemar_p": 1.0
+ },
+ "14class_siamese_feat_vs_paper_logits|E1_siamese_supcon_densenet201_seed2|E1_paper_densenet201_seed1": {
+  "acc_diff": 0.010526315789473717,
+  "acc_diff_ci95": [
+   -0.007446940581215152,
+   0.02700017898693398
+  ],
+  "acc_diff_p_le0": 0.126,
+  "macro_f1_diff": 0.013568112356316941,
+  "macro_f1_diff_ci95": [
+   -0.00846277056361212,
+   0.03599015232425216
+  ],
+  "macro_f1_diff_p_le0": 0.1145,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 60,
+  "mcnemar_a_wrong_b_right": 40,
+  "mcnemar_p": 0.05688793364098079
+ },
+ "14class_siamese_feat_vs_paper_logits|E1_siamese_supcon_densenet201_seed2|E1_paper_densenet201_seed2": {
+  "acc_diff": 0.008947368421052593,
+  "acc_diff_ci95": [
+   -0.007508906799830623,
+   0.025932045455606945
+  ],
+  "acc_diff_p_le0": 0.1465,
+  "macro_f1_diff": 0.00936070948746659,
+  "macro_f1_diff_ci95": [
+   -0.007008371751397563,
+   0.030015563918976296
+  ],
+  "macro_f1_diff_p_le0": 0.1195,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 62,
+  "mcnemar_a_wrong_b_right": 45,
+  "mcnemar_p": 0.1215124218762441
+ },
+ "22class_ncm_siamese_feat_vs_paper_feat|E1_siamese_supcon_densenet201|E1_paper_densenet201": {
+  "acc_diff": 0.019931939718035974,
+  "acc_diff_ci95": [
+   -0.005384646394154838,
+   0.04718874143233051
+  ],
+  "acc_diff_p_le0": 0.062,
+  "macro_f1_diff": 0.016620372492664015,
+  "macro_f1_diff_ci95": [
+   -0.006696765804170201,
+   0.04369391053648753
+  ],
+  "macro_f1_diff_p_le0": 0.08,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 90,
+  "mcnemar_a_wrong_b_right": 49,
+  "mcnemar_p": 0.0006382953625234167
+ },
+ "22class_ncm_siamese_feat_vs_paper_feat|E1_siamese_supcon_densenet201|E1_paper_densenet201_seed1": {
+  "acc_diff": 0.0272241127856101,
+  "acc_diff_ci95": [
+   0.003973481693118975,
+   0.054268863850763314
+  ],
+  "acc_diff_p_le0": 0.0065,
+  "macro_f1_diff": 0.0012948492640862952,
+  "macro_f1_diff_ci95": [
+   -0.02133413946413974,
+   0.031823820765826336
+  ],
+  "macro_f1_diff_p_le0": 0.3895,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 100,
+  "mcnemar_a_wrong_b_right": 44,
+  "mcnemar_p": 3.4938096511091036e-06
+ },
+ "22class_ncm_siamese_feat_vs_paper_feat|E1_siamese_supcon_densenet201|E1_paper_densenet201_seed2": {
+  "acc_diff": 0.025279533300923696,
+  "acc_diff_ci95": [
+   0.003087748097616744,
+   0.04920040609160844
+  ],
+  "acc_diff_p_le0": 0.013,
+  "macro_f1_diff": 0.01326560356226092,
+  "macro_f1_diff_ci95": [
+   -0.010887084453566917,
+   0.046937507786737755
+  ],
+  "macro_f1_diff_p_le0": 0.1265,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 96,
+  "mcnemar_a_wrong_b_right": 44,
+  "mcnemar_p": 1.3143213951094477e-05
+ },
+ "22class_ncm_siamese_feat_vs_paper_feat|E1_siamese_supcon_densenet201_seed1|E1_paper_densenet201": {
+  "acc_diff": 0.01361205639280505,
+  "acc_diff_ci95": [
+   -0.011036645599929598,
+   0.03855601422554817
+  ],
+  "acc_diff_p_le0": 0.138,
+  "macro_f1_diff": 0.0031207520743243844,
+  "macro_f1_diff_ci95": [
+   -0.019920838784725795,
+   0.02929919710195334
+  ],
+  "macro_f1_diff_p_le0": 0.3515,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 82,
+  "mcnemar_a_wrong_b_right": 54,
+  "mcnemar_p": 0.02026001125424599
+ },
+ "22class_ncm_siamese_feat_vs_paper_feat|E1_siamese_supcon_densenet201_seed1|E1_paper_densenet201_seed1": {
+  "acc_diff": 0.020904229460379176,
+  "acc_diff_ci95": [
+   -0.0015668290043289812,
+   0.04617184858101608
+  ],
+  "acc_diff_p_le0": 0.037,
+  "macro_f1_diff": -0.012204771154253335,
+  "macro_f1_diff_ci95": [
+   -0.034798847221298536,
+   0.015461297148247025
+  ],
+  "macro_f1_diff_p_le0": 0.798,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 97,
+  "mcnemar_a_wrong_b_right": 54,
+  "mcnemar_p": 0.0005846387710440845
+ },
+ "22class_ncm_siamese_feat_vs_paper_feat|E1_siamese_supcon_densenet201_seed1|E1_paper_densenet201_seed2": {
+  "acc_diff": 0.01895964997569277,
+  "acc_diff_ci95": [
+   -0.0035388331302912105,
+   0.042914338546986314
+  ],
+  "acc_diff_p_le0": 0.0575,
+  "macro_f1_diff": -0.00023401685607871148,
+  "macro_f1_diff_ci95": [
+   -0.026589154729618713,
+   0.03251478048720931
+  ],
+  "macro_f1_diff_p_le0": 0.446,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 93,
+  "mcnemar_a_wrong_b_right": 54,
+  "mcnemar_p": 0.0016313112527077745
+ },
+ "22class_ncm_siamese_feat_vs_paper_feat|E1_siamese_supcon_densenet201_seed2|E1_paper_densenet201": {
+  "acc_diff": 0.01361205639280505,
+  "acc_diff_ci95": [
+   -0.010770063012645803,
+   0.03894442208432768
+  ],
+  "acc_diff_p_le0": 0.136,
+  "macro_f1_diff": 0.001364808774677706,
+  "macro_f1_diff_ci95": [
+   -0.024438747866847084,
+   0.026009841783698372
+  ],
+  "macro_f1_diff_p_le0": 0.4555,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 81,
+  "mcnemar_a_wrong_b_right": 53,
+  "mcnemar_p": 0.019336848213766553
+ },
+ "22class_ncm_siamese_feat_vs_paper_feat|E1_siamese_supcon_densenet201_seed2|E1_paper_densenet201_seed1": {
+  "acc_diff": 0.020904229460379176,
+  "acc_diff_ci95": [
+   -0.0005239774170463257,
+   0.046265388932055534
+  ],
+  "acc_diff_p_le0": 0.0305,
+  "macro_f1_diff": -0.013960714453900014,
+  "macro_f1_diff_ci95": [
+   -0.03671303084797453,
+   0.008986916426425044
+  ],
+  "macro_f1_diff_p_le0": 0.8845,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 91,
+  "mcnemar_a_wrong_b_right": 48,
+  "mcnemar_p": 0.0003329425719921225
+ },
+ "22class_ncm_siamese_feat_vs_paper_feat|E1_siamese_supcon_densenet201_seed2|E1_paper_densenet201_seed2": {
+  "acc_diff": 0.01895964997569277,
+  "acc_diff_ci95": [
+   -0.0024231931144550883,
+   0.04229760255490085
+  ],
+  "acc_diff_p_le0": 0.047,
+  "macro_f1_diff": -0.00198996015572539,
+  "macro_f1_diff_ci95": [
+   -0.026947229965552842,
+   0.025982913864022242
+  ],
+  "macro_f1_diff_p_le0": 0.5395,
+  "n_boot": 2000,
+  "mcnemar_a_right_b_wrong": 85,
+  "mcnemar_a_wrong_b_right": 46,
+  "mcnemar_p": 0.0008320420945381638
+ }
+}

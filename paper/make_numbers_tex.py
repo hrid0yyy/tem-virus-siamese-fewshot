@@ -110,8 +110,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["amp", "fp32"], required=True)
     ap.add_argument("--out", default=str(HERE / "numbers.tex"))
+    ap.add_argument("--dry-run-amp-eval", action="store_true",
+                    help="testing only: fp32 classifier study + paired tests, but round-1 evaluate/analyze/compare files")
     a = ap.parse_args()
     S = Src(a.mode)
+    if a.dry_run_amp_eval:
+        S.eval_dir, S.an_dir, S.cmp_prefix = "eval_full", "analysis", "cmp_"
     M = {}  # macro name -> value
     T = {}  # table-body macro name -> rows
 
@@ -191,6 +195,22 @@ def main():
         put(f"Cmp{tag}McN", f"{c['mcnemar_a_right_b_wrong']} vs {c['mcnemar_a_wrong_b_right']}")
         put(f"Cmp{tag}McP", f"{c['mcnemar_p']:.2g}")
 
+    # all Siamese x B1 seed pairs (paired cluster bootstrap on identical test patches; fp32 only)
+    ps = RUNS / "paired_seeds_fp32_local.json"
+    PS = load(ps) if (a.mode == "fp32" and ps.exists()) else None
+    for tag, prefix in (("Closed", "14class_siamese_feat_vs_paper_logits"), ("Ncm", "22class_ncm_siamese_feat_vs_paper_feat")):
+        if PS is None:
+            for k in ("Range", "NPos", "NSig", "N", "FOneRange", "FOneNSig"):
+                put(f"Seed{tag}{k}", PENDING)
+            continue
+        xs = [PS[f"{prefix}|{s}|{b}"] for s in siam for b in b1]
+        put(f"Seed{tag}Range", f"{100 * min(x['acc_diff'] for x in xs):+.2f} to {100 * max(x['acc_diff'] for x in xs):+.2f}")
+        put(f"Seed{tag}NPos", str(sum(1 for x in xs if x["acc_diff"] > 0)))
+        put(f"Seed{tag}NSig", str(sum(1 for x in xs if x["acc_diff_ci95"][0] > 0 or x["acc_diff_ci95"][1] < 0)))
+        put(f"Seed{tag}N", str(len(xs)))
+        put(f"Seed{tag}FOneRange", f"{min(x['macro_f1_diff'] for x in xs):+.3f} to {max(x['macro_f1_diff'] for x in xs):+.3f}")
+        put(f"Seed{tag}FOneNSig", str(sum(1 for x in xs if x["macro_f1_diff_ci95"][0] > 0 or x["macro_f1_diff_ci95"][1] < 0)))
+
     # ------------------------------------------------------------------ 22-class GFSL, nearest class mean
     def gf(run, key):
         e = S.eval(run)
@@ -228,6 +248,10 @@ def main():
     put("SiamGfslFOne", msd([v["f1"] for v in sg], 1, 3))
     put("SiamGfslRare", msd([v["rare"] for v in sg], 100, 1))
     put("BOneGfslFOne", msd([v["f1"] for v in bg], 1, 3))
+    put("BOneGfslAcc", msd([v["acc"] for v in bg], 100, 2))
+    put("BOneGfslRare", msd([v["rare"] for v in bg], 100, 1))
+    put("SiamGfslBase", msd([v["base"] for v in sg], 100, 1))
+    put("BOneGfslBase", msd([v["base"] for v in bg], 100, 1))
     put("HeadRareMin", f"{100 * min(v['rare'] for v in hg):.0f}")
     put("HeadRareMax", f"{100 * max(v['rare'] for v in hg):.0f}")
     put("CeAcc", f"{100 * cec['accuracy']:.2f}" if cec else PENDING)
@@ -281,7 +305,8 @@ def main():
                 continue
             x = [G[r]["methods"][m] for r in runs]
             win = sum(1 for r in runs if max(G[r]["methods"], key=lambda q: G[r]["methods"][q]["val_macro_f1"]) == m)
-            rows.append(f"{label if m == 'ncm' else ''} & {mlab}{'$^{*}$' if win == len(runs) else ''} & "
+            mark = f"$^{{{win}/{len(runs)}}}$" if win else ""
+            rows.append(f"{label if m == 'ncm' else ''} & {mlab}{mark} & "
                         f"{msd([v['val_macro_f1'] for v in x], 1, 3)} & {msd([v['test']['accuracy'] for v in x], 100, 2)} & "
                         f"{msd([v['test']['macro_f1'] for v in x], 1, 3)} & "
                         f"{msd([v['test']['novel_mean_class_acc'] for v in x], 100, 1)} & "
@@ -289,9 +314,20 @@ def main():
                         f"{msd([v['kshot']['5']['novel_mean_class_acc']['mean'] for v in x], 100, 1)}")
         rows.append(r"\midrule")
     T["TabClassifierRows"] = rows[:-1]
-    win_all = all(max(G[r]["methods"], key=lambda q: G[r]["methods"][q]["val_macro_f1"]) == "logreg"
-                  for r in gs + gb + ([AUX] if G[AUX] else []))
-    put("LrWinsAll", "for every checkpoint" if win_all else r"\textcolor{red}{NOT for every checkpoint -- revise text}")
+    allck = gs + gb + ([AUX] if G[AUX] else [])
+    winner = {r: max(G[r]["methods"], key=lambda q: G[r]["methods"][q]["val_macro_f1"]) for r in allck}
+    nlr = sum(1 for r in allck if winner[r] == "logreg")
+    put("LrWinsN", str(nlr))
+    put("NCheckpoints", str(len(allck)))
+    names = {"ncm": "nearest class mean", "maha": "shrunk Mahalanobis", "dc": "distribution calibration"}
+    pretty = lambda r: ("Siamese seed " + (r[-1] if r.endswith(("seed1", "seed2")) else "0")) if r in gs else \
+        (("B1 seed " + (r[-1] if r.endswith(("seed1", "seed2")) else "0")) if r in gb else "SupCon + cosine CE")
+    others = [f"{names[winner[r]]} for {pretty(r)}" for r in allck if winner[r] != "logreg"]
+    put("LrWinExceptions", ("; " .join(others)) if others else "none")
+    for m in ("logreg", "maha", "ncm", "dc"):
+        for grp, runs in (("Siam", gs), ("BOne", gb)):
+            put(f"Win{grp}{ {'logreg': 'Lr', 'maha': 'Maha', 'ncm': 'Ncm', 'dc': 'Dc'}[m] }",
+                str(sum(1 for r in runs if winner[r] == m)))
     for m, nm in (("ncm", "Ncm"), ("logreg", "Lr"), ("maha", "Maha"), ("dc", "Dc")):
         put(f"Siam{nm}FOne", msd([G[r]["methods"][m]["test"]["macro_f1"] for r in gs], 1, 3))
         put(f"Siam{nm}Acc", msd([G[r]["methods"][m]["test"]["accuracy"] for r in gs], 100, 2))
@@ -352,11 +388,19 @@ def main():
         put("PairLrNcmAllPos", "excludes zero for every Siamese seed" if all(x["macro_f1_diff_ci95"][0] > 0 for x in lr)
             else r"\textcolor{red}{does NOT exclude zero for every seed -- revise text}")
         put("PairLrNcmCIs", "; ".join(ci_f1(x) for x in lr))
+        lra = [v for k, v in W.items() if k.endswith("|logreg_vs_ncm")]
+        put("PairLrNcmAllN", str(len(lra)))
+        put("PairLrNcmAllSig", str(sum(1 for x in lra if x["macro_f1_diff_ci95"][0] > 0)))
+        put("PairLrNcmAllRange", f"{min(x['macro_f1_diff'] for x in lra):+.3f} to {max(x['macro_f1_diff'] for x in lra):+.3f}")
         X = P["siamese_vs_baseline"]
         sb = [X[f"{s}|{b}|logreg"] for s in gs for b in gb if f"{s}|{b}|logreg" in X]
         put("PairSiamBOneLrRange", f"{min(x['macro_f1_diff'] for x in sb):+.3f} to {max(x['macro_f1_diff'] for x in sb):+.3f}")
         put("PairSiamBOneLrNSig", str(sum(1 for x in sb if x["macro_f1_diff_ci95"][0] > 0 or x["macro_f1_diff_ci95"][1] < 0)))
         put("PairSiamBOneLrN", str(len(sb)))
+        sig = [x for x in sb if x["macro_f1_diff_ci95"][0] > 0 or x["macro_f1_diff_ci95"][1] < 0]
+        npos, nneg = sum(1 for x in sig if x["macro_f1_diff"] > 0), sum(1 for x in sig if x["macro_f1_diff"] < 0)
+        put("PairSiamBOneLrSigDir", "none" if not sig else
+            ", ".join(p for p in ((f"{nneg} in favour of B1" if nneg else ""), (f"{npos} in favour of Siamese" if npos else "")) if p))
         K = P["kshot"]
         k1 = [K[f"K1|ncm|{s}|{b}"] for s in gs for b in gb if f"K1|ncm|{s}|{b}" in K]
         put("PairKOneRange", f"{100 * min(x['diff']['mean'] for x in k1):+.1f} to {100 * max(x['diff']['mean'] for x in k1):+.1f}")
@@ -368,8 +412,8 @@ def main():
         put("PairDcNSig", str(sum(1 for x in dc if x["diff"]["mean"] - x["diff"]["ci95"] > 0)))
         put("PairDcN", str(len(dc)))
     else:
-        for k in ("PairLrNcmRange", "PairLrNcmAllPos", "PairLrNcmCIs", "PairSiamBOneLrRange", "PairSiamBOneLrNSig",
-                  "PairSiamBOneLrN", "PairKOneRange", "PairKOneNSig", "PairKOneN", "PairKOneDraws", "PairDcRange",
+        for k in ("PairLrNcmRange", "PairLrNcmAllPos", "PairLrNcmCIs", "PairLrNcmAllN", "PairLrNcmAllSig", "PairLrNcmAllRange", "PairSiamBOneLrRange", "PairSiamBOneLrNSig",
+                  "PairSiamBOneLrN", "PairSiamBOneLrSigDir", "PairKOneRange", "PairKOneNSig", "PairKOneN", "PairKOneDraws", "PairDcRange",
                   "PairDcNSig", "PairDcN"):
             put(k, PENDING)
 

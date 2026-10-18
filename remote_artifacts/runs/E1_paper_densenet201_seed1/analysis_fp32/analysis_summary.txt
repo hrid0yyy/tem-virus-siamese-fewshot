@@ -1,0 +1,10 @@
+checkpoint: runs\E1_paper_densenet201_seed1\best.pt
+TTA=True
+
+logits closed : acc=0.9353 macroF1=0.9245 CI acc=[0.9062,0.9608]
+feat_l2    closed14 : acc=0.9147 macroF1=0.9172 CI acc=[0.8794,0.9473]
+           gfsl22 raw       : acc=0.8726 macroF1=0.7943 base=0.8889 novel=0.6752 mean-class base=0.8788 novel=0.7844 HM=0.8289
+           gfsl22 calibrated: acc=0.8775 macroF1=0.7975 base=0.8989 novel=0.6178 mean-class base=0.8919 novel=0.7289 HM=0.8022 gamma=-0.020(val)
+feat_cl2n  closed14 : acc=0.9084 macroF1=0.9020 CI acc=[0.8730,0.9390]
+           gfsl22 raw       : acc=0.8692 macroF1=0.7697 base=0.8889 novel=0.6306 mean-class base=0.8867 novel=0.7549 HM=0.8155
+           gfsl22 calibrated: acc=0.8760 macroF1=0.7921 base=0.9016 novel=0.5669 mean-class base=0.9069 novel=0.6913 HM=0.7845 gamma=-0.075(val)

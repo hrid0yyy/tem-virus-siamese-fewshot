@@ -1,0 +1,30 @@
+[06:04:33] Checkpoint runs\E1_siamese_supcon_densenet201\best.pt | model_type=metric | base=14 novel=8
+[06:04:33] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[06:04:33] Dataset verified: 10604 patches match the official counts.
+  loaded 2000/10604 patches
+  loaded 4000/10604 patches
+  loaded 6000/10604 patches
+  loaded 8000/10604 patches
+  loaded 10000/10604 patches
+[06:04:37] Pre-loaded 10604 patches into RAM in 4s (0.69 GB)
+[06:09:56] Embedded 10604 patches in 319s (TTA=True); keys=['feat', 'head']
+[06:09:57] [feat_l2] closed acc=0.9500 F1=0.9439 | GFSL raw acc=0.8999 F1=0.7956 HM=0.8318 | calibrated(g=-0.010 from val) acc=0.9033 F1=0.8053 HM=0.8353
+[06:09:58] [feat_cl2n] closed acc=0.9537 F1=0.9465 | GFSL raw acc=0.9067 F1=0.7969 HM=0.8243 | calibrated(g=-0.015 from val) acc=0.9120 F1=0.8068 HM=0.8285
+[06:10:00] [head_l2] closed acc=0.9589 F1=0.9519 | GFSL raw acc=0.8950 F1=0.6843 HM=0.5679 | calibrated(g=+0.000 from val) acc=0.8950 F1=0.6843 HM=0.5679
+[06:10:01] [head_cl2n] closed acc=0.9595 F1=0.9521 | GFSL raw acc=0.8940 F1=0.6776 HM=0.5523 | calibrated(g=+0.000 from val) acc=0.8940 F1=0.6776 HM=0.5523
+checkpoint: runs\E1_siamese_supcon_densenet201\best.pt
+TTA=True
+
+feat_l2    closed14 : acc=0.9500 macroF1=0.9439 CI acc=[0.9229,0.9755]
+           gfsl22 raw       : acc=0.8999 macroF1=0.7956 base=0.9211 novel=0.6433 mean-class base=0.9063 novel=0.7687 HM=0.8318
+           gfsl22 calibrated: acc=0.9033 macroF1=0.8053 base=0.9247 novel=0.6433 mean-class base=0.9145 novel=0.7687 HM=0.8353 gamma=-0.010(val)
+feat_cl2n  closed14 : acc=0.9537 macroF1=0.9465 CI acc=[0.9282,0.9767]
+           gfsl22 raw       : acc=0.9067 macroF1=0.7969 base=0.9305 novel=0.6178 mean-class base=0.9144 novel=0.7504 HM=0.8243
+           gfsl22 calibrated: acc=0.9120 macroF1=0.8068 base=0.9363 novel=0.6178 mean-class base=0.9247 novel=0.7504 HM=0.8285 gamma=-0.015(val)
+head_l2    closed14 : acc=0.9589 macroF1=0.9519 CI acc=[0.9347,0.9826]
+           gfsl22 raw       : acc=0.8950 macroF1=0.6843 base=0.9411 novel=0.3376 mean-class base=0.9203 novel=0.4107 HM=0.5679
+           gfsl22 calibrated: acc=0.8950 macroF1=0.6843 base=0.9411 novel=0.3376 mean-class base=0.9203 novel=0.4107 HM=0.5679 gamma=+0.000(val)
+head_cl2n  closed14 : acc=0.9595 macroF1=0.9521 CI acc=[0.9360,0.9826]
+           gfsl22 raw       : acc=0.8940 macroF1=0.6776 base=0.9416 novel=0.3185 mean-class base=0.9211 novel=0.3944 HM=0.5523
+           gfsl22 calibrated: acc=0.8940 macroF1=0.6776 base=0.9416 novel=0.3185 mean-class base=0.9211 novel=0.3944 HM=0.5523 gamma=+0.000(val)
+[06:10:01] Wrote runs\E1_siamese_supcon_densenet201\analysis_fp32

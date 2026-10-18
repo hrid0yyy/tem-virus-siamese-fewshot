@@ -27,7 +27,7 @@ from temfs.gfsl_methods import METHODS, macro_f1, pair_separability, select_on_v
 from temfs.metrics import harmonic_mean, mean_ci95, subset_accuracy, subset_mean_class_accuracy  # noqa: E402
 from temfs.pipeline import build_bank, load_checkpoint, prepare_data  # noqa: E402
 from temfs.samplers import draw_image_balanced  # noqa: E402
-from temfs.utils import Logger, get_device, save_json, seed_everything  # noqa: E402
+from temfs.utils import Logger, environment_info, get_device, save_json, seed_everything  # noqa: E402
 
 PAIRS = [("Dengue", "Sapovirus"), ("Dengue", "TBE"), ("Dengue", "Astrovirus"), ("Sapovirus", "Norovirus"),
          ("Sapovirus", "Astrovirus"), ("Guanarito", "Lassa"), ("Guanarito", "Machupo"), ("LCM", "Machupo")]
@@ -63,6 +63,7 @@ def kshot_eval(fit, pred, params, X, y, groups, split, classes, base_ids, novel_
             st["hm"].append(harmonic_mean(b, n))
             st["macro_f1"].append(macro_f1(yt, p, len(classes)))
         out[str(k)] = {m_: mean_ci95(v) for m_, v in st.items()}
+        out[str(k)]["per_draw"] = {m_: [float(x) for x in v] for m_, v in st.items()}  # same draws for every model
     return out
 
 
@@ -90,7 +91,7 @@ def main(argv=None):
     ks = [int(k) for k in a.kshot.split(",") if k]
     records, store = prepare_data(a.data_root, log, skip_verify=a.skip_verify)
     results = {"methods": methods, "selection": "validation macro-F1 (train -> validation), applied once to test",
-               "checkpoints": {}}
+               "environment": environment_info(), "checkpoints": {}}
 
     for ck in a.checkpoints:
         t0 = time.time()
@@ -109,6 +110,8 @@ def main(argv=None):
         tr, va, te = split == "train", split == "validation", split == "test"
         log(f"== {ck}: embedded {len(X)} patches in {time.time() - t0:.0f}s; base={len(base)} rare={len(novel)}")
         R = {"diagnostic_validation": {}, "methods": {}}
+        preds = {"test_idx": np.where(te)[0], "y": y[te], "groups": np.array(groups[te], dtype=str),
+                 "classes": np.array(classes, dtype=str)}
         for p, q in PAIRS:
             if p in lut and q in lut:
                 d = pair_separability(X[tr], y[tr], X[va], y[va], lut[p], lut[q])
@@ -121,6 +124,7 @@ def main(argv=None):
                                                          base_ids, novel_ids, log=log)
             m = fit(X[tr], y[tr], len(classes), base_ids=base_ids, novel_ids=novel_ids, **params)
             p_te = pred(m, X[te]).argmax(1)
+            preds[f"{name}_pred"] = p_te
             s = summarise(y[te], p_te, groups[te], len(classes), base_ids, novel_ids, n_boot=a.n_boot, seed=a.seed)
             s["weak_f1"] = {c: s["per_class_f1"][lut[c]] for c in WEAK if c in lut}
             s["weak_recall"] = {c: s["per_class_recall"][lut[c]] for c in WEAK if c in lut}
@@ -133,6 +137,7 @@ def main(argv=None):
                 ", ".join(f"{c}={v:.2f}" for c, v in s["weak_f1"].items()) + " | K-shot rare acc: " +
                 ", ".join(f"K={k}:{v['novel_mean_class_acc']['mean']:.3f}" for k, v in ksr.items()))
         results["checkpoints"][ck] = R
+        np.savez_compressed(out_dir / f"predictions_{Path(ck).parent.name}.npz", **preds)
         save_json(results, out_dir / "gfsl_improve.json")
     log(f"done -> {out_dir / 'gfsl_improve.json'}")
     return results

@@ -1,0 +1,6 @@
+Base (training) classes: 22 | novel: []
+
+[classifier logits] closed test: acc=0.9310 macroF1=0.8971  acc95%CI=[0.8949,0.9631]
+    base acc=0.9505 novel acc=0.6943 HM=0.8024
+=== embedding: feat ===
+closed (E1) test : acc=0.9310 macroF1=0.8858 image-acc=0.9206  acc95%CI=[0.8942,0.9635]

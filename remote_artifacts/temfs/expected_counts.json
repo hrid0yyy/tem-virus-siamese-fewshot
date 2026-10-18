@@ -1,0 +1,355 @@
+{
+ "_source": "Mendeley Data public API listing of 10.17632/x4dwwfwtw3.3 (crawled 2026-10-14); image counts cross-checked with Table 1 of Matuszewski & Sintorn (2021).",
+ "counts": {
+  "Adenovirus": {
+   "train": {
+    "patches": 160,
+    "images": 40
+   },
+   "validation": {
+    "patches": 44,
+    "images": 13
+   },
+   "test": {
+    "patches": 86,
+    "images": 14
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Astrovirus": {
+   "train": {
+    "patches": 266,
+    "images": 46
+   },
+   "validation": {
+    "patches": 86,
+    "images": 15
+   },
+   "test": {
+    "patches": 66,
+    "images": 15
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "CCHF": {
+   "train": {
+    "patches": 249,
+    "images": 44
+   },
+   "validation": {
+    "patches": 100,
+    "images": 15
+   },
+   "test": {
+    "patches": 86,
+    "images": 15
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Cowpox": {
+   "train": {
+    "patches": 189,
+    "images": 30
+   },
+   "validation": {
+    "patches": 72,
+    "images": 10
+   },
+   "test": {
+    "patches": 59,
+    "images": 10
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Dengue": {
+   "train": {
+    "patches": 72,
+    "images": 19
+   },
+   "validation": {
+    "patches": 15,
+    "images": 6
+   },
+   "test": {
+    "patches": 44,
+    "images": 7
+   }
+  },
+  "Ebola": {
+   "train": {
+    "patches": 1118,
+    "images": 65
+   },
+   "validation": {
+    "patches": 469,
+    "images": 22
+   },
+   "test": {
+    "patches": 363,
+    "images": 22
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Guanarito": {
+   "train": {
+    "patches": 31,
+    "images": 13
+   },
+   "validation": {
+    "patches": 10,
+    "images": 4
+   },
+   "test": {
+    "patches": 7,
+    "images": 4
+   }
+  },
+  "Influenza": {
+   "train": {
+    "patches": 497,
+    "images": 56
+   },
+   "validation": {
+    "patches": 281,
+    "images": 19
+   },
+   "test": {
+    "patches": 170,
+    "images": 19
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Lassa": {
+   "train": {
+    "patches": 279,
+    "images": 62
+   },
+   "validation": {
+    "patches": 114,
+    "images": 21
+   },
+   "test": {
+    "patches": 128,
+    "images": 21
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "LCM": {
+   "train": {
+    "patches": 31,
+    "images": 22
+   },
+   "validation": {
+    "patches": 10,
+    "images": 7
+   },
+   "test": {
+    "patches": 14,
+    "images": 8
+   }
+  },
+  "Machupo": {
+   "train": {
+    "patches": 69,
+    "images": 20
+   },
+   "validation": {
+    "patches": 16,
+    "images": 6
+   },
+   "test": {
+    "patches": 23,
+    "images": 7
+   }
+  },
+  "Marburg": {
+   "train": {
+    "patches": 511,
+    "images": 57
+   },
+   "validation": {
+    "patches": 174,
+    "images": 19
+   },
+   "test": {
+    "patches": 173,
+    "images": 19
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Nipah virus": {
+   "train": {
+    "patches": 142,
+    "images": 25
+   },
+   "validation": {
+    "patches": 40,
+    "images": 8
+   },
+   "test": {
+    "patches": 35,
+    "images": 8
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Norovirus": {
+   "train": {
+    "patches": 231,
+    "images": 32
+   },
+   "validation": {
+    "patches": 104,
+    "images": 11
+   },
+   "test": {
+    "patches": 84,
+    "images": 11
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Orf": {
+   "train": {
+    "patches": 92,
+    "images": 38
+   },
+   "validation": {
+    "patches": 76,
+    "images": 13
+   },
+   "test": {
+    "patches": 31,
+    "images": 13
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Papilloma": {
+   "train": {
+    "patches": 693,
+    "images": 19
+   },
+   "validation": {
+    "patches": 227,
+    "images": 6
+   },
+   "test": {
+    "patches": 187,
+    "images": 6
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Pseudocowpox": {
+   "train": {
+    "patches": 48,
+    "images": 20
+   },
+   "validation": {
+    "patches": 21,
+    "images": 7
+   },
+   "test": {
+    "patches": 16,
+    "images": 7
+   }
+  },
+  "Rift Valley": {
+   "train": {
+    "patches": 1144,
+    "images": 77
+   },
+   "validation": {
+    "patches": 414,
+    "images": 26
+   },
+   "test": {
+    "patches": 392,
+    "images": 26
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Rotavirus": {
+   "train": {
+    "patches": 169,
+    "images": 22
+   },
+   "validation": {
+    "patches": 48,
+    "images": 7
+   },
+   "test": {
+    "patches": 40,
+    "images": 7
+   },
+   "augmented_train": {
+    "patches": 736
+   }
+  },
+  "Sapovirus": {
+   "train": {
+    "patches": 19,
+    "images": 8
+   },
+   "validation": {
+    "patches": 11,
+    "images": 3
+   },
+   "test": {
+    "patches": 8,
+    "images": 3
+   }
+  },
+  "TBE": {
+   "train": {
+    "patches": 39,
+    "images": 25
+   },
+   "validation": {
+    "patches": 12,
+    "images": 8
+   },
+   "test": {
+    "patches": 11,
+    "images": 8
+   }
+  },
+  "WestNile": {
+   "train": {
+    "patches": 88,
+    "images": 5
+   },
+   "validation": {
+    "patches": 66,
+    "images": 2
+   },
+   "test": {
+    "patches": 34,
+    "images": 2
+   }
+  }
+ }
+}

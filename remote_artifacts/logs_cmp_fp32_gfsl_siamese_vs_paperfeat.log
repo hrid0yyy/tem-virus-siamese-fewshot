@@ -1,0 +1,4 @@
+A=feat_l2_gfsl_raw acc=0.8999 | B=feat_l2_gfsl_raw acc=0.8799 | n=2057 patches, 252 micrographs
+acc diff A-B = +0.0199  95% CI [-0.0054, +0.0472]  (bootstrap P(diff<=0)=0.062)
+macro-F1 diff = +0.0166  95% CI [-0.0067, +0.0437]  (P(diff<=0)=0.080)
+McNemar: A right/B wrong=90, A wrong/B right=49, exact p=0.0006383

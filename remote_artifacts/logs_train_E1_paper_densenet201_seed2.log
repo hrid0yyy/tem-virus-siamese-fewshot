@@ -1,0 +1,81 @@
+[02:13:29] Run dir: runs\E1_paper_densenet201_seed2
+[02:13:29] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[02:13:29] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[02:13:29] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[02:13:29] Dataset verified: 10604 patches match the official counts.
+  loaded 2000/20908 patches
+  loaded 4000/20908 patches
+  loaded 6000/20908 patches
+  loaded 8000/20908 patches
+  loaded 10000/20908 patches
+  loaded 12000/20908 patches
+  loaded 14000/20908 patches
+  loaded 16000/20908 patches
+  loaded 18000/20908 patches
+  loaded 20000/20908 patches
+[02:13:38] Pre-loaded 20908 patches into RAM in 9s (1.37 GB)
+[02:13:38] Train patches: 10304 (augmented_train), validation patches: 2249
+[02:13:39] Model: PaperClassifier(densenet201, head=paper) trainable params=144,987,022 | train samples=10304 | steps/epoch=859
+E:\tem_fewshot\temfs\engine.py:365: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  sched.step()
+[02:19:40] epoch=1 | train_loss=0.8777 | train_acc=0.7216 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=262.4000 | val_acc=0.9044 | val_macro_f1=0.8799
+[02:19:41]   new best val_acc=0.9044 (epoch 1) -> best.pt
+[02:22:27] epoch=2 | train_loss=0.1682 | train_acc=0.9469 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.7000 | val_acc=0.8835 | val_macro_f1=0.8662
+[02:25:13] epoch=3 | train_loss=0.0762 | train_acc=0.9763 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9191 | val_macro_f1=0.9000
+[02:25:14]   new best val_acc=0.9191 (epoch 3) -> best.pt
+[02:28:00] epoch=4 | train_loss=0.0404 | train_acc=0.9877 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9253 | val_macro_f1=0.9057
+[02:28:01]   new best val_acc=0.9253 (epoch 4) -> best.pt
+[02:30:47] epoch=5 | train_loss=0.0300 | train_acc=0.9903 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9164 | val_macro_f1=0.8932
+[02:33:33] epoch=6 | train_loss=0.0260 | train_acc=0.9918 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9177 | val_macro_f1=0.8989
+[02:36:19] epoch=7 | train_loss=0.0245 | train_acc=0.9927 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.7000 | val_acc=0.9186 | val_macro_f1=0.8981
+[02:39:05] epoch=8 | train_loss=0.0168 | train_acc=0.9939 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9302 | val_macro_f1=0.9109
+[02:39:05]   new best val_acc=0.9302 (epoch 8) -> best.pt
+[02:41:51] epoch=9 | train_loss=0.0122 | train_acc=0.9956 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9369 | val_macro_f1=0.9196
+[02:41:52]   new best val_acc=0.9369 (epoch 9) -> best.pt
+[02:44:38] epoch=10 | train_loss=0.0172 | train_acc=0.9945 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9293 | val_macro_f1=0.8994
+[02:47:24] epoch=11 | train_loss=0.0199 | train_acc=0.9931 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9244 | val_macro_f1=0.9017
+[02:50:10] epoch=12 | train_loss=0.0150 | train_acc=0.9957 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9271 | val_macro_f1=0.9088
+[02:52:56] epoch=13 | train_loss=0.0149 | train_acc=0.9953 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9271 | val_macro_f1=0.9044
+[02:55:42] epoch=14 | train_loss=0.0123 | train_acc=0.9963 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9360 | val_macro_f1=0.9079
+[02:58:28] epoch=15 | train_loss=0.0036 | train_acc=0.9987 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9342 | val_macro_f1=0.9147
+[03:01:14] epoch=16 | train_loss=0.0085 | train_acc=0.9975 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9275 | val_macro_f1=0.8910
+[03:04:00] epoch=17 | train_loss=0.0101 | train_acc=0.9968 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9306 | val_macro_f1=0.8990
+[03:06:46] epoch=18 | train_loss=0.0120 | train_acc=0.9968 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9093 | val_macro_f1=0.8740
+[03:09:32] epoch=19 | train_loss=0.0124 | train_acc=0.9968 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9262 | val_macro_f1=0.8945
+[03:12:18] epoch=20 | train_loss=0.0100 | train_acc=0.9971 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9182 | val_macro_f1=0.8849
+[03:15:04] epoch=21 | train_loss=0.0105 | train_acc=0.9962 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9413 | val_macro_f1=0.9161
+[03:15:05]   new best val_acc=0.9413 (epoch 21) -> best.pt
+[03:17:51] epoch=22 | train_loss=0.0086 | train_acc=0.9981 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9386 | val_macro_f1=0.9163
+[03:20:37] epoch=23 | train_loss=0.0091 | train_acc=0.9980 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9382 | val_macro_f1=0.9176
+[03:23:23] epoch=24 | train_loss=0.0086 | train_acc=0.9976 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9289 | val_macro_f1=0.9048
+[03:26:09] epoch=25 | train_loss=0.0090 | train_acc=0.9972 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9302 | val_macro_f1=0.9097
+[03:28:55] epoch=26 | train_loss=0.0051 | train_acc=0.9983 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.4000 | val_acc=0.9440 | val_macro_f1=0.9305
+[03:28:55]   new best val_acc=0.9440 (epoch 26) -> best.pt
+[03:31:41] epoch=27 | train_loss=0.0070 | train_acc=0.9977 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9422 | val_macro_f1=0.9181
+[03:34:27] epoch=28 | train_loss=0.0048 | train_acc=0.9984 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9057 | val_macro_f1=0.8856
+[03:37:13] epoch=29 | train_loss=0.0079 | train_acc=0.9979 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9409 | val_macro_f1=0.9190
+[03:39:59] epoch=30 | train_loss=0.0072 | train_acc=0.9981 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9395 | val_macro_f1=0.9233
+[03:42:45] epoch=31 | train_loss=0.0107 | train_acc=0.9974 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.4000 | val_acc=0.9391 | val_macro_f1=0.9233
+[03:45:31] epoch=32 | train_loss=0.0068 | train_acc=0.9984 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.7000 | val_acc=0.9422 | val_macro_f1=0.9181
+[03:48:17] epoch=33 | train_loss=0.0067 | train_acc=0.9979 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9302 | val_macro_f1=0.9059
+[03:51:03] epoch=34 | train_loss=0.0079 | train_acc=0.9980 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9342 | val_macro_f1=0.9113
+[03:53:50] epoch=35 | train_loss=0.0110 | train_acc=0.9962 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.7000 | val_acc=0.9369 | val_macro_f1=0.9085
+[03:56:36] epoch=36 | train_loss=0.0049 | train_acc=0.9985 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9320 | val_macro_f1=0.9042
+[03:59:22] epoch=37 | train_loss=0.0119 | train_acc=0.9975 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9342 | val_macro_f1=0.9105
+[04:02:08] epoch=38 | train_loss=0.0048 | train_acc=0.9984 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9306 | val_macro_f1=0.9071
+[04:04:54] epoch=39 | train_loss=0.0057 | train_acc=0.9984 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9266 | val_macro_f1=0.8961
+[04:07:40] epoch=40 | train_loss=0.0054 | train_acc=0.9985 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.7000 | val_acc=0.9378 | val_macro_f1=0.9093
+[04:10:26] epoch=41 | train_loss=0.0065 | train_acc=0.9974 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.4000 | val_acc=0.9133 | val_macro_f1=0.8868
+[04:13:12] epoch=42 | train_loss=0.0148 | train_acc=0.9966 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9284 | val_macro_f1=0.8954
+[04:15:58] epoch=43 | train_loss=0.0052 | train_acc=0.9984 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.7000 | val_acc=0.9284 | val_macro_f1=0.8948
+[04:18:44] epoch=44 | train_loss=7.95e-04 | train_acc=0.9997 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9266 | val_macro_f1=0.8911
+[04:21:30] epoch=45 | train_loss=0.0096 | train_acc=0.9974 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9342 | val_macro_f1=0.9053
+[04:24:16] epoch=46 | train_loss=0.0075 | train_acc=0.9979 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9275 | val_macro_f1=0.8941
+[04:27:02] epoch=47 | train_loss=0.0033 | train_acc=0.9990 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9391 | val_macro_f1=0.9097
+[04:29:48] epoch=48 | train_loss=0.0026 | train_acc=0.9991 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.6000 | val_acc=0.9355 | val_macro_f1=0.9063
+[04:32:34] epoch=49 | train_loss=0.0106 | train_acc=0.9978 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9297 | val_macro_f1=0.8973
+[04:35:20] epoch=50 | train_loss=0.0049 | train_acc=0.9983 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=158.5000 | val_acc=0.9364 | val_macro_f1=0.9098
+[04:35:22] Finished. Best checkpoint: runs\E1_paper_densenet201_seed2\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root data --checkpoint runs\E1_paper_densenet201_seed2\best.pt

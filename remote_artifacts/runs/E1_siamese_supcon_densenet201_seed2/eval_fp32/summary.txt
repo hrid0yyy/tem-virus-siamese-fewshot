@@ -1,0 +1,25 @@
+Base (training) classes: 14 | novel: ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']
+
+=== embedding: head ===
+closed (E1) test : acc=0.9532 macroF1=0.9486 image-acc=0.9660  acc95%CI=[0.9314,0.9732]
+GFSL (E2) test   : all acc=0.8940 macroF1=0.7082 | base=0.9395 novel=0.3439 HM=0.5035 | novel-only=0.4904
+    per-class recall: Adenovirus=0.88, Astrovirus=0.86, CCHF=0.88, Cowpox=0.97, Ebola=0.91, Influenza=0.96, Lassa=0.80, Marburg=0.99, Nipah virus=0.89, Norovirus=0.98, Orf=0.84, Papilloma=1.00, Rift Valley=0.98, Rotavirus=1.00, Dengue=0.02, Guanarito=0.71, LCM=0.07, Machupo=0.09, Pseudocowpox=0.81, Sapovirus=0.88, TBE=0.18, WestNile=0.68
+K-shot (E3) K= 1: novel=0.1864+-0.0136 base=0.9393 HM=0.3052 novel-only=0.4291
+K-shot (E3) K= 3: novel=0.2532+-0.0131 base=0.9407 HM=0.3944 novel-only=0.5290
+K-shot (E3) K= 5: novel=0.3001+-0.0123 base=0.9401 HM=0.4515 novel-only=0.5401
+K-shot (E3) K=10: novel=0.3307+-0.0065 base=0.9400 HM=0.4883 novel-only=0.5386
+episodic (E4) 8-way 1-shot: acc=0.5604+-0.0052 (600 episodes)
+episodic (E4) 8-way 5-shot: acc=0.6465+-0.0032 (600 episodes)
+open-set (E5): patch AUROC=0.8877 FPR@95TPR=0.4777 | image AUROC=0.8078
+
+=== embedding: feat ===
+closed (E1) test : acc=0.9458 macroF1=0.9381 image-acc=0.9612  acc95%CI=[0.9199,0.9726]
+GFSL (E2) test   : all acc=0.8935 macroF1=0.7803 | base=0.9168 novel=0.6115 HM=0.7336 | novel-only=0.6497
+    per-class recall: Adenovirus=0.80, Astrovirus=0.68, CCHF=0.87, Cowpox=0.95, Ebola=0.88, Influenza=0.94, Lassa=0.82, Marburg=0.98, Nipah virus=0.91, Norovirus=0.98, Orf=0.94, Papilloma=0.99, Rift Valley=0.96, Rotavirus=0.97, Dengue=0.11, Guanarito=0.86, LCM=0.64, Machupo=0.48, Pseudocowpox=0.94, Sapovirus=0.88, TBE=0.82, WestNile=1.00
+K-shot (E3) K= 1: novel=0.3345+-0.0178 base=0.9345 HM=0.4854 novel-only=0.5145
+K-shot (E3) K= 3: novel=0.5413+-0.0062 base=0.9235 HM=0.6820 novel-only=0.6252
+K-shot (E3) K= 5: novel=0.5818+-0.0060 base=0.9195 HM=0.7122 novel-only=0.6346
+K-shot (E3) K=10: novel=0.6166+-0.0038 base=0.9173 HM=0.7373 novel-only=0.6588
+episodic (E4) 8-way 1-shot: acc=0.6464+-0.0053 (600 episodes)
+episodic (E4) 8-way 5-shot: acc=0.7742+-0.0029 (600 episodes)
+open-set (E5): patch AUROC=0.8792 FPR@95TPR=0.5605 | image AUROC=0.8400

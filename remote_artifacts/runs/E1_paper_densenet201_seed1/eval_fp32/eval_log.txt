@@ -1,0 +1,21 @@
+[05:05:14] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'fp32-deterministic', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[05:05:15] Checkpoint runs\E1_paper_densenet201_seed1\best.pt (epoch 10, val_acc=0.9390840373499333) | model_type=classifier | trained on 14 classes
+[05:05:15] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[05:05:15] Dataset verified: 10604 patches match the official counts.
+[05:05:20] Pre-loaded 10604 patches into RAM in 5s (0.69 GB)
+[05:10:43] Embedded 10604 patches in 323s (TTA=True) keys=['feat', 'logits']
+[05:10:43] [feat] closed-set nearest-prototype on 14 training classes (test split)
+[05:10:43]     acc=0.9147 macroF1=0.9172 | image-level acc=0.9417
+[05:10:43] [feat] generalized few-shot: 14 base + 8 novel classes
+[05:10:43]     all-class acc=0.8726 macroF1=0.7943 | base acc=0.8889 novel acc=0.6752 HM=0.7674 | novel-only acc=0.7070
+[05:10:43] [feat] K-shot curve on novel classes, K=[1, 3, 5, 10], repeats=100
+[05:10:48]     K=1: base=0.9106 novel=0.2574+-0.0154 HM=0.3947 novel-only=0.5117
+[05:10:48]     K=3: base=0.9012 novel=0.5153+-0.0072 HM=0.6549 novel-only=0.6240
+[05:10:48]     K=5: base=0.8963 novel=0.5766+-0.0061 HM=0.7013 novel-only=0.6429
+[05:10:48]     K=10: base=0.8930 novel=0.6225+-0.0042 HM=0.7334 novel-only=0.6705
+[05:10:50] [feat] episodic 8-way 1-shot on ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']: acc=0.6487+-0.0052
+[05:10:51] [feat] episodic 8-way 5-shot on ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']: acc=0.7950+-0.0028
+[05:10:51] [feat] open-set (known=14, unknown=8): patch AUROC=0.8976 FPR@95TPR=0.5414 | image AUROC=0.8533
+[05:10:51] [logits] closed-set classifier evaluation (test split)
+[05:10:52]     acc=0.9353 macroF1=0.9245
+[05:10:52] Results written to runs\E1_paper_densenet201_seed1\eval_fp32

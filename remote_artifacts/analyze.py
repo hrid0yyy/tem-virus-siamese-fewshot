@@ -30,7 +30,7 @@ from temfs.fewshot import ncm_scores, prototypes  # noqa: E402
 from temfs.metrics import (classification_scores, harmonic_mean, stratified_cluster_bootstrap,  # noqa: E402
                            subset_accuracy, subset_mean_class_accuracy)
 from temfs.pipeline import build_bank, load_checkpoint, prepare_data  # noqa: E402
-from temfs.utils import Logger, get_device, save_json, seed_everything  # noqa: E402
+from temfs.utils import Logger, environment_info, get_device, save_json, seed_everything  # noqa: E402
 
 GAMMA_GRID = np.round(np.arange(-0.10, 0.2001, 0.005), 4)
 
@@ -143,6 +143,7 @@ def main(argv=None):
                         f"F1={k_['macro_f1']:.4f} HM={k_['hm_mean_class_acc']:.4f}")
             log(msg)
 
+    results["environment"] = environment_info()
     save_json(results, out_dir / "analysis.json")
     np.savez_compressed(out_dir / "predictions.npz", **preds)
     lines = [f"checkpoint: {args.checkpoint}", f"TTA={args.tta}", ""]

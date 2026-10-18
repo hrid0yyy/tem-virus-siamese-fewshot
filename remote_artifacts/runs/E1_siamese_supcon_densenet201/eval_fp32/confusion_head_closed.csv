@@ -1,0 +1,15 @@
+,Adenovirus,Astrovirus,CCHF,Cowpox,Ebola,Influenza,Lassa,Marburg,Nipah virus,Norovirus,Orf,Papilloma,Rift Valley,Rotavirus
+Adenovirus,66,0,0,0,0,0,0,0,0,0,0,0,20,0
+Astrovirus,0,66,0,0,0,0,0,0,0,0,0,0,0,0
+CCHF,1,0,78,1,0,0,1,0,0,0,0,1,4,0
+Cowpox,0,0,0,57,1,0,0,0,0,0,1,0,0,0
+Ebola,0,0,0,11,334,0,2,13,1,0,1,0,1,0
+Influenza,0,0,0,0,0,168,2,0,0,0,0,0,0,0
+Lassa,0,0,0,1,4,0,123,0,0,0,0,0,0,0
+Marburg,0,0,0,0,0,0,1,172,0,0,0,0,0,0
+Nipah virus,0,0,0,0,0,5,0,1,29,0,0,0,0,0
+Norovirus,0,0,0,0,0,0,1,0,0,83,0,0,0,0
+Orf,0,0,0,1,0,0,0,0,0,0,30,0,0,0
+Papilloma,0,0,0,0,0,0,0,0,0,0,0,187,0,0
+Rift Valley,0,0,1,0,2,0,0,0,0,0,0,0,389,0
+Rotavirus,0,0,0,0,0,0,0,0,0,0,0,0,0,40

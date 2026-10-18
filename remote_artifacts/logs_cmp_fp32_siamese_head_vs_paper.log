@@ -1,0 +1,4 @@
+A=head_l2_closed acc=0.9589 | B=logits_closed acc=0.9453 | n=1900 patches, 206 micrographs
+acc diff A-B = +0.0137  95% CI [-0.0038, +0.0306]  (bootstrap P(diff<=0)=0.061)
+macro-F1 diff = +0.0142  95% CI [-0.0015, +0.0388]  (P(diff<=0)=0.040)
+McNemar: A right/B wrong=54, A wrong/B right=28, exact p=0.005436

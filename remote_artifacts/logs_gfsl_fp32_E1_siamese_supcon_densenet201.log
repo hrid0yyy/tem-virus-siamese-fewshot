@@ -1,0 +1,26 @@
+[21:19:30] Patch root: data\TEM virus dataset\context_virus_1nm_256x256
+[21:19:30] Dataset verified: 10604 patches match the official counts.
+  loaded 2000/10604 patches
+  loaded 4000/10604 patches
+  loaded 6000/10604 patches
+  loaded 8000/10604 patches
+  loaded 10000/10604 patches
+[21:19:35] Pre-loaded 10604 patches into RAM in 5s (0.69 GB)
+[21:26:59] == runs\E1_siamese_supcon_densenet201\best.pt: embedded 10604 patches in 443s; base=14 rare=8
+[21:26:59]   separability (val) Dengue vs Sapovirus: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=0.923  (n=15/11)
+[21:26:59]   separability (val) Dengue vs TBE: logreg AUC=0.967 acc=0.926 | 2-class NCM acc=0.852  (n=15/12)
+[21:26:59]   separability (val) Dengue vs Astrovirus: logreg AUC=1.000 acc=0.941 | 2-class NCM acc=0.871  (n=15/86)
+[21:26:59]   separability (val) Sapovirus vs Norovirus: logreg AUC=0.993 acc=0.991 | 2-class NCM acc=0.991  (n=11/104)
+[21:26:59]   separability (val) Sapovirus vs Astrovirus: logreg AUC=0.988 acc=0.907 | 2-class NCM acc=0.495  (n=11/86)
+[21:26:59]   separability (val) Guanarito vs Lassa: logreg AUC=0.988 acc=0.952 | 2-class NCM acc=0.879  (n=10/114)
+[21:26:59]   separability (val) Guanarito vs Machupo: logreg AUC=0.975 acc=0.923 | 2-class NCM acc=0.731  (n=10/16)
+[21:26:59]   separability (val) LCM vs Machupo: logreg AUC=0.969 acc=0.885 | 2-class NCM acc=0.846  (n=10/16)
+[21:26:59]   [ncm] validation macro-F1 by setting: {}:0.7780  -> selected {}
+[21:27:02]   [ncm] TEST acc=0.8999 macroF1=0.7956 base=0.9211 rare mean-class=0.7687 HM=0.8318 | weak F1: Dengue=0.11, Sapovirus=0.20, Guanarito=0.47, LCM=0.53, Machupo=0.70, Astrovirus=0.82, Adenovirus=0.85, Lassa=0.90 | K-shot rare acc: K=1:0.397, K=5:0.672
+[21:27:58]   [maha] validation macro-F1 by setting: {'pca_dim': 64, 'beta': 0.1}:0.8034, {'pca_dim': 64, 'beta': 1.0}:0.7709, {'pca_dim': 64, 'beta': 10.0}:0.7677, {'pca_dim': 128, 'beta': 0.1}:0.8227, {'pca_dim': 128, 'beta': 1.0}:0.8068, {'pca_dim': 128, 'beta': 10.0}:0.7774, {'pca_dim': 256, 'beta': 0.1}:0.8341, {'pca_dim': 256, 'beta': 1.0}:0.8335, {'pca_dim': 256, 'beta': 10.0}:0.7876  -> selected {'pca_dim': 256, 'beta': 0.1}
+[21:41:11]   [maha] TEST acc=0.9310 macroF1=0.8646 base=0.9532 rare mean-class=0.6952 HM=0.7976 | weak F1: Dengue=0.42, Sapovirus=0.23, Guanarito=0.83, LCM=0.83, Machupo=0.77, Astrovirus=0.77, Adenovirus=0.85, Lassa=0.92 | K-shot rare acc: K=1:0.198, K=5:0.374
+[21:42:03]   [logreg] validation macro-F1 by setting: {'C': 0.001}:0.8259, {'C': 0.01}:0.8391, {'C': 0.1}:0.8379, {'C': 1.0}:0.8351  -> selected {'C': 0.01}
+[21:53:34]   [logreg] TEST acc=0.9271 macroF1=0.8446 base=0.9458 rare mean-class=0.7884 HM=0.8518 | weak F1: Dengue=0.32, Sapovirus=0.30, Guanarito=0.71, LCM=0.64, Machupo=0.83, Astrovirus=0.83, Adenovirus=0.89, Lassa=0.93 | K-shot rare acc: K=1:0.186, K=5:0.596
+[21:54:47]   [dc] validation macro-F1 by setting: {'k': 1, 'alpha': 0.1, 'C': 0.01, 'pca_dim': 128}:0.7569, {'k': 1, 'alpha': 0.1, 'C': 0.1, 'pca_dim': 128}:0.7397, {'k': 1, 'alpha': 0.3, 'C': 0.01, 'pca_dim': 128}:0.7639, {'k': 1, 'alpha': 0.3, 'C': 0.1, 'pca_dim': 128}:0.7394, {'k': 2, 'alpha': 0.1, 'C': 0.01, 'pca_dim': 128}:0.7663, {'k': 2, 'alpha': 0.1, 'C': 0.1, 'pca_dim': 128}:0.7402, {'k': 2, 'alpha': 0.3, 'C': 0.01, 'pca_dim': 128}:0.7631, {'k': 2, 'alpha': 0.3, 'C': 0.1, 'pca_dim': 128}:0.7203  -> selected {'k': 2, 'alpha': 0.1, 'C': 0.01, 'pca_dim': 128}
+[22:02:10]   [dc] TEST acc=0.9033 macroF1=0.7786 base=0.9253 rare mean-class=0.7446 HM=0.8186 | weak F1: Dengue=0.16, Sapovirus=0.23, Guanarito=0.48, LCM=0.44, Machupo=0.61, Astrovirus=0.87, Adenovirus=0.90, Lassa=0.93 | K-shot rare acc: K=1:0.459, K=5:0.638
+[22:02:10] done -> runs\gfsl_fp32\E1_siamese_supcon_densenet201\gfsl_improve.json

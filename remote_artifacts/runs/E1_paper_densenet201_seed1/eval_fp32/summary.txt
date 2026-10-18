@@ -1,0 +1,14 @@
+Base (training) classes: 14 | novel: ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']
+
+[classifier logits] closed test: acc=0.9353 macroF1=0.9245  acc95%CI=[0.9062,0.9608]
+=== embedding: feat ===
+closed (E1) test : acc=0.9147 macroF1=0.9172 image-acc=0.9417  acc95%CI=[0.8794,0.9473]
+GFSL (E2) test   : all acc=0.8726 macroF1=0.7943 | base=0.8889 novel=0.6752 HM=0.7674 | novel-only=0.7070
+    per-class recall: Adenovirus=0.77, Astrovirus=0.59, CCHF=0.88, Cowpox=0.88, Ebola=0.80, Influenza=0.96, Lassa=0.72, Marburg=0.98, Nipah virus=0.86, Norovirus=0.98, Orf=0.94, Papilloma=1.00, Rift Valley=0.95, Rotavirus=1.00, Dengue=0.18, Guanarito=1.00, LCM=0.64, Machupo=0.70, Pseudocowpox=1.00, Sapovirus=0.88, TBE=0.91, WestNile=0.97
+K-shot (E3) K= 1: novel=0.2574+-0.0154 base=0.9106 HM=0.3947 novel-only=0.5117
+K-shot (E3) K= 3: novel=0.5153+-0.0072 base=0.9012 HM=0.6549 novel-only=0.6240
+K-shot (E3) K= 5: novel=0.5766+-0.0061 base=0.8963 HM=0.7013 novel-only=0.6429
+K-shot (E3) K=10: novel=0.6225+-0.0042 base=0.8930 HM=0.7334 novel-only=0.6705
+episodic (E4) 8-way 1-shot: acc=0.6487+-0.0052 (600 episodes)
+episodic (E4) 8-way 5-shot: acc=0.7950+-0.0028 (600 episodes)
+open-set (E5): patch AUROC=0.8976 FPR@95TPR=0.5414 | image AUROC=0.8533

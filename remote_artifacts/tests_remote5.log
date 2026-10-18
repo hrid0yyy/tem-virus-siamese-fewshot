@@ -1,0 +1,1220 @@
+running test_metrics_match_authors_report ...
+running test_metric_helpers ...
+running test_subset_metrics ...
+running test_d4_and_translate ...
+running test_zscore ...
+running test_index_parsing_and_verification ...
+running test_expected_counts_file ...
+running test_download_extract ...
+Extracting 1 files to C:\Users\Admin\AppData\Local\Temp\tmphunlwklg\data ...
+Done: 1 files written, 0 already present.
+Extracting 2 files to C:\Users\Admin\AppData\Local\Temp\tmphunlwklg\data ...
+Done: 1 files written, 1 already present.
+Extracting 1 files to C:\Users\Admin\AppData\Local\Temp\tmphunlwklg\data ...
+running test_resolve_classes ...
+running test_pk_sampler ...
+running test_episodes_image_disjoint ...
+EpisodeBatchSampler: classes [0] have <2 micrographs and are not used in episodes
+EpisodeBatchSampler: classes [0] have <2 micrographs and are not used in episodes
+running test_supcon_matches_reference ...
+running test_triplet_matches_bruteforce ...
+running test_proto_and_pair_losses ...
+running test_fewshot_protocols ...
+running test_paper_head_parameter_counts ...
+running test_embedding_net_forward_backward ...
+running test_end_to_end_smoke ...
+[21:11:21] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\20261017-211121_metric_supcon_resnet18
+[21:11:21] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:11:21] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:11:21] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:11:21] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:11:21] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:11:24] Pre-loaded 308 patches into RAM in 3s (0.02 GB)
+[21:11:24] Train patches: 84 (train), validation patches: 56
+[21:11:24] Model: EmbeddingNet(resnet18) params=11,507,648 | loss=supcon | batches: P=14 classes x K=2 samples | steps/epoch=3
+[21:11:36] epoch=1 | train_loss=4.1862 | lr_backbone=3.75e-05 | lr_head=3.75e-04 | train_time_s=8.6000 | train_aux_ce=3.3451 | val_head_acc=0.9286 | val_head_macro_f1=0.9195 | val_feat_acc=1.0000 | val_feat_macro_f1=1.0000
+[21:11:36]   new best val_head_macro_f1=0.9195 (epoch 1) -> best.pt
+[21:11:43] epoch=2 | train_loss=3.4055 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=3.6000 | train_aux_ce=2.3949 | val_head_acc=0.8929 | val_head_macro_f1=0.8891 | val_feat_acc=1.0000 | val_feat_macro_f1=1.0000
+[21:11:43] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\20261017-211121_metric_supcon_resnet18\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\20261017-211121_metric_supcon_resnet18\best.pt
+[21:11:43] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:11:43] Checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\20261017-211121_metric_supcon_resnet18\best.pt (epoch 1, val_head_macro_f1=0.9195217480931767) | model_type=metric | trained on 14 classes
+[21:11:43] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:11:43] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:11:43] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:11:44] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:13:02] Embedded 308 patches in 78s (TTA=True) keys=['feat', 'head']
+[21:13:02] [head] closed-set nearest-prototype on 14 training classes (test split)
+[21:13:02]     acc=1.0000 macroF1=1.0000 | image-level acc=1.0000
+[21:13:02] [head] generalized few-shot: 14 base + 8 novel classes
+[21:13:02]     all-class acc=1.0000 macroF1=1.0000 | base acc=1.0000 novel acc=1.0000 HM=1.0000 | novel-only acc=1.0000
+[21:13:02] [head] K-shot curve on novel classes, K=[1, 2], repeats=3
+[21:13:02]     K=1: base=1.0000 novel=1.0000+-0.0000 HM=1.0000 novel-only=1.0000
+[21:13:02]     K=2: base=1.0000 novel=1.0000+-0.0000 HM=1.0000 novel-only=1.0000
+[21:13:02] [head] episodic 8-way 1-shot on ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']: acc=1.0000+-0.0000
+[21:13:02] [head] open-set (known=14, unknown=8): patch AUROC=1.0000 FPR@95TPR=0.0000 | image AUROC=1.0000
+[21:13:02] [feat] closed-set nearest-prototype on 14 training classes (test split)
+[21:13:02]     acc=1.0000 macroF1=1.0000 | image-level acc=1.0000
+[21:13:02] [feat] generalized few-shot: 14 base + 8 novel classes
+[21:13:02]     all-class acc=1.0000 macroF1=1.0000 | base acc=1.0000 novel acc=1.0000 HM=1.0000 | novel-only acc=1.0000
+[21:13:02] [feat] K-shot curve on novel classes, K=[1, 2], repeats=3
+[21:13:02]     K=1: base=1.0000 novel=1.0000+-0.0000 HM=1.0000 novel-only=1.0000
+[21:13:02]     K=2: base=1.0000 novel=1.0000+-0.0000 HM=1.0000 novel-only=1.0000
+[21:13:02] [feat] episodic 8-way 1-shot on ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']: acc=1.0000+-0.0000
+[21:13:02] [feat] open-set (known=14, unknown=8): patch AUROC=1.0000 FPR@95TPR=0.0000 | image AUROC=1.0000
+
+Base (training) classes: 14 | novel: ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']
+
+=== embedding: head ===
+closed (E1) test : acc=1.0000 macroF1=1.0000 image-acc=1.0000  acc95%CI=[1.0000,1.0000]
+GFSL (E2) test   : all acc=1.0000 macroF1=1.0000 | base=1.0000 novel=1.0000 HM=1.0000 | novel-only=1.0000
+    per-class recall: Adenovirus=1.00, Astrovirus=1.00, CCHF=1.00, Cowpox=1.00, Ebola=1.00, Influenza=1.00, Lassa=1.00, Marburg=1.00, Nipah virus=1.00, Norovirus=1.00, Orf=1.00, Papilloma=1.00, Rift Valley=1.00, Rotavirus=1.00, Dengue=1.00, Guanarito=1.00, LCM=1.00, Machupo=1.00, Pseudocowpox=1.00, Sapovirus=1.00, TBE=1.00, WestNile=1.00
+K-shot (E3) K= 1: novel=1.0000+-0.0000 base=1.0000 HM=1.0000 novel-only=1.0000
+K-shot (E3) K= 2: novel=1.0000+-0.0000 base=1.0000 HM=1.0000 novel-only=1.0000
+episodic (E4) 8-way 1-shot: acc=1.0000+-0.0000 (5 episodes)
+open-set (E5): patch AUROC=1.0000 FPR@95TPR=0.0000 | image AUROC=1.0000
+
+=== embedding: feat ===
+closed (E1) test : acc=1.0000 macroF1=1.0000 image-acc=1.0000  acc95%CI=[1.0000,1.0000]
+GFSL (E2) test   : all acc=1.0000 macroF1=1.0000 | base=1.0000 novel=1.0000 HM=1.0000 | novel-only=1.0000
+    per-class recall: Adenovirus=1.00, Astrovirus=1.00, CCHF=1.00, Cowpox=1.00, Ebola=1.00, Influenza=1.00, Lassa=1.00, Marburg=1.00, Nipah virus=1.00, Norovirus=1.00, Orf=1.00, Papilloma=1.00, Rift Valley=1.00, Rotavirus=1.00, Dengue=1.00, Guanarito=1.00, LCM=1.00, Machupo=1.00, Pseudocowpox=1.00, Sapovirus=1.00, TBE=1.00, WestNile=1.00
+K-shot (E3) K= 1: novel=1.0000+-0.0000 base=1.0000 HM=1.0000 novel-only=1.0000
+K-shot (E3) K= 2: novel=1.0000+-0.0000 base=1.0000 HM=1.0000 novel-only=1.0000
+episodic (E4) 8-way 1-shot: acc=1.0000+-0.0000 (5 episodes)
+open-set (E5): patch AUROC=1.0000 FPR@95TPR=0.0000 | image AUROC=1.0000
+
+[21:13:02] Results written to C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\20261017-211121_metric_supcon_resnet18\eval_20261017-211143
+[21:13:02] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_triplet
+[21:13:02] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:13:02] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:13:02] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:13:02] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:13:02] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:13:02] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:13:02] Train patches: 84 (train), validation patches: 56
+[21:13:02] Model: EmbeddingNet(resnet18) params=11,505,856 | loss=triplet | batches: P=14 classes x K=2 samples | steps/epoch=2
+[21:13:10] epoch=1 | train_loss=0.2726 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=3.9000 | val_head_acc=0.9464 | val_head_macro_f1=0.9438 | val_feat_acc=0.9821 | val_feat_macro_f1=0.9819
+[21:13:10]   new best val_head_macro_f1=0.9438 (epoch 1) -> best.pt
+[21:13:10] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_triplet\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_triplet\best.pt
+[21:13:10] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_pair
+[21:13:10] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:13:10] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:13:10] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:13:10] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:13:10] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:13:10] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:13:10] Train patches: 84 (train), validation patches: 56
+[21:13:10] Model: EmbeddingNet(resnet18) params=11,505,985 | loss=pair | batches: P=14 classes x K=2 samples | steps/epoch=2
+[21:13:17] epoch=1 | train_loss=0.6969 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=4.3000 | train_pair_acc=0.4643 | val_head_acc=0.9107 | val_head_macro_f1=0.9075 | val_feat_acc=0.9821 | val_feat_macro_f1=0.9819
+[21:13:17]   new best val_head_macro_f1=0.9075 (epoch 1) -> best.pt
+[21:13:18] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_pair\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_pair\best.pt
+[21:13:18] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_contrastive
+[21:13:18] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:13:18] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:13:18] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:13:18] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:13:18] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:13:18] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:13:18] Train patches: 84 (train), validation patches: 56
+[21:13:18] Model: EmbeddingNet(resnet18) params=11,505,856 | loss=contrastive | batches: P=14 classes x K=2 samples | steps/epoch=2
+[21:13:26] epoch=1 | train_loss=0.2115 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=4.2000 | val_head_acc=0.9107 | val_head_macro_f1=0.9059 | val_feat_acc=0.9821 | val_feat_macro_f1=0.9819
+[21:13:26]   new best val_head_macro_f1=0.9059 (epoch 1) -> best.pt
+[21:13:26] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_contrastive\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_contrastive\best.pt
+[21:13:26] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_proto
+[21:13:26] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:13:26] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:13:26] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:13:26] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:13:26] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:13:26] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:13:26] Train patches: 84 (train), validation patches: 56
+[21:13:27] Model: EmbeddingNet(resnet18) params=11,505,856 | loss=proto | batches: 4-way 1-shot 1-query episodes | steps/epoch=2
+[21:13:31] epoch=1 | train_loss=0.5510 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=2.3000 | train_episode_acc=0.7500 | val_head_acc=0.8571 | val_head_macro_f1=0.8481 | val_feat_acc=0.9821 | val_feat_macro_f1=0.9819
+[21:13:31]   new best val_head_macro_f1=0.8481 (epoch 1) -> best.pt
+[21:13:31] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_proto\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\t_proto\best.pt
+[21:13:31] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\paper
+[21:13:31] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:13:31] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:13:31] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:13:31] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:13:31] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:13:32] Pre-loaded 392 patches into RAM in 1s (0.03 GB)
+[21:13:32] Train patches: 84 (augmented_train), validation patches: 56
+[21:13:32] Model: PaperClassifier(resnet18, head=paper) trainable params=45,795,918 | train samples=84 | steps/epoch=21
+[21:13:35] epoch=1 | train_loss=2.6789 | train_acc=0.0000 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=1.1000 | val_acc=0.1071 | val_macro_f1=0.0470
+[21:13:36]   new best val_acc=0.1071 (epoch 1) -> best.pt
+[21:13:37] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\paper\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\paper\best.pt
+[21:13:37] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:13:37] Checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\paper\best.pt (epoch 1, val_acc=0.10714285714285714) | model_type=classifier | trained on 14 classes
+[21:13:37] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:13:37] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:13:37] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:13:38] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:15:09] Embedded 308 patches in 92s (TTA=True) keys=['feat', 'logits']
+[21:15:09] [feat] closed-set nearest-prototype on 14 training classes (test split)
+[21:15:09]     acc=1.0000 macroF1=1.0000 | image-level acc=1.0000
+[21:15:09] [feat] generalized few-shot: 14 base + 8 novel classes
+[21:15:09]     all-class acc=1.0000 macroF1=1.0000 | base acc=1.0000 novel acc=1.0000 HM=1.0000 | novel-only acc=1.0000
+[21:15:09] [logits] closed-set classifier evaluation (test split)
+[21:15:09]     acc=0.0714 macroF1=0.0274
+
+Base (training) classes: 14 | novel: ['Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']
+
+[classifier logits] closed test: acc=0.0714 macroF1=0.0274  acc95%CI=[0.0397,0.1031]
+=== embedding: feat ===
+closed (E1) test : acc=1.0000 macroF1=1.0000 image-acc=1.0000  acc95%CI=[1.0000,1.0000]
+GFSL (E2) test   : all acc=1.0000 macroF1=1.0000 | base=1.0000 novel=1.0000 HM=1.0000 | novel-only=1.0000
+    per-class recall: Adenovirus=1.00, Astrovirus=1.00, CCHF=1.00, Cowpox=1.00, Ebola=1.00, Influenza=1.00, Lassa=1.00, Marburg=1.00, Nipah virus=1.00, Norovirus=1.00, Orf=1.00, Papilloma=1.00, Rift Valley=1.00, Rotavirus=1.00, Dengue=1.00, Guanarito=1.00, LCM=1.00, Machupo=1.00, Pseudocowpox=1.00, Sapovirus=1.00, TBE=1.00, WestNile=1.00
+
+[21:15:09] Results written to C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\paper\eval_20261017-211337
+[21:15:09] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\ce22
+[21:15:09] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:15:09] Training classes (22): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus', 'Dengue', 'Guanarito', 'LCM', 'Machupo', 'Pseudocowpox', 'Sapovirus', 'TBE', 'WestNile']
+[21:15:09] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:15:09] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:15:09] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:15:09] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:15:09] Train patches: 132 (train), validation patches: 88
+[21:15:10] Model: GAPClassifier(resnet18, head=linear) trainable params=11,187,798 | train samples=132 | steps/epoch=33
+[21:15:12] epoch=1 | train_loss=3.3727 | train_acc=0.0000 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=0.5000 | val_acc=0.0455 | val_macro_f1=0.0051
+[21:15:12]   new best val_acc=0.0455 (epoch 1) -> best.pt
+[21:15:12] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\ce22\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\ce22\best.pt
+[21:15:12] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:15:12] Checkpoint C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\ce22\best.pt (epoch 1, val_acc=0.045454545454545456) | model_type=classifier | trained on 22 classes
+[21:15:12] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:15:12] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:15:12] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:15:12] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:16:03] Embedded 308 patches in 50s (TTA=True) keys=['feat', 'logits']
+[21:16:03] [feat] closed-set nearest-prototype on 22 training classes (test split)
+[21:16:03]     acc=1.0000 macroF1=1.0000 | image-level acc=1.0000
+[21:16:03] [logits] closed-set classifier evaluation (test split)
+[21:16:03]     acc=0.0455 macroF1=0.0051 | base acc=0.0714 novel acc=0.0000 HM=0.0000
+
+Base (training) classes: 22 | novel: []
+
+[classifier logits] closed test: acc=0.0455 macroF1=0.0051  acc95%CI=[0.0455,0.0455]
+    base acc=0.0714 novel acc=0.0000 HM=0.0000
+=== embedding: feat ===
+closed (E1) test : acc=1.0000 macroF1=1.0000 image-acc=1.0000  acc95%CI=[1.0000,1.0000]
+
+[21:16:03] Results written to C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\ce22\eval_20261017-211512
+[21:16:03] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\20261017-211603_f2_pseudonovel_supcon_resnet18
+[21:16:03] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:16:03] Training classes (12): ['Adenovirus', 'CCHF', 'Cowpox', 'Ebola', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:16:03] Held out from training: ['Astrovirus', 'Influenza']
+[21:16:03] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:16:03] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:16:03] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:16:03] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:16:03] Train patches: 72 (train), validation patches: 48
+[21:16:03] Model: EmbeddingNet(resnet18) params=11,505,856 | loss=supcon | batches: P=12 classes x K=2 samples | steps/epoch=2
+[21:16:09] epoch=1 | train_loss=2.5089 | lr_backbone=3.75e-05 | lr_head=3.75e-04 | train_time_s=3.1000 | val_head_acc=0.9792 | val_head_macro_f1=0.9788 | val_feat_acc=1.0000 | val_feat_macro_f1=1.0000
+[21:16:09]   new best val_head_macro_f1=0.9788 (epoch 1) -> best.pt
+[21:16:09] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\20261017-211603_f2_pseudonovel_supcon_resnet18\best.pt
+[21:16:09] Hidden (pseudo-novel) classes: ['Astrovirus', 'Influenza']
+[21:16:09] Encoder trained on: ['Adenovirus', 'CCHF', 'Cowpox', 'Ebola', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:16:09] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:16:09] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpbfs9d5fs\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:16:09] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:16:09] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:16:09] 28 patches of hidden classes (all splits pooled, image-disjoint episodes)
+[21:16:10] 2-way 1-shot | trained(head)=1.0000 trained(feat)=1.0000 frozen=1.0000 | paired diff head-frozen=+0.0000+-0.0000
+[21:16:10] 
+[21:16:10] F2 DECISION @ 2-way 1-shot using trained_head: NO-GO (learned metric does not beat frozen ImageNet features on unseen classes)
+[21:16:10]   paired accuracy difference vs frozen ImageNet = +0.0000 +- 0.0000 (95% CI)
+[21:16:10] Saved C:\Users\Admin\AppData\Local\Temp\tmpbfs9d5fs\runs\20261017-211603_f2_pseudonovel_supcon_resnet18\f2_results.json
+running test_analysis_helpers ...
+running test_analyze_and_compare_smoke ...
+[21:16:12] Run dir: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\m
+[21:16:12] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:16:12] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:16:12] Patch root: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:16:12] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp51wyu2ko\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:16:12] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:16:14] Pre-loaded 308 patches into RAM in 1s (0.02 GB)
+[21:16:14] Train patches: 84 (train), validation patches: 56
+[21:16:14] Model: EmbeddingNet(resnet18) params=11,505,856 | loss=supcon | batches: P=14 classes x K=2 samples | steps/epoch=1
+[21:16:17] epoch=1 | train_loss=2.3806 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=1.8000 | val_head_acc=0.9464 | val_head_macro_f1=0.9456 | val_feat_acc=0.9821 | val_feat_macro_f1=0.9819
+[21:16:17]   new best val_head_macro_f1=0.9456 (epoch 1) -> best.pt
+[21:16:18] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\m\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko --checkpoint C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\m\best.pt
+[21:16:18] Run dir: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\c
+[21:16:18] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:16:18] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:16:18] Patch root: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:16:18] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp51wyu2ko\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:16:18] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:16:18] Pre-loaded 392 patches into RAM in 1s (0.03 GB)
+[21:16:18] Train patches: 84 (augmented_train), validation patches: 56
+[21:16:19] Model: PaperClassifier(resnet18, head=paper) trainable params=45,795,918 | train samples=84 | steps/epoch=21
+[21:16:20] epoch=1 | train_loss=2.7871 | train_acc=0.0000 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=0.5000 | val_acc=0.0893 | val_macro_f1=0.0316
+[21:16:20]   new best val_acc=0.0893 (epoch 1) -> best.pt
+[21:16:21] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\c\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko --checkpoint C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\c\best.pt
+[21:16:21] Checkpoint C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\m\best.pt | model_type=metric | base=14 novel=8
+[21:16:21] Patch root: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:16:21] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp51wyu2ko\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:16:21] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:16:21] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:16:28] Embedded 308 patches in 7s (TTA=False); keys=['feat', 'head']
+[21:16:28] [feat_l2] closed acc=1.0000 F1=1.0000 | GFSL raw acc=1.0000 F1=1.0000 HM=1.0000 | calibrated(g=+0.000 from val) acc=1.0000 F1=1.0000 HM=1.0000
+[21:16:28] [feat_cl2n] closed acc=0.9821 F1=0.9819 | GFSL raw acc=0.9886 F1=0.9885 HM=0.9910 | calibrated(g=+0.000 from val) acc=0.9886 F1=0.9885 HM=0.9910
+[21:16:28] [head_l2] closed acc=0.9643 F1=0.9619 | GFSL raw acc=0.9773 F1=0.9758 HM=0.9818 | calibrated(g=+0.000 from val) acc=0.9773 F1=0.9758 HM=0.9818
+[21:16:28] [head_cl2n] closed acc=0.8929 F1=0.8880 | GFSL raw acc=0.9205 F1=0.9172 HM=0.9333 | calibrated(g=+0.000 from val) acc=0.9205 F1=0.9172 HM=0.9333
+checkpoint: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\m\best.pt
+TTA=False
+
+feat_l2    closed14 : acc=1.0000 macroF1=1.0000 CI acc=[1.0000,1.0000]
+           gfsl22 raw       : acc=1.0000 macroF1=1.0000 base=1.0000 novel=1.0000 mean-class base=1.0000 novel=1.0000 HM=1.0000
+           gfsl22 calibrated: acc=1.0000 macroF1=1.0000 base=1.0000 novel=1.0000 mean-class base=1.0000 novel=1.0000 HM=1.0000 gamma=+0.000(val)
+feat_cl2n  closed14 : acc=0.9821 macroF1=0.9819 CI acc=[0.9643,1.0000]
+           gfsl22 raw       : acc=0.9886 macroF1=0.9885 base=0.9821 novel=1.0000 mean-class base=0.9821 novel=1.0000 HM=0.9910
+           gfsl22 calibrated: acc=0.9886 macroF1=0.9885 base=0.9821 novel=1.0000 mean-class base=0.9821 novel=1.0000 HM=0.9910 gamma=+0.000(val)
+head_l2    closed14 : acc=0.9643 macroF1=0.9619 CI acc=[0.9643,0.9643]
+           gfsl22 raw       : acc=0.9773 macroF1=0.9758 base=0.9643 novel=1.0000 mean-class base=0.9643 novel=1.0000 HM=0.9818
+           gfsl22 calibrated: acc=0.9773 macroF1=0.9758 base=0.9643 novel=1.0000 mean-class base=0.9643 novel=1.0000 HM=0.9818 gamma=+0.000(val)
+head_cl2n  closed14 : acc=0.8929 macroF1=0.8880 CI acc=[0.8652,0.9286]
+           gfsl22 raw       : acc=0.9205 macroF1=0.9172 base=0.8750 novel=1.0000 mean-class base=0.8750 novel=1.0000 HM=0.9333
+           gfsl22 calibrated: acc=0.9205 macroF1=0.9172 base=0.8750 novel=1.0000 mean-class base=0.8750 novel=1.0000 HM=0.9333 gamma=+0.000(val)
+[21:16:28] Wrote C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\m\analysis
+[21:16:28] Checkpoint C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\c\best.pt | model_type=classifier | base=14 novel=8
+[21:16:28] Patch root: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:16:28] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp51wyu2ko\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:16:28] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:16:28] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:16:35] Embedded 308 patches in 7s (TTA=False); keys=['feat', 'logits']
+[21:16:35] [logits] closed test acc=0.0714 macroF1=0.0112
+[21:16:35] [feat_l2] closed acc=1.0000 F1=1.0000 | GFSL raw acc=1.0000 F1=1.0000 HM=1.0000 | calibrated(g=+0.000 from val) acc=1.0000 F1=1.0000 HM=1.0000
+[21:16:35] [feat_cl2n] closed acc=1.0000 F1=1.0000 | GFSL raw acc=1.0000 F1=1.0000 HM=1.0000 | calibrated(g=+0.000 from val) acc=1.0000 F1=1.0000 HM=1.0000
+checkpoint: C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\c\best.pt
+TTA=False
+
+logits closed : acc=0.0714 macroF1=0.0112 CI acc=[0.0714,0.0714]
+feat_l2    closed14 : acc=1.0000 macroF1=1.0000 CI acc=[1.0000,1.0000]
+           gfsl22 raw       : acc=1.0000 macroF1=1.0000 base=1.0000 novel=1.0000 mean-class base=1.0000 novel=1.0000 HM=1.0000
+           gfsl22 calibrated: acc=1.0000 macroF1=1.0000 base=1.0000 novel=1.0000 mean-class base=1.0000 novel=1.0000 HM=1.0000 gamma=+0.000(val)
+feat_cl2n  closed14 : acc=1.0000 macroF1=1.0000 CI acc=[1.0000,1.0000]
+           gfsl22 raw       : acc=1.0000 macroF1=1.0000 base=1.0000 novel=1.0000 mean-class base=1.0000 novel=1.0000 HM=1.0000
+           gfsl22 calibrated: acc=1.0000 macroF1=1.0000 base=1.0000 novel=1.0000 mean-class base=1.0000 novel=1.0000 HM=1.0000 gamma=+0.000(val)
+[21:16:35] Wrote C:\Users\Admin\AppData\Local\Temp\tmp51wyu2ko\runs\c\analysis
+A=feat_l2_closed acc=1.0000 | B=logits_closed acc=0.0714 | n=56 patches, 28 micrographs
+acc diff A-B = +0.9286  95% CI [+0.9286, +0.9286]  (bootstrap P(diff<=0)=0.000)
+macro-F1 diff = +0.9888  95% CI [+0.9881, +0.9896]  (P(diff<=0)=0.000)
+McNemar: A right/B wrong=52, A wrong/B right=0, exact p=4.441e-16
+A=feat_cl2n_gfsl_calibrated acc=0.9886 | B=feat_l2_gfsl_raw acc=1.0000 | n=88 patches, 44 micrographs
+acc diff A-B = -0.0114  95% CI [-0.0227, +0.0000]  (bootstrap P(diff<=0)=1.000)
+macro-F1 diff = -0.0115  95% CI [-0.0242, +0.0000]  (P(diff<=0)=1.000)
+McNemar: A right/B wrong=0, A wrong/B right=1, exact p=1
+running test_resume_after_interruption ...
+[21:16:37] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r
+[21:16:37] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:16:37] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:16:37] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:16:37] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpdjfwfvvd\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:16:37] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:16:38] Pre-loaded 308 patches into RAM in 1s (0.02 GB)
+[21:16:38] Train patches: 84 (train), validation patches: 56
+[21:16:38] Model: EmbeddingNet(resnet18) params=11,505,856 | loss=supcon | batches: P=14 classes x K=2 samples | steps/epoch=2
+[21:16:44] epoch=1 | train_loss=2.5174 | lr_backbone=3.75e-05 | lr_head=3.75e-04 | train_time_s=3.6000 | val_head_acc=0.9107 | val_head_macro_f1=0.9075 | val_feat_acc=1.0000 | val_feat_macro_f1=1.0000
+[21:16:44]   new best val_head_macro_f1=0.9075 (epoch 1) -> best.pt
+[21:16:49] epoch=2 | train_loss=2.3655 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=3.5000 | val_head_acc=0.7679 | val_head_macro_f1=0.7625 | val_feat_acc=1.0000 | val_feat_macro_f1=1.0000
+[21:16:49] DEBUG: simulated interruption after epoch 2
+[21:16:49] Finished. Best checkpoint: None
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd --checkpoint None
+[21:16:49] WARNING: --resume ignores changed hyper-parameters ['lr_head']; using the saved config.
+[21:16:49] ===== resuming run C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r =====
+[21:16:49] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r
+[21:16:49] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:16:49] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:16:49] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:16:49] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpdjfwfvvd\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:16:49] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:16:49] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:16:49] Train patches: 84 (train), validation patches: 56
+[21:16:50] Model: EmbeddingNet(resnet18) params=11,505,856 | loss=supcon | batches: P=14 classes x K=2 samples | steps/epoch=2
+[21:16:50] RESUMED from C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r\last.pt: 2 epochs done, best val_head_macro_f1=0.9075 (epoch 1), bad_epochs=1
+[21:16:55] epoch=3 | train_loss=1.9875 | lr_backbone=2.53e-05 | lr_head=2.53e-04 | train_time_s=3.8000 | val_head_acc=0.7857 | val_head_macro_f1=0.7596 | val_feat_acc=0.9286 | val_feat_macro_f1=0.9238
+[21:17:01] epoch=4 | train_loss=1.8341 | lr_backbone=5.00e-07 | lr_head=5.00e-06 | train_time_s=3.7000 | val_head_acc=0.7679 | val_head_macro_f1=0.7473 | val_feat_acc=0.9464 | val_feat_macro_f1=0.9472
+[21:17:01] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r\best.pt
+[21:17:01] Run already finished: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r - skipping training.
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r\best.pt
+[21:17:01] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r
+[21:17:01] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:17:01] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:17:01] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:17:01] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpdjfwfvvd\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:17:01] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:17:01] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:17:01] Train patches: 84 (train), validation patches: 56
+[21:17:01] Model: GAPClassifier(resnet18, head=linear) trainable params=11,183,694 | train samples=84 | steps/epoch=21
+[21:17:03] epoch=1 | train_loss=2.8098 | train_acc=0.0000 | lr_backbone=1.00e-05 | lr_head=1.00e-05 | train_time_s=0.6000 | val_acc=0.0893 | val_macro_f1=0.0291
+[21:17:03]   new best val_acc=0.0893 (epoch 1) -> best.pt
+[21:17:05] epoch=2 | train_loss=3.0592 | train_acc=0.0000 | lr_backbone=7.52e-06 | lr_head=7.52e-06 | train_time_s=0.6000 | val_acc=0.0714 | val_macro_f1=0.0100
+[21:17:05] DEBUG: simulated interruption after epoch 2
+[21:17:05] Finished. Best checkpoint: None
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd --checkpoint None
+[21:17:05] WARNING: --resume ignores changed hyper-parameters ['lr_head']; using the saved config.
+[21:17:05] ===== resuming run C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r =====
+[21:17:05] Run dir: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r
+[21:17:05] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:17:05] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:17:05] Patch root: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:17:06] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpdjfwfvvd\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:17:06] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 6 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 4 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 4 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 6 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 4 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 4 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 6 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 4 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 4 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 6 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 4 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 4 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 6 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 4 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 4 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:17:06] Pre-loaded 308 patches into RAM in 0s (0.02 GB)
+[21:17:06] Train patches: 84 (train), validation patches: 56
+[21:17:06] Model: GAPClassifier(resnet18, head=linear) trainable params=11,183,694 | train samples=84 | steps/epoch=21
+[21:17:06] RESUMED from C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r\last.pt: 2 epochs done, best val_acc=0.0893 (epoch 1), bad_epochs=1
+[21:17:08] epoch=3 | train_loss=2.5213 | train_acc=0.1250 | lr_backbone=2.58e-06 | lr_head=2.58e-06 | train_time_s=0.6000 | val_acc=0.1429 | val_macro_f1=0.0363
+[21:17:08]   new best val_acc=0.1429 (epoch 3) -> best.pt
+[21:17:10] epoch=4 | train_loss=2.8989 | train_acc=0.0000 | lr_backbone=1.00e-07 | lr_head=1.00e-07 | train_time_s=0.6000 | val_acc=0.1250 | val_macro_f1=0.0497
+[21:17:10] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r\best.pt
+[21:17:10] Run already finished: C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r - skipping training.
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd --checkpoint C:\Users\Admin\AppData\Local\Temp\tmpdjfwfvvd\runs\r\best.pt
+running test_gfsl_methods ...
+running test_gfsl_improve_smoke ...
+[21:17:12] Run dir: C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\runs\m
+[21:17:12] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:17:12] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:17:12] Patch root: C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:17:12] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp09xd0eby\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:17:13] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 9 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 6 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 6 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 9 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 6 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 6 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 9 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 6 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 6 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 9 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 6 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 6 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 9 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 6 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 6 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:17:15] Pre-loaded 462 patches into RAM in 2s (0.03 GB)
+[21:17:15] Train patches: 126 (train), validation patches: 84
+[21:17:15] Model: EmbeddingNet(resnet18) params=11,505,856 | loss=supcon | batches: P=14 classes x K=2 samples | steps/epoch=1
+[21:17:19] epoch=1 | train_loss=2.5372 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=1.9000 | val_head_acc=0.8929 | val_head_macro_f1=0.8850 | val_feat_acc=1.0000 | val_feat_macro_f1=1.0000
+[21:17:19]   new best val_head_macro_f1=0.8850 (epoch 1) -> best.pt
+[21:17:19] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\runs\m\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby --checkpoint C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\runs\m\best.pt
+[21:17:19] Run dir: C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\runs\m2
+[21:17:19] Environment: {'python': '3.12.10', 'torch': '2.11.0+cu128', 'cuda_available': True, 'inference_precision': 'amp-fp16', 'torchvision': '0.26.0+cu128', 'gpu': 'NVIDIA GeForce RTX 3060', 'gpu_mem_gb': 12.88, 'cuda_runtime': '12.8'}
+[21:17:19] Training classes (14): ['Adenovirus', 'Astrovirus', 'CCHF', 'Cowpox', 'Ebola', 'Influenza', 'Lassa', 'Marburg', 'Nipah virus', 'Norovirus', 'Orf', 'Papilloma', 'Rift Valley', 'Rotavirus']
+[21:17:19] Patch root: C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:17:19] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp09xd0eby\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:17:19] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 9 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 6 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 6 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 9 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 6 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 6 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 9 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 6 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 6 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 9 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 6 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 6 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 9 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 6 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 6 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:17:22] Pre-loaded 462 patches into RAM in 3s (0.03 GB)
+[21:17:22] Train patches: 126 (train), validation patches: 84
+[21:17:22] Model: EmbeddingNet(resnet18) params=11,505,856 | loss=supcon | batches: P=14 classes x K=2 samples | steps/epoch=1
+[21:17:27] epoch=1 | train_loss=2.4208 | lr_backbone=5.00e-05 | lr_head=5.00e-04 | train_time_s=1.8000 | val_head_acc=0.9762 | val_head_macro_f1=0.9762 | val_feat_acc=1.0000 | val_feat_macro_f1=1.0000
+[21:17:27]   new best val_head_macro_f1=0.9762 (epoch 1) -> best.pt
+[21:17:27] Finished. Best checkpoint: C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\runs\m2\best.pt
+
+Evaluate with:
+  python evaluate.py --data-root C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby --checkpoint C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\runs\m2\best.pt
+[21:17:27] Patch root: C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\x4dwwfwtw3-3\context_virus_1nm_256x256
+[21:17:27] WARNING: 1 unexpected files ignored, e.g. ['C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp09xd0eby\\x4dwwfwtw3-3\\context_virus_1nm_256x256\\train\\Adenovirus\\Thumbs.db']
+[21:17:27] WARNING: Dataset does not match the official counts:
+  train/Adenovirus: 9 patches, expected 160
+  train/Adenovirus: 3 micrographs, expected 40
+  validation/Adenovirus: 6 patches, expected 44
+  validation/Adenovirus: 2 micrographs, expected 13
+  test/Adenovirus: 6 patches, expected 86
+  test/Adenovirus: 2 micrographs, expected 14
+  train/Astrovirus: 9 patches, expected 266
+  train/Astrovirus: 3 micrographs, expected 46
+  validation/Astrovirus: 6 patches, expected 86
+  validation/Astrovirus: 2 micrographs, expected 15
+  test/Astrovirus: 6 patches, expected 66
+  test/Astrovirus: 2 micrographs, expected 15
+  train/CCHF: 9 patches, expected 249
+  train/CCHF: 3 micrographs, expected 44
+  validation/CCHF: 6 patches, expected 100
+  validation/CCHF: 2 micrographs, expected 15
+  test/CCHF: 6 patches, expected 86
+  test/CCHF: 2 micrographs, expected 15
+  train/Cowpox: 9 patches, expected 189
+  train/Cowpox: 3 micrographs, expected 30
+  validation/Cowpox: 6 patches, expected 72
+  validation/Cowpox: 2 micrographs, expected 10
+  test/Cowpox: 6 patches, expected 59
+  test/Cowpox: 2 micrographs, expected 10
+  train/Ebola: 9 patches, expected 1118
+  train/Ebola: 3 micrographs, expected 65
+  validation/Ebola: 6 patches, expected 469
+  validation/Ebola: 2 micrographs, expected 22
+  test/Ebola: 6 patches, expected 363
+  test/Ebola: 2 micrographs, expected 22
+[21:17:27] Pre-loaded 462 patches into RAM in 0s (0.03 GB)
+[21:17:37] == C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\runs\m\best.pt: embedded 462 patches in 10s; base=14 rare=8
+[21:17:37]   separability (val) Dengue vs Sapovirus: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:17:37]   separability (val) Dengue vs TBE: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:17:37]   separability (val) Dengue vs Astrovirus: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:17:37]   separability (val) Sapovirus vs Norovirus: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:17:37]   separability (val) Sapovirus vs Astrovirus: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:17:37]   separability (val) Guanarito vs Lassa: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:17:37]   separability (val) Guanarito vs Machupo: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:17:37]   separability (val) LCM vs Machupo: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:17:37]   [ncm] validation macro-F1 by setting: {}:0.9924  -> selected {}
+[21:17:37]   [ncm] TEST acc=1.0000 macroF1=1.0000 base=1.0000 rare mean-class=1.0000 HM=1.0000 | weak F1: Dengue=1.00, Sapovirus=1.00, Guanarito=1.00, LCM=1.00, Machupo=1.00, Astrovirus=1.00, Adenovirus=1.00, Lassa=1.00 | K-shot rare acc: K=1:0.896
+[21:17:48]   [maha] validation macro-F1 by setting: {'pca_dim': 64, 'beta': 0.1}:0.9924, {'pca_dim': 64, 'beta': 1.0}:0.9924, {'pca_dim': 64, 'beta': 10.0}:0.9924, {'pca_dim': 128, 'beta': 0.1}:0.9924, {'pca_dim': 128, 'beta': 1.0}:0.9924, {'pca_dim': 128, 'beta': 10.0}:0.9924, {'pca_dim': 256, 'beta': 0.1}:0.9924, {'pca_dim': 256, 'beta': 1.0}:0.9924, {'pca_dim': 256, 'beta': 10.0}:0.9924  -> selected {'pca_dim': 64, 'beta': 0.1}
+[21:17:48]   [maha] TEST acc=0.9773 macroF1=0.9768 base=0.9643 rare mean-class=1.0000 HM=0.9818 | weak F1: Dengue=1.00, Sapovirus=1.00, Guanarito=1.00, LCM=1.00, Machupo=1.00, Astrovirus=0.80, Adenovirus=0.92, Lassa=1.00 | K-shot rare acc: K=1:0.868
+[21:17:48]   [logreg] validation macro-F1 by setting: {'C': 0.001}:0.9705, {'C': 0.01}:1.0000, {'C': 0.1}:1.0000, {'C': 1.0}:1.0000  -> selected {'C': 0.01}
+[21:17:50]   [logreg] TEST acc=0.9848 macroF1=0.9848 base=0.9762 rare mean-class=1.0000 HM=0.9880 | weak F1: Dengue=1.00, Sapovirus=1.00, Guanarito=1.00, LCM=1.00, Machupo=1.00, Astrovirus=0.83, Adenovirus=0.83, Lassa=1.00 | K-shot rare acc: K=1:0.938
+[21:17:57]   [dc] validation macro-F1 by setting: {'k': 1, 'alpha': 0.1, 'C': 0.01, 'pca_dim': 128}:0.4872, {'k': 1, 'alpha': 0.1, 'C': 0.1, 'pca_dim': 128}:0.6235, {'k': 1, 'alpha': 0.3, 'C': 0.01, 'pca_dim': 128}:0.4142, {'k': 1, 'alpha': 0.3, 'C': 0.1, 'pca_dim': 128}:0.5848, {'k': 2, 'alpha': 0.1, 'C': 0.01, 'pca_dim': 128}:0.4517, {'k': 2, 'alpha': 0.1, 'C': 0.1, 'pca_dim': 128}:0.5984, {'k': 2, 'alpha': 0.3, 'C': 0.01, 'pca_dim': 128}:0.3850, {'k': 2, 'alpha': 0.3, 'C': 0.1, 'pca_dim': 128}:0.5777  -> selected {'k': 1, 'alpha': 0.1, 'C': 0.1, 'pca_dim': 128}
+[21:18:03]   [dc] TEST acc=0.6515 macroF1=0.5998 base=0.9524 rare mean-class=0.1250 HM=0.2210 | weak F1: Dengue=0.00, Sapovirus=0.00, Guanarito=0.00, LCM=0.00, Machupo=0.00, Astrovirus=0.60, Adenovirus=0.80, Lassa=1.00 | K-shot rare acc: K=1:0.125
+[21:18:13] == C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\runs\m2\best.pt: embedded 462 patches in 10s; base=14 rare=8
+[21:18:13]   separability (val) Dengue vs Sapovirus: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:18:13]   separability (val) Dengue vs TBE: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:18:13]   separability (val) Dengue vs Astrovirus: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:18:13]   separability (val) Sapovirus vs Norovirus: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:18:13]   separability (val) Sapovirus vs Astrovirus: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:18:13]   separability (val) Guanarito vs Lassa: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:18:13]   separability (val) Guanarito vs Machupo: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:18:13]   separability (val) LCM vs Machupo: logreg AUC=1.000 acc=1.000 | 2-class NCM acc=1.000  (n=6/6)
+[21:18:13]   [ncm] validation macro-F1 by setting: {}:1.0000  -> selected {}
+[21:18:13]   [ncm] TEST acc=1.0000 macroF1=1.0000 base=1.0000 rare mean-class=1.0000 HM=1.0000 | weak F1: Dengue=1.00, Sapovirus=1.00, Guanarito=1.00, LCM=1.00, Machupo=1.00, Astrovirus=1.00, Adenovirus=1.00, Lassa=1.00 | K-shot rare acc: K=1:0.993
+[21:18:22]   [maha] validation macro-F1 by setting: {'pca_dim': 64, 'beta': 0.1}:0.9924, {'pca_dim': 64, 'beta': 1.0}:1.0000, {'pca_dim': 64, 'beta': 10.0}:1.0000, {'pca_dim': 128, 'beta': 0.1}:0.9847, {'pca_dim': 128, 'beta': 1.0}:0.9924, {'pca_dim': 128, 'beta': 10.0}:1.0000, {'pca_dim': 256, 'beta': 0.1}:0.9847, {'pca_dim': 256, 'beta': 1.0}:0.9924, {'pca_dim': 256, 'beta': 10.0}:1.0000  -> selected {'pca_dim': 64, 'beta': 1.0}
+[21:18:23]   [maha] TEST acc=1.0000 macroF1=1.0000 base=1.0000 rare mean-class=1.0000 HM=1.0000 | weak F1: Dengue=1.00, Sapovirus=1.00, Guanarito=1.00, LCM=1.00, Machupo=1.00, Astrovirus=1.00, Adenovirus=1.00, Lassa=1.00 | K-shot rare acc: K=1:0.910
+[21:18:23]   [logreg] validation macro-F1 by setting: {'C': 0.001}:0.9422, {'C': 0.01}:1.0000, {'C': 0.1}:0.9924, {'C': 1.0}:0.9924  -> selected {'C': 0.01}
+[21:18:25]   [logreg] TEST acc=1.0000 macroF1=1.0000 base=1.0000 rare mean-class=1.0000 HM=1.0000 | weak F1: Dengue=1.00, Sapovirus=1.00, Guanarito=1.00, LCM=1.00, Machupo=1.00, Astrovirus=1.00, Adenovirus=1.00, Lassa=1.00 | K-shot rare acc: K=1:0.944
+[21:18:34]   [dc] validation macro-F1 by setting: {'k': 1, 'alpha': 0.1, 'C': 0.01, 'pca_dim': 128}:0.4893, {'k': 1, 'alpha': 0.1, 'C': 0.1, 'pca_dim': 128}:0.5913, {'k': 1, 'alpha': 0.3, 'C': 0.01, 'pca_dim': 128}:0.4123, {'k': 1, 'alpha': 0.3, 'C': 0.1, 'pca_dim': 128}:0.5622, {'k': 2, 'alpha': 0.1, 'C': 0.01, 'pca_dim': 128}:0.4741, {'k': 2, 'alpha': 0.1, 'C': 0.1, 'pca_dim': 128}:0.5733, {'k': 2, 'alpha': 0.3, 'C': 0.01, 'pca_dim': 128}:0.4014, {'k': 2, 'alpha': 0.3, 'C': 0.1, 'pca_dim': 128}:0.5693  -> selected {'k': 1, 'alpha': 0.1, 'C': 0.1, 'pca_dim': 128}
+[21:18:40]   [dc] TEST acc=0.6439 macroF1=0.6017 base=0.9524 rare mean-class=0.1042 HM=0.1878 | weak F1: Dengue=0.00, Sapovirus=0.00, Guanarito=0.00, LCM=0.00, Machupo=0.00, Astrovirus=0.67, Adenovirus=0.80, Lassa=1.00 | K-shot rare acc: K=1:0.118
+[21:18:40] done -> C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\gi\gfsl_improve.json
+== 1. each classifier vs NCM, same checkpoint (A = classifier, B = NCM)
+  m                                        maha  : acc -2.27 pts [-3.79, +0.00] | macro-F1 -0.023 [-0.042, +0.000] | McNemar 0/3 p=0.25
+  m                                        logreg: acc -1.52 pts [-2.67, +0.00] | macro-F1 -0.015 [-0.027, +0.000] | McNemar 0/2 p=0.5
+  m                                        dc    : acc -34.85 pts [-35.61, -34.09] | macro-F1 -0.400 [-0.410, -0.391] | McNemar 0/46 p=2.84e-14
+  m2                                       maha  : acc +0.00 pts [+0.00, +0.00] | macro-F1 +0.000 [+0.000, +0.000] | McNemar 0/0 p=1
+  m2                                       logreg: acc +0.00 pts [+0.00, +0.00] | macro-F1 +0.000 [+0.000, +0.000] | McNemar 0/0 p=1
+  m2                                       dc    : acc -35.61 pts [-38.28, -33.69] | macro-F1 -0.398 [-0.423, -0.387] | McNemar 0/47 p=1.42e-14
+== 2. Siamese vs baseline, same classifier (A = Siamese, B = baseline)
+  m vs m2 [ncm]: acc +0.00 pts [+0.00, +0.00] | macro-F1 +0.000 [+0.000, +0.000] | McNemar 0/0 p=1
+  m vs m2 [maha]: acc -2.27 pts [-3.79, +0.00] | macro-F1 -0.023 [-0.042, +0.000] | McNemar 0/3 p=0.25
+  m vs m2 [logreg]: acc -1.52 pts [-2.67, +0.00] | macro-F1 -0.015 [-0.027, +0.000] | McNemar 0/2 p=0.5
+  m vs m2 [dc]: acc +0.76 pts [-1.52, +4.19] | macro-F1 -0.002 [-0.022, +0.031] | McNemar 6/5 p=1
+== 3. K-shot, rare mean-class accuracy, paired over identical support draws (A - B)
+  K=1 [ncm] m vs m2: 89.6 vs 99.3 | diff -9.7 ± 1.4 | A better in 0/3 draws
+  K=1 [maha] m vs m2: 86.8 vs 91.0 | diff -4.2 ± 7.1 | A better in 1/3 draws
+  K=1 [logreg] m vs m2: 93.8 vs 94.4 | diff -0.7 ± 3.6 | A better in 1/3 draws
+  K=1 [dc] m vs m2: 12.5 vs 11.8 | diff +0.7 ± 2.7 | A better in 2/3 draws
+  K=1 dc vs ncm, m: diff -77.1 ± 0.0 (dc better in 0/3)
+  K=1 dc vs ncm, m2: diff -87.5 ± 2.4 (dc better in 0/3)
+saved C:\Users\Admin\AppData\Local\Temp\tmp09xd0eby\gi\paired.json
+
+======================================================================
+PASS  test_metrics_match_authors_report
+PASS  test_metric_helpers
+PASS  test_subset_metrics
+PASS  test_d4_and_translate
+PASS  test_zscore
+PASS  test_index_parsing_and_verification
+PASS  test_expected_counts_file
+PASS  test_download_extract
+PASS  test_resolve_classes
+PASS  test_pk_sampler
+PASS  test_episodes_image_disjoint
+PASS  test_supcon_matches_reference
+PASS  test_triplet_matches_bruteforce
+PASS  test_proto_and_pair_losses
+PASS  test_fewshot_protocols
+PASS  test_paper_head_parameter_counts
+PASS  test_embedding_net_forward_backward
+PASS  test_end_to_end_smoke
+PASS  test_analysis_helpers
+PASS  test_analyze_and_compare_smoke
+PASS  test_resume_after_interruption
+PASS  test_gfsl_methods
+PASS  test_gfsl_improve_smoke
+======================================================================
+23 passed, 0 failed, 0 skipped

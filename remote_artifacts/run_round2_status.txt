@@ -1,0 +1,37 @@
+LAUNCH Sat 10/17/2026 21:19:25.15 
+LAUNCH Sat 10/17/2026 21:24:52.77 
+gfsl_E1_siamese_supcon_densenet201=0 21:24:52.77 
+NOTE duplicate queue (pid 11776, started 21:24:52) killed at 21:26:19; its line gfsl_E1_siamese_supcon_densenet201=0 21:24:52 is spurious (log file was locked by the first queue). Partial seed1 output removed.
+gfsl_E1_siamese_supcon_densenet201=0 22:02:11.64 
+gfsl_E1_siamese_supcon_densenet201_seed1=0 22:25:03.47 
+gfsl_E1_siamese_supcon_densenet201_seed2=0 22:49:07.34 
+gfsl_E6_supcon_auxce05_densenet201=0 23:20:14.92 
+gfsl_E1_paper_densenet201=0 23:50:30.46 
+paired_gfsl_phase1=0 23:50:59.97 
+train_E1_paper_densenet201_seed1=0  2:13:27.56 
+train_E1_paper_densenet201_seed2=0  4:35:23.08 
+gfsl_E1_paper_densenet201_seed1=0  5:05:12.60 
+eval_E1_paper_densenet201_seed1=0  5:10:52.70 
+analyze_E1_paper_densenet201_seed1=0  5:16:26.85 
+gfsl_E1_paper_densenet201_seed2=0  5:46:30.82 
+eval_E1_paper_densenet201_seed2=0  5:52:11.09 
+analyze_E1_paper_densenet201_seed2=0  5:57:45.41 
+paired_gfsl_final=0  5:58:52.29 
+eval_E1_siamese_supcon_densenet201=0  6:04:31.03 
+analyze_E1_siamese_supcon_densenet201=0  6:10:01.87 
+eval_E1_siamese_supcon_densenet201_seed1=0  6:15:40.85 
+analyze_E1_siamese_supcon_densenet201_seed1=0  6:21:12.03 
+eval_E1_siamese_supcon_densenet201_seed2=0  6:26:51.17 
+analyze_E1_siamese_supcon_densenet201_seed2=0  6:32:22.28 
+eval_E6_supcon_auxce05_densenet201=0  6:38:01.41 
+analyze_E6_supcon_auxce05_densenet201=0  6:43:32.51 
+eval_E6_triplet_densenet201=0  6:49:11.63 
+analyze_E6_triplet_densenet201=0  6:54:42.89 
+eval_E1_paper_densenet201=0  7:00:24.02 
+analyze_E1_paper_densenet201=0  7:05:58.48 
+eval_E2_ce22_densenet201=0  7:11:25.36 
+analyze_E2_ce22_densenet201=0  7:16:52.81 
+compare_cmp_fp32_siamese_feat_vs_paper=0  7:16:54.47 
+compare_cmp_fp32_siamese_head_vs_paper=0  7:16:56.11 
+compare_cmp_fp32_gfsl_siamese_vs_paperfeat=0  7:16:57.79 
+DONE Sun 10/18/2026  7:16:57.79 
