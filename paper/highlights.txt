@@ -1,6 +1,6 @@
 Highlights
 
-- First few-shot benchmark of all 22 viruses of the TEM dataset on its official split
+- Few-shot benchmark of all 22 viruses of the public TEM dataset on its official split
 - Siamese contrastive encoder matches a strong re-trained classifier on 14 base viruses
 - With one example per rare virus, Siamese features beat cross-entropy features
 - Rare viruses are linearly separable; nearest-prototype rules cause most errors
