@@ -15,7 +15,8 @@ The manuscript for *Computer Methods and Programs in Biomedicine* is [`paper/mai
 |---|---|
 | `paper/main.tex` | Manuscript (Elsevier `elsarticle`, numbered references). Contains no hand-typed numbers. |
 | `paper/make_numbers_tex.py` → `paper/numbers.tex` | Generates every number and table body of `main.tex` from the raw result files (`--mode fp32` = final round-2 results). |
-| `paper/figures/architecture.tex` → `architecture.pdf` | Fig. 1 (TikZ), with example patches from the dataset (CC BY 4.0, provenance in `figures/patches/SOURCES.txt`). |
+| `paper/figures/architecture.tex` → `architecture.pdf` | Method overview (TikZ), with example patches from the dataset (CC BY 4.0, provenance in `figures/patches/SOURCES.txt`). |
+| `paper/make_figures.py` → `figures/*.pdf` | Data figures generated from the result files: dataset examples, rare-class confusion, K-shot curve, training curves. `figure_values.json` holds the plotted values; `dataset_patches/SOURCES.json` records where each example patch came from. |
 | `paper/highlights.txt`, `paper/references.bib` | CMPB highlights (5 bullets, each at most 85 characters) and the bibliography. |
 | `paper/extract_numbers_final.py` → `paper_numbers_final.md` | Independent Markdown cross-check of the final numbers. |
 | `paper/manuscript_draft.md`, `paper/extract_numbers.py` | First Markdown draft (round-1 numbers); superseded by `main.tex`. |

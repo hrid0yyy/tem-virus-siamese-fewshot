@@ -147,11 +147,51 @@ def fig_training():
     return info
 
 
+def fig_dataset():
+    """One official-train-split example patch per class; base classes on two rows, rare classes on one."""
+    from PIL import Image
+    counts = load(HERE.parent / "tem_fewshot" / "temfs" / "expected_counts.json")["counts"]
+    base = ["Adenovirus", "Astrovirus", "CCHF", "Cowpox", "Ebola", "Influenza", "Lassa", "Marburg", "Nipah virus",
+            "Norovirus", "Orf", "Papilloma", "Rift Valley", "Rotavirus"]
+    fig = plt.figure(figsize=(7.0, 4.15))
+    gs = fig.add_gridspec(3, 8, hspace=0.42, wspace=0.08)
+    slots = [(0, j) for j in range(7)] + [(1, j) for j in range(7)] + [(2, j) for j in range(8)]
+    used = {}
+    for (r, cidx), cls in zip(slots, base + RARE):
+        ax = fig.add_subplot(gs[r, cidx])
+        im = np.asarray(Image.open(OUT / "dataset_patches" / f"{cls.replace(' ', '')}.png").convert("L"))
+        assert im.shape == (256, 256)
+        ax.imshow(im, cmap="gray", vmin=0, vmax=255)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        rare = cls in RARE
+        for sp in ax.spines.values():
+            sp.set_visible(True)
+            sp.set_edgecolor(C_B1 if rare else "0.55")
+            sp.set_linewidth(1.6 if rare else 0.6)
+        tr = counts[cls]["train"]
+        name = cls.replace("WestNile", "West Nile")
+        ax.set_title(name, fontsize=7, pad=2, color=C_B1 if rare else "black")
+        ax.set_xlabel(f"{tr['patches']} / {tr['images']}", fontsize=6.3, labelpad=1.5)
+        used[cls] = (tr["patches"], tr["images"])
+        if (r, cidx) == (0, 0):  # 100 nm scale bar (patches are 256 x 256 px at 1 nm/px)
+            ax.plot([140, 240], [235, 235], color="white", lw=2.2, solid_capstyle="butt")
+            ax.text(190, 222, "100 nm", color="white", fontsize=5.5, ha="center", va="bottom")
+    fig.text(0.125, 0.955, "Base classes (training patches / micrographs)", fontsize=7.5, weight="bold", ha="left")
+    fig.text(0.125, 0.345, "Rare classes, never used to train the encoder (training patches / micrographs)",
+             fontsize=7.5, weight="bold", ha="left", color=C_B1)
+    fig.savefig(OUT / "dataset.pdf")
+    plt.close(fig)
+    return used
+
+
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
+    ds = fig_dataset()
     k = fig_kshot()
     c, n = fig_confusion()
     t = fig_training()
-    json.dump({"kshot_mean_sd": k, "confusion_rare_pct": c, "confusion_rare_row_counts": n, "training": t},
+    json.dump({"kshot_mean_sd": k, "confusion_rare_pct": c, "confusion_rare_row_counts": n, "training": t,
+               "dataset_train_patches_micrographs": ds},
               open(OUT / "figure_values.json", "w", encoding="utf-8"), indent=1)
     print("wrote figures/kshot.pdf, figures/confusion_rare.pdf, figures/training.pdf, figures/figure_values.json")

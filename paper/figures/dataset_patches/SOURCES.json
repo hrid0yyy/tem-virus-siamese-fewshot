@@ -1,0 +1,112 @@
+{
+ "Adenovirus": {
+  "split": "train",
+  "patch": "27_5.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Astrovirus": {
+  "split": "train",
+  "patch": "13_1.tif",
+  "source": "Mendeley public API (sha256 verified)"
+ },
+ "CCHF": {
+  "split": "train",
+  "patch": "19_2.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Cowpox": {
+  "split": "train",
+  "patch": "19_1.tif",
+  "source": "Mendeley public API (sha256 verified)"
+ },
+ "Ebola": {
+  "split": "train",
+  "patch": "38_6.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Influenza": {
+  "split": "train",
+  "patch": "11_16.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Lassa": {
+  "split": "train",
+  "patch": "11_1.tif",
+  "source": "Mendeley public API (sha256 verified)"
+ },
+ "Marburg": {
+  "split": "train",
+  "patch": "22_1.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Nipah virus": {
+  "split": "train",
+  "patch": "14_1.tif",
+  "source": "Mendeley public API (sha256 verified)"
+ },
+ "Norovirus": {
+  "split": "train",
+  "patch": "24_16.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Orf": {
+  "split": "train",
+  "patch": "22_1.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Papilloma": {
+  "split": "train",
+  "patch": "16_14.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Rift Valley": {
+  "split": "train",
+  "patch": "40_5.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Rotavirus": {
+  "split": "train",
+  "patch": "12_4.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Dengue": {
+  "split": "train",
+  "patch": "12_1.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Guanarito": {
+  "split": "train",
+  "patch": "4_1.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "LCM": {
+  "split": "train",
+  "patch": "18_1.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "Machupo": {
+  "split": "train",
+  "patch": "20_1.tif",
+  "source": "Mendeley public API (sha256 verified)"
+ },
+ "Pseudocowpox": {
+  "split": "train",
+  "patch": "18_1.tif",
+  "source": "Mendeley public API (sha256 verified)"
+ },
+ "Sapovirus": {
+  "split": "train",
+  "patch": "4_2.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "TBE": {
+  "split": "train",
+  "patch": "3_1.tif",
+  "source": "GPU PC copy of the dataset"
+ },
+ "WestNile": {
+  "split": "train",
+  "patch": "3_1.tif",
+  "source": "GPU PC copy of the dataset"
+ }
+}

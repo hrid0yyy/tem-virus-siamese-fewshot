@@ -13,4 +13,4 @@ Open items. Each one is also marked in red in `main.pdf` where it applies.
   - `main.tex` + `numbers.tex` + `references.bib` + `elsarticle-num.bst` + `figures/architecture.pdf`, or the PDF if requested;
   - `highlights.txt`, as a separate file with "highlights" in its name;
   - `cover_letter.pdf`;
-  - Fig. 1 as a separate file (`figures/architecture.pdf`).
+  - every figure as a separate file: `figures/dataset.pdf` (Fig. 1), `figures/architecture.pdf` (Fig. 2), `figures/confusion_rare.pdf` (Fig. 3), `figures/kshot.pdf` (Fig. 4) and `figures/training.pdf` (Fig. B.x).

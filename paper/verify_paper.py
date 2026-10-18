@@ -100,4 +100,10 @@ cited = set(k.strip() for c in re.findall(r"\\cite\{([^}]*)\}", tex + num) for k
 check(cited <= keys, f"all {len(cited)} cited keys exist in references.bib {sorted(cited - keys) if cited - keys else ''}")
 check(len(cited) <= 50, f"references <= 50 ({len(cited)})")
 check((HERE / "figures" / "architecture.pdf").exists(), "Fig. 1 PDF exists")
+ds = FV.get("dataset_train_patches_micrographs", {})
+EC = json.load(open(HERE.parent / "tem_fewshot" / "temfs" / "expected_counts.json"))["counts"]
+check(len(ds) == 22 and all(tuple(v) == (EC[c]["train"]["patches"], EC[c]["train"]["images"]) for c, v in ds.items()),
+      "dataset figure: 22 classes, train counts equal the official counts (Table 1)")
+src = json.load(open(HERE / "figures" / "dataset_patches" / "SOURCES.json"))
+check(len(src) == 22 and all(v["split"] == "train" for v in src.values()), "dataset figure: every example comes from the train split, provenance recorded")
 print("\nOVERALL:", "ALL CHECKS PASSED" if ok else "SOME CHECKS FAILED")

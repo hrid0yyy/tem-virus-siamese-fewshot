@@ -270,5 +270,95 @@
    "argmax_epoch": 26,
    "best_val": 0.944
   }
+ },
+ "dataset_train_patches_micrographs": {
+  "Adenovirus": [
+   160,
+   40
+  ],
+  "Astrovirus": [
+   266,
+   46
+  ],
+  "CCHF": [
+   249,
+   44
+  ],
+  "Cowpox": [
+   189,
+   30
+  ],
+  "Ebola": [
+   1118,
+   65
+  ],
+  "Influenza": [
+   497,
+   56
+  ],
+  "Lassa": [
+   279,
+   62
+  ],
+  "Marburg": [
+   511,
+   57
+  ],
+  "Nipah virus": [
+   142,
+   25
+  ],
+  "Norovirus": [
+   231,
+   32
+  ],
+  "Orf": [
+   92,
+   38
+  ],
+  "Papilloma": [
+   693,
+   19
+  ],
+  "Rift Valley": [
+   1144,
+   77
+  ],
+  "Rotavirus": [
+   169,
+   22
+  ],
+  "Dengue": [
+   72,
+   19
+  ],
+  "Guanarito": [
+   31,
+   13
+  ],
+  "LCM": [
+   31,
+   22
+  ],
+  "Machupo": [
+   69,
+   20
+  ],
+  "Pseudocowpox": [
+   48,
+   20
+  ],
+  "Sapovirus": [
+   19,
+   8
+  ],
+  "TBE": [
+   39,
+   25
+  ],
+  "WestNile": [
+   88,
+   5
+  ]
  }
 }
