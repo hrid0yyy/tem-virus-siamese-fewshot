@@ -6,7 +6,7 @@ Open items. Each one is also marked in red in `main.pdf` where it applies.
 - [x] **Affiliation:** "Independent Researcher, Dhaka, Bangladesh" (the work was done after graduation). Add a full postal address if the submission system asks for one.
 - [x] **Corresponding e-mail:** smmahbubuddinahmed@gmail.com (personal, so it won't expire).
 - [x] **Competing interests:** none, as confirmed by the author.
-- [ ] **Generative-AI declaration.** Confirm or adapt the statement, then remove the red "[please confirm]".
+- [x] **Generative-AI declaration:** uses Elsevier's template wording, plus a matching sentence in Methods 2.7 (Implementation), as approved by the author.
 - [ ] **Final read** of the whole paper by you.
 - [ ] Rebuild with `python make_numbers_tex.py --mode fp32`, `tectonic main.tex` and `tectonic cover_letter.tex`, then run `python verify_paper.py`. It must print ALL CHECKS PASSED.
 - [ ] **Upload to Editorial Manager:**
