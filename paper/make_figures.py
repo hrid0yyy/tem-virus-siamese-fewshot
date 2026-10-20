@@ -93,9 +93,15 @@ def fig_confusion():
                     mat[i, j] += int((rows == pj).sum())
                 mat[i, -1] += int((~np.isin(rows, rare_idx)).sum())
         panels[title] = mat
-    fig, axes = plt.subplots(1, 2, figsize=(TEXTWIDTH_IN, 2.75), constrained_layout=True)
-    labels = [c.replace("WestNile", "West Nile") for c in RARE]
-    for ax, (title, mat) in zip(axes, panels.items()):
+    # standard virus abbreviations on both axes; the key inside the figure gives the full names
+    abbr = ["DENV", "GTOV", "LCMV", "MACV", "PCPV", "SaV", "TBEV", "WNV"]
+    key = [("DENV", "Dengue virus"), ("GTOV", "Guanarito virus"), ("LCMV", "Lymphocytic\nchoriomeningitis virus"),
+           ("MACV", "Machupo virus"), ("PCPV", "Pseudocowpox virus"), ("SaV", "Sapovirus"),
+           ("TBEV", "Tick-borne\nencephalitis virus"), ("WNV", "West Nile virus"), ("Base", "any of the 14\nbase classes")]
+    fig = plt.figure(figsize=(TEXTWIDTH_IN, 2.45), constrained_layout=True)
+    gs = fig.add_gridspec(1, 4, width_ratios=[1, 1, 0.07, 0.95])
+    axes = [fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1])]
+    for k, (ax, (title, mat)) in enumerate(zip(axes, panels.items())):
         pct = 100 * mat / mat.sum(1, keepdims=True)
         im = ax.imshow(pct, cmap="Blues", vmin=0, vmax=100, aspect="auto")
         for i in range(pct.shape[0]):
@@ -103,17 +109,28 @@ def fig_confusion():
                 if pct[i, j] >= 5:
                     ax.text(j, i, f"{pct[i, j]:.0f}", ha="center", va="center", fontsize=7,
                             color="white" if pct[i, j] > 55 else "black")
-        ax.set_xticks(range(len(labels) + 1))
-        ax.set_xticklabels(labels + ["(any base)"], rotation=55, ha="right")
-        ax.set_yticks(range(len(labels)))
-        ax.set_yticklabels(labels)
-        ax.set_title(title)
-        ax.set_xlabel("Predicted")
+        ax.set_xticks(range(len(abbr) + 1))
+        ax.set_xticklabels(abbr + ["Base"], rotation=90, fontsize=7)
+        ax.set_yticks(range(len(abbr)))
+        ax.set_yticklabels(abbr if k == 0 else [], fontsize=7)  # rows are the same in both panels
+        ax.tick_params(length=0, pad=2)
+        ax.set_title(title, fontsize=8.5)
+        ax.set_xlabel("Predicted class", fontsize=8)
+        if k == 0:
+            ax.set_ylabel("True class", fontsize=8)
         for sp in ax.spines.values():
             sp.set_visible(False)
-    axes[0].set_ylabel("True rare class")
-    cb = fig.colorbar(im, ax=axes, shrink=0.8, pad=0.01)
-    cb.set_label("% of true-class test patches")
+    cb = fig.colorbar(im, cax=fig.add_subplot(gs[0, 2]))
+    cb.set_label("% of test patches", fontsize=8)
+    cb.ax.tick_params(labelsize=7)
+    kx = fig.add_subplot(gs[0, 3])
+    kx.axis("off")
+    y = 1.0
+    for a, full in key:
+        kx.annotate(a, (0, y), xycoords="axes fraction", fontsize=7, fontweight="bold", va="top")
+        kx.annotate(full, (0, y), xycoords="axes fraction", xytext=(29, 0), textcoords="offset points",
+                    fontsize=7, va="top", linespacing=1.1)
+        y -= 0.083 * (1 + full.count("\n") * 0.85) + 0.012
     fig.savefig(OUT / "confusion_rare.pdf")
     plt.close(fig)
     # values used for verification
