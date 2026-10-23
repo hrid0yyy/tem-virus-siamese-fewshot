@@ -146,6 +146,6 @@ check("Overfull \\hbox" not in log, "no line runs into the margin (no overfull \
 check("Float too large" not in log, "every float fits on its page")
 doc = pymupdf.open(HERE / "main.pdf")
 ref_page = next(i for i, p in enumerate(doc) if re.search(r"^\d*\s*References\s*$", p.get_text(), flags=re.M))
-late = [i + 1 for i, p in enumerate(doc) if i >= ref_page and re.search(r"^(Table|Figure) [A-Z.0-9]+:", p.get_text(), flags=re.M)]
+late = [i + 1 for i, p in enumerate(doc) if i >= ref_page and re.search(r"^(Table|Fig\.) [A-Z.0-9]+:", p.get_text(), flags=re.M)]
 check(not late, f"all figures and tables appear before the references (page {ref_page + 1}) {late if late else ''}")
 print("\nOVERALL:", "ALL CHECKS PASSED" if ok else "SOME CHECKS FAILED")
