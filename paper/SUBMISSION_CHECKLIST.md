@@ -2,7 +2,7 @@
 
 Open items. Each one is also marked in red in `main.pdf` where it applies.
 
-- [ ] **Code link.** `main.tex` → "Data and code availability" points to https://github.com/hrid0yyy/tem-virus-siamese-fewshot, which is still **private**. Make it public, or change the URL or the sentence. Then remove the red TODO.
+- [x] **Code link.** `main.tex` → "Data and code availability" points to https://github.com/hrid0yyy/tem-virus-siamese-fewshot. Red TODO removed; repository public: pending public (Claude, after audit).
 - [x] **Affiliation:** "Independent Researcher, Dhaka, Bangladesh" (the work was done after graduation). Add a full postal address if the submission system asks for one.
 - [x] **Corresponding e-mail:** smmahbubuddinahmed@gmail.com (personal, so it won't expire).
 - [x] **Competing interests:** none, as confirmed by the author.
@@ -13,4 +13,4 @@ Open items. Each one is also marked in red in `main.pdf` where it applies.
   - `main.tex` + `numbers.tex` + `references.bib` + `elsarticle-num.bst` + `figures/architecture.pdf`, or the PDF if requested;
   - `highlights.txt`, as a separate file with "highlights" in its name;
   - `cover_letter.pdf`;
-  - every figure as a separate file: `figures/dataset.pdf` (Fig. 1), `figures/architecture.pdf` (Fig. 2), `figures/confusion_rare.pdf` (Fig. 3), `figures/kshot.pdf` (Fig. 4) and `figures/training.pdf` (Fig. B.x).
+  - every figure as a separate file: `figures/dataset.pdf` (Fig. 1), `figures/architecture.pdf` (Fig. 2), `figures/confusion_rare.pdf` (Fig. 3), `figures/kshot.pdf` (Fig. 4) and `figures/training.pdf` (Fig. B.5).
