@@ -2,7 +2,7 @@
 
 Open items. Each one is also marked in red in `main.pdf` where it applies.
 
-- [x] **Code link.** `main.tex` → "Data and code availability" points to https://github.com/hrid0yyy/tem-virus-siamese-fewshot. Red TODO removed; repository public: pending public (Claude, after audit).
+- [x] **Code link.** `main.tex` → "Data and code availability" points to https://github.com/hrid0yyy/tem-virus-siamese-fewshot. Red TODO removed; privacy audit passed (2026-10-23); repository made public by Claude.
 - [x] **Affiliation:** "Independent Researcher, Dhaka, Bangladesh" (the work was done after graduation). Add a full postal address if the submission system asks for one.
 - [x] **Corresponding e-mail:** smmahbubuddinahmed@gmail.com (personal, so it won't expire).
 - [x] **Competing interests:** none, as confirmed by the author.

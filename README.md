@@ -59,3 +59,9 @@ Paired tests (micrograph-level cluster bootstrap):
 4. **Rebuild the paper.** Run `python paper/make_numbers_tex.py --mode fp32`, then `tectonic paper/main.tex`.
 
 All runs used one NVIDIA RTX 3060 (12 GB).
+
+## License
+
+- Code in this repository is released under the MIT License; see [`LICENSE`](LICENSE).
+- `elsarticle/` is Elsevier's LaTeX class, distributed under the LaTeX Project Public Licence, version 1.3 or later (LPPL), not MIT.
+- Example TEM image patches in `paper/figures/` are derived from the TEM virus dataset (Matuszewski & Sintorn 2021, Mendeley Data [10.17632/x4dwwfwtw3.3](https://doi.org/10.17632/x4dwwfwtw3.3), CC BY 4.0).
