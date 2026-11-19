@@ -1,7 +1,7 @@
 Highlights
 
-- Few-shot benchmark of all 22 viruses of the public TEM dataset on its official split
-- Siamese contrastive encoder matches a strong re-trained classifier on 14 base viruses
-- With one example per rare virus, Siamese features beat cross-entropy features
-- Rare viruses are linearly separable; nearest-prototype rules cause most errors
-- A validation-selected linear classifier on frozen features lifts rare-virus F1
+- Rare viruses in negative-stain TEM recognised from few examples, without retraining
+- First few-shot evaluation of all 22 viruses of the public TEM dataset, official split
+- With one reference particle per rare virus, Siamese features beat cross-entropy ones
+- Errors fall mainly between related or look-alike viruses, e.g. the arenaviruses
+- A linear classifier on frozen features raises rare-virus F1 without retraining

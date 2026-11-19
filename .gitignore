@@ -21,3 +21,7 @@ paper/*.log
 paper/*.out
 paper/*.xdv
 checkpoints/_staging_r2/
+
+# generated upload bundle (python paper/make_submission.py)
+paper/submission_micron/
+paper/submission_micron.zip

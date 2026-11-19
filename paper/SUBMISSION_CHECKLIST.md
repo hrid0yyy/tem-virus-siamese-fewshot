@@ -1,16 +1,31 @@
-# Before submitting to *Computer Methods and Programs in Biomedicine*
+# Before submitting to *Micron* (Elsevier)
 
-Open items. Each one is also marked in red in `main.pdf` where it applies.
+History: submitted to *Computer Methods and Programs in Biomedicine* (CMPB-D-26-08813), desk-rejected in November 2026 for "lack of sufficient novelty". The submitted version is tagged `cmpb-submission` in git. Rules below are from Micron's Guide for Authors, read on 19 Nov 2026.
 
-- [x] **Code link.** `main.tex` → "Data and code availability" points to https://github.com/hrid0yyy/tem-virus-siamese-fewshot. Red TODO removed; privacy audit passed (2026-10-23); repository made public by Claude.
-- [x] **Affiliation:** "Independent Researcher, Dhaka, Bangladesh" (the work was done after graduation). Add a full postal address if the submission system asks for one.
-- [x] **Corresponding e-mail:** smmahbubuddinahmed@gmail.com (personal, so it won't expire).
-- [x] **Competing interests:** none, as confirmed by the author.
-- [x] **Generative-AI declaration:** uses Elsevier's template wording, plus a matching sentence in Methods 2.7 (Implementation), as approved by the author.
-- [ ] **Final read** of the whole paper by you.
-- [ ] Rebuild with `python make_numbers_tex.py --mode fp32`, `tectonic main.tex` and `tectonic cover_letter.tex`, then run `python verify_paper.py`. It must print ALL CHECKS PASSED.
-- [ ] **Upload to Editorial Manager:**
-  - `main.tex` + `numbers.tex` + `references.bib` + `elsarticle-num.bst` + `figures/architecture.pdf`, or the PDF if requested;
-  - `highlights.txt`, as a separate file with "highlights" in its name;
-  - `cover_letter.pdf`;
-  - every figure as a separate file: `figures/dataset.pdf` (Fig. 1), `figures/architecture.pdf` (Fig. 2), `figures/confusion_rare.pdf` (Fig. 3), `figures/kshot.pdf` (Fig. 4) and `figures/training.pdf` (Fig. B.5).
+## Done in the manuscript
+- [x] **Title** reframed for microscopists: "Identifying rare viruses in negative-stain transmission electron microscopy images from few examples with Siamese neural networks" (negative staining confirmed from the dataset record: 2 % phosphotungstic acid).
+- [x] **Abstract**: one unstructured paragraph, at most 250 words (238, counted on the PDF by `verify_paper.py`).
+- [x] **Keywords**: 7 (limit 1–7).
+- [x] **Highlights**: `highlights.txt`, 5 bullets, at most 85 characters each.
+- [x] **Affiliation with postal address**: Independent Researcher, Shahjadpur, Dhaka 1212, Bangladesh.
+- [x] **Appendix numbering** per appendix (Table A.1, Fig. B.1), as the guide asks.
+- [x] **Microscopy content**: acquisition and staining in Methods 2.1; new Discussion paragraph on which rare viruses are confused (same family or similar particle appearance), with ICTV taxonomy references. Its counts come from `make_numbers_tex.py` (descriptive, test split).
+- [x] **Declarations**: competing interests, funding, CRediT, data and code availability, generative-AI statement.
+- [x] **Code link**: https://github.com/hrid0yyy/tem-virus-siamese-fewshot (public, MIT).
+- [x] **Cover letter** rewritten for Micron (`cover_letter.pdf`); discloses the SSRN preprint (abstract ID 7664934).
+- [x] **No graphical abstract** required. **No main-text word limit.** References may be in any consistent style at submission (Micron converts to author–year after acceptance).
+
+## For you
+- [ ] **Final read** of the whole paper, especially the new abstract, the new Discussion paragraph ("The confusions are consistent with ...") and the cover letter.
+- [ ] Confirm the **SSRN preprint** status (the cover letter says an earlier version "was posted" there, which is true either way).
+- [ ] **Declarations tool**: Micron asks you to fill in Elsevier's online declaration-of-interest tool and upload the Word (.docx) file it produces. Choose "I have nothing to declare".
+
+## Rebuild before uploading
+`python make_numbers_tex.py --mode fp32`, `tectonic main.tex`, `tectonic cover_letter.tex`, `python verify_paper.py` (must print ALL CHECKS PASSED), then `python make_submission.py`.
+
+## Upload to Editorial Manager (all files are in `submission_micron/`)
+- **Manuscript (LaTeX source)**: `main.tex`, `numbers.tex`, `references.bib`, `main.bbl`, `elsarticle-num.bst`. A PDF is *not* accepted as the source file; `main.pdf` is only for your reference, upload it as well only if the system asks for a PDF.
+- **Figures**, each as a separate file: `Figure_1.pdf` (dataset), `Figure_2.pdf` (architecture), `Figure_3.pdf` (confusions), `Figure_4.pdf` (K-shot), `Figure_B1.pdf` (training curves).
+- **Highlights**: `highlights.txt`.
+- **Cover letter**: `cover_letter.pdf` (or paste its text if there is only a text box).
+- **Declaration of interest**: the .docx from Elsevier's declarations tool.

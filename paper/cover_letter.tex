@@ -1,4 +1,4 @@
-%% Cover letter for Computer Methods and Programs in Biomedicine. Build: tectonic cover_letter.tex
+%% Cover letter for Micron. Build: tectonic cover_letter.tex
 %% Numbers come from numbers.tex (same source as the manuscript).
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=2.0cm,top=1.5cm,bottom=1.5cm]{geometry}
@@ -17,32 +17,32 @@
 \begin{flushright}
 S. M. Mahbub Uddin Ahmed\\
 Independent Researcher\\
-Dhaka, Bangladesh\\
+Shahjadpur, Dhaka 1212, Bangladesh\\
 \href{mailto:smmahbubuddinahmed@gmail.com}{smmahbubuddinahmed@gmail.com}\\[6pt]
 \today
 \end{flushright}
 
-The Editor-in-Chief\\
-\textit{Computer Methods and Programs in Biomedicine}
+The Editors\\
+\textit{Micron}
 
-Dear Editor,
+Dear Editors,
 
-I am pleased to submit the original research article \textbf{``Few-shot classification of rare viruses in transmission electron microscopy images using Siamese neural networks''} for consideration in \textit{Computer Methods and Programs in Biomedicine}.
+I am pleased to submit the original research article \textbf{``Identifying rare viruses in negative-stain transmission electron microscopy images from few examples with Siamese neural networks''} for consideration in \textit{Micron}.
 
-\textbf{Why this journal.} The public TEM virus dataset and its benchmark were introduced in this journal by Matuszewski and Sintorn (2021). This work is a direct methodological follow-up on that dataset and its official split. It develops and evaluates a computing method for a diagnostic imaging task, and releases the software, protocol and per-patch predictions for reuse. This matches the journal's focus on computing methods and software for biomedical research and practice.
+\textbf{Why this journal.} Negative-stain transmission electron microscopy (TEM) identifies viruses without prior assumptions about the pathogen, but reading the micrographs requires experts who can recognise a virus from the appearance of its particles. This study asks a question that matters in diagnostic electron microscopy: can an image-analysis method recognise a rare or newly emerging virus when only a handful of reference micrographs exist? It is an application of advanced image analysis to biological TEM, in which the microscopy data and the interpretation of particle appearance are central, which matches the scope of \textit{Micron}.
 
-\textbf{What is known.} The benchmark covers the 14 most frequent viruses. Subsequent studies have reported higher 14-class accuracy, but several used protocols other than the official micrograph-level split. The two studies that used all 22 classes trained a closed-set classifier on every class. As far as I could determine, neither reported rare-class results on the official split or treated the rare viruses as few-shot classes. Yet rare viruses, with only 5--25 training micrographs each, are the realistic diagnostic case: an emerging virus will always have few reference images.
+\textbf{What is known.} The public TEM virus dataset of Matuszewski and Sintorn (2021) contains negative-stain micrographs of 22 viruses, but its benchmark covers only the 14 most frequent. The eight rare viruses, with 5--25 training micrographs each, have been either excluded or pooled into closed-set classifiers trained on every class; as far as I could determine, no study has evaluated them as viruses recognised from a few examples on the official split.
 
 \textbf{What this study adds.}
 \begin{itemize}[leftmargin=1.2em, itemsep=2pt, topsep=0pt]
-\item \textbf{A first protocol for the rare viruses.} To my knowledge, this is the first generalised few-shot evaluation of all 22 classes on the official split. The eight rare viruses are never used for training, every hyper-parameter is chosen on validation, and a pixel-level audit confirms there is no train/test leakage.
-\item \textbf{A fair comparison on the benchmark.} A Siamese supervised-contrastive encoder matches a faithful re-implementation of the benchmark classifier on the 14 classes: \SiamClosedAcc\,\% versus \BOneClosedAcc\,\% accuracy over three seeds each, with no significant seed-pair difference. Both exceed the published 93.1\,\%.
-\item \textbf{A one-shot advantage.} With a single example per rare virus, the Siamese features recognise rare viruses better than cross-entropy features (\KshotSiamOne\,\% vs \KshotBOneOne\,\% rare-class accuracy). The difference is significant in all seed pairs.
-\item \textbf{A diagnosis and a simple fix for the rare-class failures.} The confused rare classes, including Dengue versus Sapovirus, are nearly linearly separable in the learned features. A validation-selected logistic regression on frozen features therefore raises 22-class macro-F1 from \SiamNcmFOne\ to \SiamLrFOne, significantly on every checkpoint, without retraining.
-\item \textbf{Transparent reporting.} Negative and neutral results are reported in full, including where the Siamese approach gives no advantage. Statistics use micrograph-level cluster bootstrap and paired tests.
+\item \textbf{Recognition of rare viruses from few examples.} A Siamese network trained on the 14 frequent viruses recognises the eight rare viruses, which it never saw in training, from their reference images alone. With a single reference particle per rare virus, its features recognise rare viruses better than features of a conventionally trained classifier (\KshotSiamOne\,\% versus \KshotBOneOne\,\% rare-class accuracy), significantly in all seed pairs.
+\item \textbf{A fair comparison.} On the 14 frequent viruses, the network matches a faithful re-implementation of the benchmark classifier (\SiamClosedAcc\,\% versus \BOneClosedAcc\,\% accuracy, three seeds each), under identical, leakage-audited evaluation.
+\item \textbf{Which viruses are confused, and why.} Errors occur mainly between viruses that look alike in negative-stain TEM: among the arenaviruses (Guanarito, LCM, Machupo and Lassa virus), between the parapoxviruses Pseudocowpox and Orf, and between small, near-spherical particles such as Dengue virus and Sapovirus. These pairs indicate where expert confirmation and additional reference images are most needed.
+\item \textbf{A simple remedy.} The confused viruses are nearly linearly separable in the learned features, and a linear classifier on the frozen features raises the 22-class macro-F1 from \SiamNcmFOne\ to \SiamLrFOne\ without retraining.
+\item \textbf{Open and transparent.} Negative results are reported in full, and the code, trained models and per-patch predictions are publicly available.
 \end{itemize}
 
-\textbf{Declarations.} I confirm that this manuscript is original, has not been published previously, and is not under consideration for publication elsewhere. I am the sole author and approve the submission. I have no competing interests to declare, and this research received no specific funding. The dataset is publicly available under a CC BY 4.0 licence, and no human or animal subjects were involved. As required by the journal's policy, the use of generative AI tools in preparing the work is declared in the manuscript.
+\textbf{Declarations.} I confirm that this manuscript is original, has not been published previously, and is not under consideration for publication elsewhere. An earlier version was posted as a preprint on SSRN (abstract ID 7664934). I am the sole author and approve the submission. I have no competing interests to declare, and this research received no specific funding. The dataset is publicly available under a CC BY 4.0 licence, and no human or animal subjects were involved. The use of generative AI tools in preparing the work is declared in the manuscript, as required by the journal's policy.
 
 Thank you for considering this manuscript. I look forward to hearing from you.
 

@@ -98,13 +98,22 @@ check(all(v["best_epoch"] == v["argmax_epoch"] for v in tr.values()), "Fig. trai
 check(all(tr[r]["epochs_run"] == tr[r]["best_epoch"] + 12 for r in S), "'Siamese stopped after 12 epochs without improvement'")
 check(all(tr[r]["epochs_run"] == 50 for r in B), "'B1 trained for the fixed 50 epochs'")
 
-# 3. CMPB format
+# 3. Micron format (Guide for Authors, read 19 Nov 2026)
 abstract = tex[tex.index(r"\begin{abstract}"):tex.index(r"\end{abstract}")]
-for h in ("Background and Objective:", "Methods:", "Results:", "Conclusions:"):
-    check(h in abstract, f"structured abstract has '{h}'")
+check(r"\textbf" not in abstract and "\n\n" not in abstract.strip(), "abstract is one unstructured paragraph")
 check(r"\cite" not in abstract, "no citations in abstract")
+import pymupdf as fitz  # noqa: E402
+_pt = " ".join(pg.get_text() for pg in fitz.open(HERE / "main.pdf")[:2])
+_ab = _pt[_pt.index("Abstract") + len("Abstract"):_pt.index("Keywords:")]
+_ab = re.sub(r"(?m)^\s*\d+\s*$", " ", _ab)                 # line numbers
+_ab = re.sub(r"\S*Corresponding author.*?\)", " ", _ab, flags=re.S)  # footnote that may fall inside
+_ab = re.sub(r"(?<=[a-z])-\s*\n\s*(?=[a-z])", "", _ab)      # hyphenation at line breaks
+n_ab = len([w for w in _ab.split() if re.search(r"[A-Za-z0-9]", w)])
+check(n_ab <= 250, f"abstract <= 250 words in the PDF ({n_ab})")
 kw = tex[tex.index(r"\begin{keyword}"):tex.index(r"\end{keyword}")]
-check(3 <= kw.count(r"\sep") + 1 <= 6, f"keywords 3-6 ({kw.count(chr(92) + 'sep') + 1})")
+check(1 <= kw.count(r"\sep") + 1 <= 7, f"keywords 1-7 ({kw.count(chr(92) + 'sep') + 1})")
+check(r"\journal{Micron}" in tex, "journal set to Micron")
+check("postcode={1212}" in tex, "affiliation has a postal address")
 hl = [l[2:] for l in (HERE / "highlights.txt").read_text(encoding="utf-8").splitlines() if l.startswith("- ")]
 check(3 <= len(hl) <= 5 and all(len(h) <= 85 for h in hl), f"highlights: {len(hl)} bullets, max {max(map(len, hl))} chars")
 for sec in ("Introduction", "Methods", "Results", "Discussion", "Conclusions"):

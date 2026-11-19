@@ -7,7 +7,7 @@ This is a research project on the public **TEM virus dataset** (Matuszewski & Si
 - full-precision deterministic re-evaluation of every checkpoint;
 - paired tests for the rare-class study.
 
-The manuscript for *Computer Methods and Programs in Biomedicine* is [`paper/main.tex`](paper/main.tex), built as [`paper/main.pdf`](paper/main.pdf) with `tectonic main.tex`. Red text in the PDF marks author-only items: names, affiliation, funding, CRediT and repository URL.
+The manuscript (prepared for *Micron*) is [`paper/main.tex`](paper/main.tex), built as [`paper/main.pdf`](paper/main.pdf) with `tectonic main.tex`. An earlier version was posted as a preprint on SSRN (abstract ID 7664934).
 
 ## Repository layout
 

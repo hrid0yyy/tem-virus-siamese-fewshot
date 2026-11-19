@@ -404,6 +404,47 @@ def main():
                 cor += int((z[f"{m}_pred"][yd] == cl.index("Dengue")).sum())
             put(f"DengueToSapPct{nm}", f"{100 * hit / tot:.0f}")
             put(f"DengueRecallPct{nm}", f"{100 * cor / tot:.0f}")
+        # Descriptive (test split, Siamese NCM, counts pooled over the three seeds): do the rare-class errors
+        # fall on viruses of the same family? Family membership follows the ICTV taxonomy profiles.
+        rare_arena, arena = ["Guanarito", "LCM", "Machupo"], ["Guanarito", "LCM", "Machupo", "Lassa"]
+        c = {"arena_err": 0, "arena_err_arena": 0, "lassa_n": 0, "lassa_to_rare_arena": 0, "pcpv_err": 0,
+             "pcpv_err_orf": 0, "orf_to_pcpv": 0, "orf_n": 0, "den_err": 0, "den_to_tbe": 0, "den_to_sapo": 0, "astro_to_sapo": 0,
+             "astro_n": 0}
+        for r in gs:
+            z = np.load(RUNS / "gfsl_fp32" / r / f"predictions_{r}.npz", allow_pickle=False)
+            cl = [str(x) for x in z["classes"]]
+            y, p = z["y"], z["ncm_pred"]
+            ix = {n: cl.index(n) for n in arena + ["Pseudocowpox", "Orf", "Dengue", "TBE", "Sapovirus", "Astrovirus"]}
+            for n in rare_arena:
+                wrong = p[(y == ix[n]) & (p != ix[n])]
+                c["arena_err"] += len(wrong)
+                c["arena_err_arena"] += int(np.isin(wrong, [ix[m] for m in arena if m != n]).sum())
+            c["lassa_n"] += int((y == ix["Lassa"]).sum())
+            c["lassa_to_rare_arena"] += int(np.isin(p[y == ix["Lassa"]], [ix[m] for m in rare_arena]).sum())
+            wrong = p[(y == ix["Pseudocowpox"]) & (p != ix["Pseudocowpox"])]
+            c["pcpv_err"] += len(wrong)
+            c["pcpv_err_orf"] += int((wrong == ix["Orf"]).sum())
+            c["orf_n"] += int((y == ix["Orf"]).sum())
+            c["orf_to_pcpv"] += int((p[y == ix["Orf"]] == ix["Pseudocowpox"]).sum())
+            wrong = p[(y == ix["Dengue"]) & (p != ix["Dengue"])]
+            c["den_err"] += len(wrong)
+            c["den_to_tbe"] += int((wrong == ix["TBE"]).sum())
+            c["den_to_sapo"] += int((wrong == ix["Sapovirus"]).sum())
+            c["astro_n"] += int((y == ix["Astrovirus"]).sum())
+            c["astro_to_sapo"] += int((p[y == ix["Astrovirus"]] == ix["Sapovirus"]).sum())
+        put("ArenaErrN", str(c["arena_err"]))
+        put("ArenaErrToArena", str(c["arena_err_arena"]))
+        put("LassaTestPooled", str(c["lassa_n"]))
+        put("LassaToRareArena", str(c["lassa_to_rare_arena"]))
+        put("PcpvErrN", str(c["pcpv_err"]))
+        put("PcpvErrToOrf", str(c["pcpv_err_orf"]))
+        put("OrfTestPooled", str(c["orf_n"]))
+        put("OrfToPcpv", str(c["orf_to_pcpv"]))
+        put("DengueErrN", str(c["den_err"]))
+        put("DengueErrToTbe", str(c["den_to_tbe"]))
+        put("DengueErrToSapo", str(c["den_to_sapo"]))
+        put("AstroTestPooled", str(c["astro_n"]))
+        put("AstroToSapo", str(c["astro_to_sapo"]))
     sup = g0["per_class"]["support"]
     put("WeakSupport", ", ".join(f"{c} {sup[g0['class_names'].index(c)]}" for c in WEAK))
     # Mahalanobis selection stability: did the selected setting differ across seeds / near-ties on validation?
