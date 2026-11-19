@@ -4,7 +4,7 @@ History: submitted to *Computer Methods and Programs in Biomedicine* (CMPB-D-26-
 
 ## Done in the manuscript
 - [x] **Title** reframed for microscopists: "Identifying rare viruses in negative-stain transmission electron microscopy images from few examples with Siamese neural networks" (negative staining confirmed from the dataset record: 2 % phosphotungstic acid).
-- [x] **Abstract**: one unstructured paragraph, at most 250 words (238, counted on the PDF by `verify_paper.py`).
+- [x] **Abstract**: one unstructured paragraph, at most 250 words (245, counted on the PDF by `verify_paper.py`).
 - [x] **Keywords**: 7 (limit 1–7).
 - [x] **Highlights**: `highlights.txt`, 5 bullets, at most 85 characters each.
 - [x] **Affiliation with postal address**: Independent Researcher, Shahjadpur, Dhaka 1212, Bangladesh.
