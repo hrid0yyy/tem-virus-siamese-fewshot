@@ -142,7 +142,7 @@ check(g("ArenaErrNLr") < g("ArenaErrN") and g("DengueErrNLr") < g("DengueErrN")
 check(g("DengueErrToAstroLr") > g("DengueErrToTbeLr") and g("DengueErrToAstroLr") > g("DengueErrToAstro"),
       "'with logistic regression, also with Astrovirus'")
 
-# 3. Micron format (Guide for Authors, read 19 Nov 2026)
+# 3. Array format (Guide for Authors, read 20 Nov 2026)
 abstract = tex[tex.index(r"\begin{abstract}"):tex.index(r"\end{abstract}")]
 check(r"\textbf" not in abstract and "\n\n" not in abstract.strip(), "abstract is one unstructured paragraph")
 check(r"\cite" not in abstract, "no citations in abstract")
@@ -156,13 +156,14 @@ n_ab = len([w for w in _ab.split() if re.search(r"[A-Za-z0-9]", w)])
 check(n_ab <= 250, f"abstract <= 250 words in the PDF ({n_ab})")
 kw = tex[tex.index(r"\begin{keyword}"):tex.index(r"\end{keyword}")]
 check(1 <= kw.count(r"\sep") + 1 <= 7, f"keywords 1-7 ({kw.count(chr(92) + 'sep') + 1})")
-check(r"\journal{Micron}" in tex, "journal set to Micron")
+check(r"\journal{Array}" in tex, "journal set to Array")
 _labels = re.findall(r"\\label\{((?:fig|tab):[\w-]+)\}", tex)
 _uncited = [l for l in _labels if ("ref{" + l + "}") not in tex]
 check(not _uncited, f"every figure and table is cited in the text {_uncited if _uncited else ''}")
 check("Document Class: elsarticle 2024/04/04, 3.4" in (HERE / "main.log").read_text(encoding="utf-8", errors="ignore"),
       "built with the official elsarticle v3.4 class")
-check("city={Dhaka 1212}" in tex and "addressline={Shahjadpur}" in tex, "affiliation has a postal address")
+check("United International University" in tex and "addressline={United City, Madani Avenue, Badda}" in tex and "city={Dhaka 1212}" in tex,
+      "affiliation: UIU with full postal address")
 hl = [l[2:] for l in (HERE / "highlights.txt").read_text(encoding="utf-8").splitlines() if l.startswith("- ")]
 check(3 <= len(hl) <= 5 and all(len(h) <= 85 for h in hl), f"highlights: {len(hl)} bullets, max {max(map(len, hl))} chars")
 for sec in ("Introduction", "Methods", "Results", "Discussion", "Conclusions"):

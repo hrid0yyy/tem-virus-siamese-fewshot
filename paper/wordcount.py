@@ -1,4 +1,4 @@
-"""Approximate word counts of main.tex (Micron: abstract <= 250 words; no main-text limit). verify_paper.py counts the abstract exactly on the PDF."""
+"""Approximate word counts of main.tex (Array: abstract <= 250 words; no main-text limit). verify_paper.py counts the abstract exactly on the PDF."""
 import re
 from pathlib import Path
 
@@ -16,5 +16,5 @@ def words(t):
 
 abstract = s[s.index(r"\begin{abstract}"):s.index(r"\end{abstract}")]
 main = s[s.index(r"\section{Introduction}"):s.index(r"\section*{Declaration of competing")]
-print(f"abstract  ~{words(abstract)} words (Micron limit 250; exact count: verify_paper.py)")
-print(f"main text ~{words(main)} words (no Micron limit; excluding abstract, tables, references, declarations)")
+print(f"abstract  ~{words(abstract)} words (Array limit 250; exact count: verify_paper.py)")
+print(f"main text ~{words(main)} words (no Array limit; excluding abstract, tables, references, declarations)")

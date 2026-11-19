@@ -7,7 +7,7 @@ This is a research project on the public **TEM virus dataset** (Matuszewski & Si
 - full-precision deterministic re-evaluation of every checkpoint;
 - paired tests for the rare-class study.
 
-The manuscript (prepared for *Micron*) is [`paper/main.tex`](paper/main.tex), built as [`paper/main.pdf`](paper/main.pdf) with `tectonic main.tex`.
+The manuscript (prepared for *Array*) is [`paper/main.tex`](paper/main.tex), built as [`paper/main.pdf`](paper/main.pdf) with `tectonic main.tex`.
 
 ## Repository layout
 
