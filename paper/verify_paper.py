@@ -98,6 +98,50 @@ check(all(v["best_epoch"] == v["argmax_epoch"] for v in tr.values()), "Fig. trai
 check(all(tr[r]["epochs_run"] == tr[r]["best_epoch"] + 12 for r in S), "'Siamese stopped after 12 epochs without improvement'")
 check(all(tr[r]["epochs_run"] == 50 for r in B), "'B1 trained for the fixed 50 epochs'")
 
+# 2b. confusion counts of Section 3.5 / Discussion, recomputed independently from 22x22 confusion matrices
+import numpy as np  # noqa: E402
+for key, sfx in (("ncm_pred", ""), ("logreg_pred", "Lr")):
+    C = None
+    for r in S:
+        z = np.load(RUNS / "gfsl_fp32" / r / f"predictions_{r}.npz", allow_pickle=False)
+        cl = [str(x) for x in z["classes"]]
+        if C is None:
+            C = np.zeros((len(cl), len(cl)), int)
+        np.add.at(C, (z["y"], z[key]), 1)
+    i = {n: cl.index(n) for n in cl}
+    ra = [i["Guanarito"], i["LCM"], i["Machupo"]]
+    ar = ra + [i["Lassa"]]
+    off = C - np.diag(np.diag(C))
+    want = {
+        "ArenaErrN": off[ra].sum(),
+        "ArenaErrToArena": sum(off[a, b] for a in ra for b in ar),
+        "LassaToRareArena": C[i["Lassa"], ra].sum(),
+        "PcpvErrN": off[i["Pseudocowpox"]].sum(),
+        "PcpvErrToOrf": C[i["Pseudocowpox"], i["Orf"]],
+        "OrfToPcpv": C[i["Orf"], i["Pseudocowpox"]],
+        "DengueErrN": off[i["Dengue"]].sum(),
+        "DengueErrToTbe": C[i["Dengue"], i["TBE"]],
+        "DengueErrToSapo": C[i["Dengue"], i["Sapovirus"]],
+        "DengueErrToAstro": C[i["Dengue"], i["Astrovirus"]],
+        "AstroToSapo": C[i["Astrovirus"], i["Sapovirus"]],
+    }
+    if not sfx:
+        want |= {"LassaTestPooled": C[i["Lassa"]].sum(), "OrfTestPooled": C[i["Orf"]].sum(),
+                 "AstroTestPooled": C[i["Astrovirus"]].sum()}
+    bad = {k + sfx: (int(v), M.get(k + sfx)) for k, v in want.items() if str(int(v)) != M.get(k + sfx)}
+    check(not bad, f"confusion counts ({key}) match an independent recomputation {bad if bad else ''}")
+    den = off[i["Dengue"]]
+    check(den.argmax() == i["Sapovirus"], f"'Dengue confused mainly with Sapovirus' ({key})")
+    check((C[i["Dengue"], i["TBE"]] + C[i["Dengue"], i["WestNile"]]) / den.sum() < 0.10,
+          f"'only rarely with the other flaviviruses' (<10% of Dengue errors, {key})")
+    check(want["ArenaErrToArena"] / want["ArenaErrN"] > 0.5, f"'most arenavirus errors fall within the arenaviruses' ({key})")
+g = lambda k: int(M[k])  # noqa: E731
+check(g("ArenaErrNLr") < g("ArenaErrN") and g("DengueErrNLr") < g("DengueErrN")
+      and g("LassaToRareArenaLr") < g("LassaToRareArena") and g("PcpvErrNLr") == 0,
+      "'logistic regression reduced these errors'; 'no Pseudocowpox patch was misclassified'")
+check(g("DengueErrToAstroLr") > g("DengueErrToTbeLr") and g("DengueErrToAstroLr") > g("DengueErrToAstro"),
+      "'with logistic regression, also with Astrovirus'")
+
 # 3. Micron format (Guide for Authors, read 19 Nov 2026)
 abstract = tex[tex.index(r"\begin{abstract}"):tex.index(r"\end{abstract}")]
 check(r"\textbf" not in abstract and "\n\n" not in abstract.strip(), "abstract is one unstructured paragraph")

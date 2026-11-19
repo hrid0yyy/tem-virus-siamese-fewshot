@@ -9,14 +9,14 @@ History: submitted to *Computer Methods and Programs in Biomedicine* (CMPB-D-26-
 - [x] **Highlights**: `highlights.txt`, 5 bullets, at most 85 characters each.
 - [x] **Affiliation with postal address**: Independent Researcher, Shahjadpur, Dhaka 1212, Bangladesh.
 - [x] **Appendix numbering** per appendix (Table A.1, Fig. B.1), as the guide asks.
-- [x] **Microscopy content**: acquisition and staining in Methods 2.1; new Discussion paragraph on which rare viruses are confused (same family or similar particle appearance), with ICTV taxonomy references. Its counts come from `make_numbers_tex.py` (descriptive, test split).
+- [x] **Microscopy content**: acquisition and staining in Methods 2.1; new Results subsection "Which rare viruses are confused" (counts for both classifiers, from `make_numbers_tex.py`, recomputed independently in `verify_paper.py`; descriptive, test split) and a Discussion paragraph relating them to virus family and particle appearance, with ICTV taxonomy references (all four checked on ictv.global and Crossref).
 - [x] **Declarations**: competing interests, funding, CRediT, data and code availability, generative-AI statement.
 - [x] **Code link**: https://github.com/hrid0yyy/tem-virus-siamese-fewshot (public, MIT).
 - [x] **Cover letter** rewritten for Micron (`cover_letter.pdf`); discloses the SSRN preprint (abstract ID 7664934).
 - [x] **No graphical abstract** required. **No main-text word limit.** References may be in any consistent style at submission (Micron converts to author–year after acceptance).
 
 ## For you
-- [ ] **Final read** of the whole paper, especially the new abstract, the new Discussion paragraph ("The confusions are consistent with ...") and the cover letter.
+- [ ] **Final read** of the whole paper, especially the new abstract, the new Results subsection 3.5, the Discussion paragraph ("The confusions are consistent with ...") and the cover letter.
 - [ ] Confirm the **SSRN preprint** status (the cover letter says an earlier version "was posted" there, which is true either way).
 - [ ] **Declarations tool**: Micron asks you to fill in Elsevier's online declaration-of-interest tool and upload the Word (.docx) file it produces. Choose "I have nothing to declare".
 
