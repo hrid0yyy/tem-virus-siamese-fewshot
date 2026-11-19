@@ -7,7 +7,7 @@ This is a research project on the public **TEM virus dataset** (Matuszewski & Si
 - full-precision deterministic re-evaluation of every checkpoint;
 - paired tests for the rare-class study.
 
-The manuscript (prepared for *Micron*) is [`paper/main.tex`](paper/main.tex), built as [`paper/main.pdf`](paper/main.pdf) with `tectonic main.tex`. An earlier version was posted as a preprint on SSRN (abstract ID 7664934).
+The manuscript (prepared for *Micron*) is [`paper/main.tex`](paper/main.tex), built as [`paper/main.pdf`](paper/main.pdf) with `tectonic main.tex`.
 
 ## Repository layout
 
@@ -17,9 +17,9 @@ The manuscript (prepared for *Micron*) is [`paper/main.tex`](paper/main.tex), bu
 | `paper/make_numbers_tex.py` → `paper/numbers.tex` | Generates every number and table body of `main.tex` from the raw result files (`--mode fp32` = final round-2 results). |
 | `paper/figures/architecture.tex` → `architecture.pdf` | Method overview (TikZ), with example patches from the dataset (CC BY 4.0, provenance in `figures/patches/SOURCES.txt`). |
 | `paper/make_figures.py` → `figures/*.pdf` | Data figures generated from the result files: dataset examples, rare-class confusion, K-shot curve, training curves. `figure_values.json` holds the plotted values; `dataset_patches/SOURCES.json` records where each example patch came from. |
-| `paper/highlights.txt`, `paper/references.bib` | CMPB highlights (5 bullets, each at most 85 characters) and the bibliography. |
+| `paper/highlights.txt`, `paper/references.bib` | Highlights (5 bullets, each at most 85 characters) and the bibliography. |
 | `paper/extract_numbers_final.py` → `paper_numbers_final.md` | Independent Markdown cross-check of the final numbers. |
-| `paper/manuscript_draft.md`, `paper/extract_numbers.py` | First Markdown draft (round-1 numbers); superseded by `main.tex`. |
+| `paper/extract_numbers.py` | Number extraction used for the first draft (round-1 numbers); superseded by `make_numbers_tex.py`. |
 | `tem_fewshot/` | All code: data indexing and verification, training, evaluation protocols, statistics, the rare-class classifier study (`gfsl_improve.py`) and its paired tests (`paired_gfsl.py`). See [`tem_fewshot/README.md`](tem_fewshot/README.md). |
 | `tem_fewshot/tests/run_tests.py` | Self-tests (23 tests). All pass on the GPU PC (`remote_artifacts/tests_remote5.log`). |
 | `remote_artifacts/` | Everything produced on the GPU PC except model weights; see its README. |
