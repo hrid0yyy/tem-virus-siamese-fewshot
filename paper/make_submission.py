@@ -26,6 +26,13 @@ if OUT.exists():
 OUT.mkdir()
 
 tex = (HERE / "main.tex").read_text(encoding="utf-8")
+# main.bbl is only written to disk with `tectonic --keep-intermediates`; a stale one would give the wrong reference list
+bbl = (HERE / "main.bbl").read_text(encoding="utf-8")
+cited = {k.strip() for g in re.findall(r"\\cite[pt]?\{([^}]+)\}", tex) for k in g.split(",")}
+items = set(re.findall(r"\\bibitem(?:\[[^\]]*\])?\{([^}]+)\}", bbl))
+assert items == cited, f"main.bbl is stale: missing {cited - items}, extra {items - cited}"
+assert (HERE / "main.bbl").stat().st_mtime >= (HERE / "references.bib").stat().st_mtime, "main.bbl older than references.bib"
+assert "VERIFY" not in bbl
 used = re.findall(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}", tex)
 assert sorted(used) == sorted(FIGS), f"figures in main.tex changed: {used}"
 for src, dst in FIGS.items():

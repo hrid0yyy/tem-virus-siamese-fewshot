@@ -26,7 +26,7 @@ History: submitted to *Computer Methods and Programs in Biomedicine* (CMPB-D-26-
 - [ ] **Declarations tool**: Micron asks you to fill in Elsevier's online declaration-of-interest tool and upload the Word (.docx) file it produces. Choose "I have nothing to declare".
 
 ## Rebuild before uploading
-`python make_numbers_tex.py --mode fp32`, `tectonic main.tex`, `tectonic cover_letter.tex`, `python verify_paper.py` (must print ALL CHECKS PASSED), then `python make_submission.py`.
+`python make_numbers_tex.py --mode fp32`, `tectonic -X compile main.tex --keep-intermediates` (writes the fresh `main.bbl` that is uploaded), `tectonic cover_letter.tex`, `python verify_paper.py` (must print ALL CHECKS PASSED), then `python make_submission.py`.
 
 ## Upload to Editorial Manager (all files are in `submission_micron/`)
 - **Manuscript (LaTeX source)**: `main.tex`, `numbers.tex`, `references.bib`, `main.bbl`, `elsarticle-num.bst`, `elsarticle.cls`. A PDF is *not* accepted as the source file; `main.pdf` is only for your reference, upload it as well only if the system asks for a PDF.
