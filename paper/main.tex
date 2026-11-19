@@ -19,7 +19,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 % Figures and tables (with their captions) are single-spaced; the review option double-spaces only the text
 \AtBeginEnvironment{figure}{\linespread{1}\selectfont}
-\AtBeginEnvironment{table}{\linespread{1}\selectfont}
+\AtBeginEnvironment{table}{\linespread{1}\selectfont\setlength{\belowcaptionskip}{4pt}}% gap between caption and top rule
 \renewcommand{\figurename}{Fig.}
 % Float placement: allow taller floats at the top of a page, so that tables stay near their first mention
 \renewcommand{\topfraction}{0.85}
@@ -53,7 +53,7 @@
             country={Bangladesh}}
 
 \begin{abstract}
-Negative-stain transmission electron microscopy (TEM) can identify viruses without prior assumptions about the pathogen, but interpreting the images requires scarce expertise, and automatic classifiers need many labelled examples, which rare and newly emerging viruses lack. We examined whether a Siamese neural network trained on frequent viruses can recognise rare viruses from a few examples without retraining. On the public TEM virus dataset (22 viruses, official micrograph-level split), a DenseNet201 encoder was trained with a supervised contrastive loss on the 14 frequent viruses, and the eight rare viruses, with 5--25 training micrographs each, were added only as class prototypes. It was compared with a re-implemented benchmark classifier under identical, leakage-audited evaluation, with all choices made on validation data. On the 14 frequent viruses, the encoder reached \SiamClosedAccMean\,\% accuracy, versus \BOneClosedAccMean\,\% for the baseline, with no significant difference in accuracy. With one reference particle image per rare virus, its features recognised rare viruses better than the baseline features (\KshotSiamOneMean\,\% versus \KshotBOneOneMean\,\% mean per-class accuracy), but this advantage disappeared with three or more examples. Rare-virus errors occurred mainly between viruses of the same family, such as the arenaviruses, or between small, near-spherical particles, such as Dengue virus and Sapovirus, although the confused classes were nearly linearly separable in the learned features. Replacing nearest-prototype classification with logistic regression on the frozen features raised the 22-class macro-F1 from \SiamGfslFOneMean\ to \SiamLrFOneMean\ without retraining. For rare viruses, most of the attainable improvement comes from the decision rule rather than the network.
+Negative-stain transmission electron microscopy (TEM) can identify viruses without prior assumptions about the pathogen, but interpreting the images requires scarce expertise, and automatic classifiers need many labelled examples, which rare and newly emerging viruses lack. We examined whether a Siamese neural network trained on frequent viruses can recognise rare viruses from a few examples without retraining. On the public TEM virus dataset (22 viruses, official micrograph-level split), a DenseNet201 encoder was trained with a supervised contrastive loss on the 14 frequent viruses, and the eight rare viruses, with 5--25 training micrographs each, were added only as class prototypes. It was compared with a re-implemented benchmark classifier under identical, leakage-audited evaluation, with all choices made on validation data. On the 14 frequent viruses, the encoder reached \SiamClosedAccMean\,\% accuracy, versus \BOneClosedAccMean\,\% for the baseline, with no significant difference in accuracy. With one reference particle image per rare virus, its features recognised rare viruses better than the baseline features (\KshotSiamOneMean\,\% versus \KshotBOneOneMean\,\% mean per-class accuracy), but this advantage disappeared with three or more examples. Rare-virus errors occurred mainly between viruses of the same family, such as the arenaviruses, or between small, near-spherical particles, such as Dengue virus and Sapovirus, although the confused classes were nearly linearly separable in the learned features. Replacing nearest-prototype classification with logistic regression on the frozen features raised the 22-class macro-averaged F1 score (macro-F1) from \SiamGfslFOneMean\ to \SiamLrFOneMean\ without retraining. For rare viruses, most of the attainable improvement comes from the decision rule rather than the network.
 \end{abstract}
 
 \begin{keyword}
@@ -152,7 +152,7 @@ Setting & Siamese encoder & Baseline (benchmark classifier) \\
 \subsection{Evaluation protocols}
 \label{sec:protocols}
 
-All results are reported on the official test split. For every model, including the baseline, each patch is represented by the mean of its features or class scores over its eight rotations and reflections (test-time augmentation), computed with \InferenceMode\ inference. Three protocols were used. In the \emph{closed-set} protocol (14 classes), test patches are assigned to the nearest class mean by cosine similarity, with prototypes computed from all training patches. The baseline uses its own softmax output. In the \emph{GFSL} protocol (22 classes, Fig.~\ref{fig:arch}b), prototypes of all classes are computed from the training split, and the 2,057 test patches are classified among all 22 classes. In the \emph{K-shot GFSL} protocol, each rare class receives only $K\in\{1,3,5,10\}$ training patches from different micrographs, drawn at random \KshotDraws\ times, while the base classes keep all their training patches. We report accuracy, macro-F1, base-class accuracy and the rare-class mean per-class accuracy. The last measure is preferred to pooled accuracy because the rare-class test sets range from 7 to 44 patches. Results for episodes and unknown-virus detection are given in \ref{app:extra}.
+All results are reported on the official test split. For every model, including the baseline, each patch is represented by the mean of its features or class scores over its eight rotations and reflections (test-time augmentation), computed with \InferenceMode\ inference. Three protocols were used. In the \emph{closed-set} protocol (14 classes), test patches are assigned to the nearest class mean by cosine similarity, with prototypes computed from all training patches. The baseline uses its own softmax output. In the \emph{GFSL} protocol (22 classes, Fig.~\ref{fig:arch}b), prototypes of all classes are computed from the training split, and the 2,057 test patches are classified among all 22 classes. In the \emph{K-shot GFSL} protocol, each rare class receives only $K\in\{1,3,5,10\}$ training patches from different micrographs, drawn at random \KshotDraws\ times, while the base classes keep all their training patches. We report accuracy, macro-F1, base-class accuracy and the rare-class mean per-class accuracy. The last measure is preferred to pooled accuracy because the rare-class test sets range from 7 to 44 patches. Results for episodes and unknown-virus detection are given in \ref{app:extra} (Table~\ref{tab:episodes}).
 
 \subsection{Classifiers on frozen features}
 \label{sec:classifiers}
@@ -179,7 +179,7 @@ The Siamese encoder performed on par with the baseline (Table~\ref{tab:closed}).
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{14-class official test split (1,900 patches, 206 micrographs). Macro-averaged precision, sensitivity (recall) and specificity. Values over seeds are the mean, with the SD below it. $^{a}$Without test-time augmentation.}
+\caption{14-class official test split (1,900 patches, 206 micrographs). Macro-averaged precision, sensitivity (recall) and specificity. Values over seeds are the mean, with the SD below it.}
 \label{tab:closed}
 \setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}
 \begin{tabular}{@{}L{3.3cm}rrrrrr@{}}
@@ -189,6 +189,7 @@ Model & Acc.\ (\%) & Macro-F1 & Prec. & Sens. & Spec. & \hd{Micrograph\\acc.\ (\
 \TabClosedRows
 \bottomrule
 \end{tabular}
+\par\smallskip\parbox{\linewidth}{\raggedright $^{a}$Without test-time augmentation.}
 \end{table}
 
 \subsection{22-class generalised few-shot recognition}
@@ -216,7 +217,7 @@ Every confusable pair was close to linearly separable in the learned features, w
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{Pairwise separability on the validation split (binary logistic regression trained on training patches). Values are means over the three seeds of each encoder. Val.\ patches: number of validation patches of the two classes.}
+\caption{Pairwise separability on the validation split (binary logistic regression trained on training patches). Values are means over the three seeds of each encoder.}
 \label{tab:sep}
 \begin{tabular}{@{}lrrrrr@{}}
 \toprule
@@ -227,6 +228,7 @@ Pair & AUROC & \hd{Log.\ reg.\\acc.} & \hd{Nearest-\\mean acc.} & AUROC & \hd{Va
 \TabSepRows
 \bottomrule
 \end{tabular}
+\par\smallskip\parbox{\linewidth}{\raggedright Val.\ patches: number of validation patches of the two classes.}
 \end{table}
 
 \subsection{Classifiers on frozen features}
@@ -241,7 +243,7 @@ Classifiers that estimate more parameters required more data. With a single exam
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{22-class GFSL on the official test split with classifiers on frozen backbone features; hyper-parameters selected on validation. Values over seeds are the mean, with the SD below it. $K=1$, $K=5$: rare mean-class accuracy with only $K$ training patches per rare class, averaged over \PairKOneDraws\ support draws (the same draws for every classifier and checkpoint), so these values differ slightly from Fig.~\ref{fig:kshot}, which averages \KshotDraws\ draws. Superscripts: number of seeds for which the classifier had the highest validation macro-F1.}
+\caption{22-class GFSL on the official test split with classifiers on frozen backbone features; hyper-parameters selected on validation. Values over seeds are the mean, with the SD below it.}
 \label{tab:clf}
 \setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{1.15}
 \begin{tabular}{@{}L{2.7cm}rrrrrr@{}}
@@ -251,6 +253,7 @@ Classifier & Val.\ F1 & Acc.\ (\%) & Macro-F1 & Rare (\%) & $K{=}1$ (\%) & $K{=}
 \TabClassifierRows
 \bottomrule
 \end{tabular}
+\par\smallskip\parbox{\linewidth}{\raggedright $K=1$, $K=5$: rare mean-class accuracy with only $K$ training patches per rare class, averaged over \PairKOneDraws\ support draws (the same draws for every classifier and checkpoint), so these values differ slightly from Fig.~\ref{fig:kshot}, which averages \KshotDraws\ draws. Superscripts: number of seeds for which the classifier had the highest validation macro-F1.}
 \end{table}
 
 \begin{figure}[t]
@@ -311,7 +314,7 @@ This research did not receive any specific grant from funding agencies in the pu
 The TEM virus dataset is publicly available \cite{MS21data}. Code, configurations, training logs, evaluation outputs and per-patch predictions are available at \url{https://github.com/hrid0yyy/tem-virus-siamese-fewshot}; trained checkpoints are available as release assets.
 
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
-During the preparation of this work the author used Claude (Anthropic) in order to assist with writing the analysis code and with drafting and editing the manuscript text. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the published article.
+During the preparation of this work the author used Claude (Anthropic) in order to assist with writing the analysis code, including the code that draws the figures from the data, and with drafting and editing the manuscript text. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the published article.
 
 %% ======================================================================
 \appendix
@@ -343,7 +346,7 @@ Experiment & \hd{Frozen\\ImageNet} & \hd{Trained,\\backbone feature} & \hd{Train
 
 \begin{table}[h]
 \centering\footnotesize
-\caption{Test F1 of the weakest rare classes. Test patches: \WeakSupport.}
+\caption{Test F1 of the weakest rare classes.}
 \label{tab:weak}
 \begin{tabular}{@{}L{4.6cm}rrrrr@{}}
 \toprule
@@ -352,6 +355,7 @@ Features, classifier & Dengue & Sapovirus & Guanarito & LCM & Machupo \\
 \TabWeakRows
 \bottomrule
 \end{tabular}
+\par\smallskip\parbox{\linewidth}{\raggedright Test patches: \WeakSupport.}
 \end{table}
 
 \begin{table}[h]

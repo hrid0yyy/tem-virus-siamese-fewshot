@@ -157,6 +157,11 @@ check(n_ab <= 250, f"abstract <= 250 words in the PDF ({n_ab})")
 kw = tex[tex.index(r"\begin{keyword}"):tex.index(r"\end{keyword}")]
 check(1 <= kw.count(r"\sep") + 1 <= 7, f"keywords 1-7 ({kw.count(chr(92) + 'sep') + 1})")
 check(r"\journal{Micron}" in tex, "journal set to Micron")
+_labels = re.findall(r"\\label\{((?:fig|tab):[\w-]+)\}", tex)
+_uncited = [l for l in _labels if ("ref{" + l + "}") not in tex]
+check(not _uncited, f"every figure and table is cited in the text {_uncited if _uncited else ''}")
+check("Document Class: elsarticle 2024/04/04, 3.4" in (HERE / "main.log").read_text(encoding="utf-8", errors="ignore"),
+      "built with the official elsarticle v3.4 class")
 check("city={Dhaka 1212}" in tex and "addressline={Shahjadpur}" in tex, "affiliation has a postal address")
 hl = [l[2:] for l in (HERE / "highlights.txt").read_text(encoding="utf-8").splitlines() if l.startswith("- ")]
 check(3 <= len(hl) <= 5 and all(len(h) <= 85 for h in hl), f"highlights: {len(hl)} bullets, max {max(map(len, hl))} chars")
