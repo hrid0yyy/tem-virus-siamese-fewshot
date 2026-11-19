@@ -1,4 +1,4 @@
-"""Build the flat upload folder for Micron (Editorial Manager compiles LaTeX itself and wants each figure as a
+"""Build the flat upload folder for Micron (the Elsevier submission system, submit.elsevier.com/JMIC, builds the PDF from the LaTeX source and wants each figure as a
 separate file).  Run after `tectonic main.tex` and `tectonic cover_letter.tex`:
 
     python make_submission.py      -> submission_micron/  (+ submission_micron.zip)

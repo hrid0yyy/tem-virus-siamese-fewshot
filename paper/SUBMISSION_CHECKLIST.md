@@ -28,7 +28,7 @@ History: submitted to *Computer Methods and Programs in Biomedicine* (CMPB-D-26-
 ## Rebuild before uploading
 `python make_numbers_tex.py --mode fp32`, `tectonic -X compile main.tex --keep-intermediates` (writes the fresh `main.bbl` that is uploaded), `tectonic cover_letter.tex`, `python verify_paper.py` (must print ALL CHECKS PASSED), then `python make_submission.py`.
 
-## Upload to Editorial Manager (all files are in `submission_micron/`)
+## Upload at https://submit.elsevier.com/JMIC (Elsevier submission system; all files are in `submission_micron/`). Upload the files one by one, not the zip.
 - **Manuscript (LaTeX source)**: `main.tex`, `numbers.tex`, `references.bib`, `main.bbl`, `elsarticle-num.bst`, `elsarticle.cls`. A PDF is *not* accepted as the source file; `main.pdf` is only for your reference, upload it as well only if the system asks for a PDF.
 - **Figures**, each as a separate file: `Figure_1.pdf` (dataset), `Figure_2.pdf` (architecture), `Figure_3.pdf` (confusions), `Figure_4.pdf` (K-shot), `Figure_B1.pdf` (training curves).
 - **Highlights**: `highlights.txt`.
