@@ -52,4 +52,10 @@ for f in ("main.tex", "numbers.tex", "references.bib", "main.bbl"):
 with zipfile.ZipFile(HERE / "submission_micron.zip", "w", zipfile.ZIP_DEFLATED) as z:
     for f in sorted(OUT.iterdir()):
         z.write(f, f.name)
-print(f"wrote {OUT} ({len(list(OUT.iterdir()))} files) and submission_micron.zip")
+# The Elsevier submission system asks for the LaTeX manuscript as a .zip of the sources plus the compiled PDF;
+# highlights and cover letter are uploaded as separate items, so they are not in this zip.
+SRC = ["main.tex", "numbers.tex", "references.bib", "main.bbl", "elsarticle-num.bst", "elsarticle.cls", *FIGS.values()]
+with zipfile.ZipFile(HERE / "manuscript_latex_source.zip", "w", zipfile.ZIP_DEFLATED) as z:
+    for f in SRC:
+        z.write(OUT / f, f)
+print(f"wrote {OUT} ({len(list(OUT.iterdir()))} files), submission_micron.zip and manuscript_latex_source.zip")
