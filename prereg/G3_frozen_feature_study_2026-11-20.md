@@ -114,3 +114,13 @@ For efficiency, the Step 0 gate is run on two checkpoints (Siamese seed 0 and be
 seven. For the other five, the G3 primary results (same four classifiers, same grids, same selection rule) are compared
 with the reference outputs under the same tolerance (selected hyper-parameters identical, test macro-F1 within ±0.005);
 any mismatch is reported to the author before the G3 results are interpreted.
+
+## Step 0 outcome and decision (20 Nov 2026, before any G3 result)
+
+Siamese seed 0 on the new machine: nearest class mean, Mahalanobis and distribution calibration reproduce the reference
+exactly (identical selected settings, identical per-patch test predictions). Logistic regression fails the tolerance:
+validation macro-F1 for C = 0.01 and C = 0.1 is nearly tied (reference 0.8391/0.8379, new 0.8391/0.8410), the library
+difference flips the selected C, and test macro-F1 is 0.8388 instead of 0.8446 (−0.0058). The embeddings are identical.
+Decision by the author: the new environment (numpy 2.5.4, scikit-learn 1.9.1, scipy 1.18.1, torch 2.11.0+cu128) is the
+reference from now on; all manuscript numbers will be regenerated from runs in this environment, and the ~0.006
+environment sensitivity of the logistic-regression result will be reported.
