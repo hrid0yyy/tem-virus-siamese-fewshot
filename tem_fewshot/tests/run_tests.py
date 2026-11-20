@@ -781,6 +781,58 @@ def test_gfsl_improve_smoke():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+@test
+def test_g3_study_synthetic():
+    """G3 ladder / base-only / per-K / separability on synthetic embeddings (no images, no GPU)."""
+    import argparse
+    import g3_study as G3
+    from temfs.g3_methods import LADDER, PRIMARY_POOL, make_pseudo_episodes
+    rng = np.random.default_rng(0)
+    cls, split, group, X = [], [], [], []
+    centres = rng.normal(0, 1, (len(G3.CLASSES), 24))
+    for ci, c in enumerate(G3.CLASSES):
+        for sp, n_img in (("train", 6), ("validation", 3), ("test", 3)):
+            for g in range(n_img):
+                for _ in range(3):
+                    cls.append(c), split.append(sp), group.append(f"{sp}/{c}/{g}")
+                    X.append(np.abs(centres[ci] + rng.normal(0, 0.6, 24)))  # non-negative like ReLU+GAP features
+    X = np.array(X, dtype=np.float32)
+    d = {"X_tta": X, "X_notta": X, "cls": np.array(cls), "split": np.array(split), "group": np.array(group)}
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        a = argparse.Namespace(n_boot=20, seed=0, pseudo_draws=3, kshot=[1, 3], kshot_repeats=2, n_jobs=1)
+        R = G3.run_feature_set(d, "syn", a, lambda *_: None, tmp)
+        assert set(R["primary"]) == set(LADDER) == set(R["base_only"])
+        assert R["primary_reported"] in PRIMARY_POOL and R["base_only_reported"] in PRIMARY_POOL
+        for v in list(R["primary"].values()) + list(R["base_only"].values()):
+            assert 0 <= v["test"]["macro_f1"] <= 1
+        assert set(R["kshot"]) == {"1", "3"} and len(R["kshot"]["1"]["lr_std_bal"]["perK"]["per_draw"]["macro_f1"]) == 2
+        s = R["separability"]["Dengue|Sapovirus"]
+        assert 0 <= s["lomo_auc"] <= 1 and s["lomo_ci95"][0] <= s["lomo_ci95"][1]
+        z = np.load(tmp / "predictions_syn.npz")
+        assert abs(float((z["primary_lr_std_bal"] == z["y"]).mean()) - R["primary"]["lr_std_bal"]["test"]["accuracy"]) < 1e-12
+        # base-only episodes never touch a rare-class patch, and identical seeds give identical episodes
+        lut = {c: i for i, c in enumerate(G3.CLASSES)}
+        y = np.array([lut[c] for c in cls])
+        eps = make_pseudo_episodes(y, d["split"], d["group"], G3.BASE_IDS, 4, 4, G3.RARE_TRAIN_MICS, seed=1)
+        eps2 = make_pseudo_episodes(y, d["split"], d["group"], G3.BASE_IDS, 4, 4, G3.RARE_TRAIN_MICS, seed=1)
+        for e, e2 in zip(eps, eps2):
+            assert not np.isin(y[e["train_idx"]], G3.NOVEL_IDS).any() and not np.isin(y[e["query_idx"]], G3.NOVEL_IDS).any()
+            assert np.array_equal(e["train_idx"], e2["train_idx"])
+        epk = make_pseudo_episodes(y, d["split"], d["group"], G3.BASE_IDS, 2, 4, G3.RARE_TRAIN_MICS, k=1, seed=2)
+        for e in epk:
+            for c in e["pseudo_rare"]:
+                assert (y[e["train_idx"]] == c).sum() == 1
+        # the paper's logistic regression is reused unchanged (same grid as gfsl_methods)
+        from temfs.gfsl_methods import METHODS
+        assert LADDER["lr_std_bal"] is METHODS["logreg"] and LADDER["dc"] is METHODS["dc"]
+        # K-shot draws equal gfsl_improve.kshot_eval's draws for the same seed
+        dr = G3.kshot_draws(y, d["split"], d["group"], 1, 2, 5)
+        assert len(dr) == 2 and all((np.isin(y[i], G3.NOVEL_IDS)).sum() == len(G3.NOVEL_IDS) for i in dr)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def main():
     tests =[v for k, v in globals().items() if k.startswith("test_") and callable(v)]
     for t in tests:

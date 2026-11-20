@@ -107,3 +107,10 @@ predictions without re-running.
 `runs/g3/` on the experiment machine: cached embeddings, one JSON per feature set, per-patch test predictions for every
 feature set × classifier × protocol, and logs. No manuscript text is changed until the author has seen the results against
 the expectations above.
+
+## Amendment (20 Nov 2026, before any G3 result)
+
+For efficiency, the Step 0 gate is run on two checkpoints (Siamese seed 0 and benchmark-classifier seed 0) instead of
+seven. For the other five, the G3 primary results (same four classifiers, same grids, same selection rule) are compared
+with the reference outputs under the same tolerance (selected hyper-parameters identical, test macro-F1 within ±0.005);
+any mismatch is reported to the author before the G3 results are interpreted.
