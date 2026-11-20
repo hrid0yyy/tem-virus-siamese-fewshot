@@ -2,6 +2,6 @@ Highlights
 
 - Rare viruses in negative-stain TEM recognised from few examples, without retraining
 - First few-shot evaluation of all 22 viruses of the public TEM dataset, official split
-- With one reference particle per rare virus, Siamese features beat cross-entropy ones
+- One-shot edge of Siamese features holds only with nearest-prototype classification
 - Errors fall mainly between related or look-alike viruses, e.g. the arenaviruses
-- A linear classifier on frozen features raises rare-virus F1 without retraining
+- Classifier choice on frozen features matters more than the training recipe
